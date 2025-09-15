@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jananalia2424.github.io/sitemap.xml
