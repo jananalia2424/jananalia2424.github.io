@@ -3,37 +3,32 @@
 
   <url>
     <loc>https://jananalia2424.github.io/</loc>
-    <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/about.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/services.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/portfolio.html</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/blog.html</loc>
-    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/contact.html</loc>
-    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://jananalia2424.github.io/faq.html</loc>
-    <priority>0.6</priority>
   </url>
 
 </urlset>
+
+
