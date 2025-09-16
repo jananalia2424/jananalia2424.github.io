@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الموقع السياحي</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+      color: #333;
+      direction: rtl;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+    h1 {
+      margin: 0;
+    }
+    h2 {
+      margin-top: 40px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+    }
+    p.caption {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 5px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌍 الموقع السياحي</h1>
+    <p>مناظر طبيعية، آثار، ومدن تاريخية من حول العالم</p>
+  </header>
+
+  <h2>🌳 مناظر طبيعية</h2>
+  <div class="gallery">
+    <div>
+      <img src="https://images.pexels.com/photos/34950/pexels-photo.jpg" alt="منظر طبيعي 1">
+      <p class="caption">غابة خضراء</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg" alt="منظر طبيعي 2">
+      <p class="caption">شلال جبلي</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg" alt="منظر طبيعي 3">
+      <p class="caption">بحيرة طبيعية</p>
+    </div>
+  </div>
+
+  <h2>🏛️ آثار ومبانٍ حجرية</h2>
+  <div class="gallery">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Guelma_roman_theater.jpg" alt="مسرح قالمة الروماني">
+      <p class="caption">مسرح قالمة الروماني - الجزائر</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg" alt="أثر 2">
+      <p class="caption">أطلال قديمة</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg" alt="أثر 3">
+      <p class="caption">مبنى أثري حجري</p>
+    </div>
+  </div>
+
+  <h2>🏙️ مدن تاريخية</h2>
+  <div class="gallery">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Parliament_Building_Budapest_Hungary.jpg" alt="بودابست">
+      <p class="caption">مدينة بودابست - المجر</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg" alt="مدينة تاريخية 2">
+      <p class="caption">مدينة قديمة</p>
+    </div>
+    <div>
+      <img src="https://images.pexels.com/photos/1796733/pexels-photo-1796733.jpeg" alt="مدينة تاريخية 3">
+      <p class="caption">شوارع أثرية</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 - موقع سياحي من إنجازي</p>
+  </footer>
+</body>
+</html>
