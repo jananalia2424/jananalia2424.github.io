@@ -34,10 +34,11 @@
       padding: 6px 14px;
       border-radius: 20px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background 0.3s;
     }
+    .categories button.active,
     .categories button:hover {
-      background: #475569;
+      background: #0ea5e9;
     }
     .grid {
       display: grid;
@@ -51,7 +52,7 @@
       object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s;
     }
     .grid img:hover {
       transform: scale(1.05);
@@ -63,55 +64,86 @@
       color: #94a3b8;
       margin-top: 20px;
     }
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #000;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>📸 موقع الصور الجميلة</h1>
-    <p>معرض عام يحتوي على أجمل الصور السياحية والأثرية</p>
+    <p>معرض عام يحتوي على أجمل الصور</p>
   </header>
 
   <nav class="categories">
-    <button onclick="filter('all')">الكل</button>
-    <button onclick="filter('nature')">طبيعة</button>
-    <button onclick="filter('cities')">مدن</button>
-    <button onclick="filter('art')">فن</button>
-    <button onclick="filter('heritage')">آثار</button>
+    <button class="active" onclick="filter('all', this)">الكل</button>
+    <button onclick="filter('nature', this)">طبيعة</button>
+    <button onclick="filter('cities', this)">مدن</button>
+    <button onclick="filter('art', this)">فن</button>
+    <button onclick="filter('heritage', this)">آثار</button>
   </nav>
 
   <main class="grid" id="gallery">
-    <!-- طبيعة -->
+    <!-- النسخة القديمة -->
     <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" data-cat="nature" alt="جبال">
+    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" data-cat="cities" alt="مدينة">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" data-cat="art" alt="فن">
     <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" data-cat="nature" alt="شلال">
 
-    <!-- مدن -->
-    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" data-cat="cities" alt="مدينة">
-    <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?q=80&w=800" data-cat="cities" alt="بودابست">
-    <img src="https://images.unsplash.com/photo-1544986581-efac024faf62?q=80&w=800" data-cat="cities" alt="بوخارست">
+    <!-- مدن جديدة -->
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" data-cat="cities" alt="بودابست">
+    <img src="https://images.unsplash.com/photo-1526481280698-8fcc42f7b7c7?q=80&w=800" data-cat="cities" alt="بوخارست">
 
-    <!-- فن -->
-    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" data-cat="art" alt="فن">
-
-    <!-- آثار -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Ancient_Roman_Theater_in_Guelma.jpg" data-cat="heritage" alt="المسرح الروماني قالمة">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Timgad%2C_Roman_ruins.jpg" data-cat="heritage" alt="تيمقاد الأثرية">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Djemila-Ruins-Algeria.jpg" data-cat="heritage" alt="جميلة الأثرية">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Casbah_Algiers.jpg" data-cat="heritage" alt="قصبة الجزائر">
+    <!-- آثار جزائرية -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Guelma_roman_theater.jpg" data-cat="heritage" alt="المسرح الروماني بقالمة">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Timgad_Ruins.jpg" data-cat="heritage" alt="تيمقاد">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Djemila_Ruins.jpg" data-cat="heritage" alt="جميلة">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Casbah_Algiers.jpg" data-cat="heritage" alt="قصبة الجزائر">
   </main>
 
   <footer>
     © 2025 موقع الصور الجميلة — جميع الحقوق محفوظة
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <script>
-    function filter(cat) {
+    function filter(cat, btn) {
       document.querySelectorAll('#gallery img').forEach(img => {
-        if (cat === 'all' || img.dataset.cat === cat) {
-          img.style.display = 'block';
-        } else {
-          img.style.display = 'none';
-        }
+        img.style.display = (cat === 'all' || img.dataset.cat === cat) ? 'block' : 'none';
       });
+      document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('#gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'flex';
+        lightboxImg.src = img.src;
+      });
+    });
+    function closeLightbox() {
+      lightbox.style.display = 'none';
     }
   </script>
 </body>
