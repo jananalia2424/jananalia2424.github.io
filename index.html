@@ -1,164 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Gallery Website</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>موقعي العصري</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-    }
-    header {
-      background: #222;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-      color: #f0db4f;
-    }
-    nav a {
-      margin: 0 10px;
-      color: #fff;
-      text-decoration: none;
-    }
-    nav a:hover {
-      color: #f0db4f;
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-    }
-    .search-box input {
-      padding: 5px;
-      border: none;
-      border-radius: 4px 0 0 4px;
-      outline: none;
-    }
-    .search-box button {
-      padding: 6px 10px;
-      border: none;
-      background: #f0db4f;
-      cursor: pointer;
-      border-radius: 0 4px 4px 0;
-    }
-    section {
-      padding: 20px;
-    }
-    h2 {
-      margin-top: 0;
-      color: #f0db4f;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-      gap: 15px;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.6);
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    .card {
-      background: #222;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.6);
-    }
-    .card a {
-      color: #f0db4f;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer {
-      background: #222;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-    }
+    body { margin:0; font-family:'Cairo',sans-serif; background:#0f172a; color:#f1f5f9; }
+    header { background:#1e293b; padding:20px; text-align:center; }
+    nav { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin:15px 0; }
+    nav button { background:#334155; border:none; color:#f1f5f9; padding:6px 14px; border-radius:20px; cursor:pointer; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; padding:15px; }
+    .grid img { width:100%; height:180px; object-fit:cover; border-radius:10px; }
+    footer { background:#1e293b; text-align:center; padding:10px; margin-top:20px; color:#94a3b8; }
+
+    /* Chat Support */
+    #support { padding:20px; text-align:center; }
+    #chatBox { max-width:600px; margin:20px auto; padding:10px; background:#1e293b; border-radius:10px; }
+    #messages { height:200px; overflow-y:auto; border:1px solid #334155; padding:10px; background:#0f172a; }
+    #messages p { margin:5px 0; }
+    #inputRow { display:flex; margin-top:10px; }
+    #userInput { flex:1; padding:8px; border:none; border-radius:5px; }
+    #sendBtn { padding:8px 12px; margin-left:5px; background:#334155; border:none; border-radius:5px; color:#fff; cursor:pointer; }
   </style>
 </head>
 <body>
   <header>
-    <h1>My Gallery Website</h1>
-    <nav>
-      <a href="#nature">Nature</a>
-      <a href="#cities">Cities</a>
-      <a href="#art">Art</a>
-      <a href="#heritage">Heritage</a>
-      <a href="#about">About Us</a>
-    </nav>
-    <div class="search-box">
+    <h1>📸 موقعي العصري</h1>
+    <p>معرض صور + أقسام + دردشة دعم</p>
+    <div>
       <form action="https://www.google.com/search" method="get" target="_blank">
-        <input type="text" name="q" placeholder="Search on Google...">
+        <input type="text" name="q" placeholder="ابحث في جوجل..." style="padding:5px;border-radius:5px;border:none;">
         <button type="submit">🔍</button>
       </form>
     </div>
   </header>
 
-  <section id="nature">
-    <h2>Nature</h2>
-    <div class="gallery">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Moraine_Lake_17092005.jpg" alt="Moraine Lake"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Grand_Canyon_view_from_Pima_Point_2010.jpg" alt="Grand Canyon"/>
-    </div>
+  <nav>
+    <button onclick="filter('all')">الكل</button>
+    <button onclick="filter('nature')">طبيعة</button>
+    <button onclick="filter('cities')">مدن</button>
+    <button onclick="filter('art')">فن</button>
+    <button onclick="filter('heritage')">آثار</button>
+    <button onclick="showSection('about')">من نحن</button>
+    <button onclick="showSection('support')">فريق الدعم</button>
+  </nav>
+
+  <main class="grid" id="gallery">
+    <!-- أمثلة صور -->
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" data-cat="nature" alt="جبال">
+    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" data-cat="cities" alt="مدينة">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" data-cat="nature" alt="شلال">
+    <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=800" data-cat="heritage" alt="آثار قديمة">
+    <!-- زيد صور أثرية أخرى حسب الحاجة -->
+  </main>
+
+  <section id="about" style="display:none;padding:20px;text-align:center;">
+    <h2>من نحن</h2>
+    <p>زورونا على المواقع التالية:</p>
+    <ul>
+      <li><a href="https://www.youtube.com/@jananalia2424" target="_blank">قناتي على YouTube 1</a></li>
+      <li><a href="https://www.youtube.com/@jananalia24" target="_blank">قناتي على YouTube 2</a></li>
+      <li><a href="https://www.facebook.com/groups/jananalia2424" target="_blank">مجموعة Facebook</a></li>
+    </ul>
   </section>
 
-  <section id="cities">
-    <h2>Cities</h2>
-    <div class="gallery">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Budapest_Hungary_Parliament.jpg" alt="Budapest"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Bucharest_Romania_Palace_of_Parliament.jpg" alt="Bucharest"/>
-    </div>
-  </section>
-
-  <section id="art">
-    <h2>Art</h2>
-    <div class="card">
-      <p>Visit my YouTube channels:</p>
-      <p><a href="https://www.youtube.com/@jananalia2424" target="_blank">YouTube Channel 1</a></p>
-      <p><a href="https://www.youtube.com/@jananalia24" target="_blank">YouTube Channel 2</a></p>
-    </div>
-  </section>
-
-  <section id="heritage">
-    <h2>Heritage</h2>
-    <div class="gallery">
-      <!-- بعض المواقع الأثرية العالمية -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg" alt="Colosseum, Rome"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Acropolis_of_Athens_2019.jpg" alt="Acropolis, Athens"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Machu_Picchu%2C_Peru.jpg" alt="Machu Picchu"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Petra_Jordan_BW_21.JPG" alt="Petra, Jordan"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Taj_Mahal_in_March_2004.jpg" alt="Taj Mahal"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Great_Wall_of_China_July_2006.JPG" alt="Great Wall of China"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Egyptian_Pyramids_of_Giza.jpg" alt="Pyramids of Giza"/>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Stonehenge2007_07_30.jpg" alt="Stonehenge"/>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <div class="card">
-      <p>Visit us on the following platforms:</p>
-      <p><a href="https://www.youtube.com/@jananalia2424" target="_blank">YouTube Channel 1</a></p>
-      <p><a href="https://www.youtube.com/@jananalia24" target="_blank">YouTube Channel 2</a></p>
-      <p><a href="https://www.facebook.com/groups/jananalia2424" target="_blank">Facebook Group</a></p>
+  <section id="support" style="display:none;">
+    <h2>فريق الدعم — ChatGPT</h2>
+    <div id="chatBox">
+      <div id="messages"></div>
+      <div id="inputRow">
+        <input id="userInput" type="text" placeholder="اكتب رسالتك هنا...">
+        <button id="sendBtn">إرسال</button>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 My Gallery Website</p>
+    © 2025 موقعي العصري — جميع الحقوق محفوظة
   </footer>
+
+  <script>
+    function filter(cat) {
+      document.querySelectorAll('#gallery img').forEach(img => {
+        img.style.display = (cat === 'all' || img.dataset.cat === cat) ? 'block' : 'none';
+      });
+      showSection('gallery');
+    }
+
+    function showSection(id) {
+      document.getElementById('gallery').style.display = id==='gallery'?'grid':'none';
+      document.getElementById('about').style.display = id==='about'?'block':'none';
+      document.getElementById('support').style.display = id==='support'?'block':'none';
+    }
+
+    // Chat support
+    const API_ENDPOINT = "https://YOUR-BACKEND.onrender.com/api/chat"; // غيّر هذا لاحقا
+    document.getElementById("sendBtn").onclick = async () => {
+      const input = document.getElementById("userInput");
+      const msg = input.value.trim();
+      if(!msg) return;
+      addMessage("👤: " + msg);
+      input.value = "";
+      try {
+        const res = await fetch(API_ENDPOINT,{
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        addMessage("🤖: " + (data.reply || "لم أتمكن من الرد."));
+      } catch(e){
+        addMessage("⚠️ خطأ في الاتصال بالخادم.");
+      }
+    };
+
+    function addMessage(text){
+      const box=document.getElementById("messages");
+      const p=document.createElement("p");
+      p.textContent=text;
+      box.appendChild(p);
+      box.scrollTop=box.scrollHeight;
+    }
+  </script>
 </body>
 </html>
