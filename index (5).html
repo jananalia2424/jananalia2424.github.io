@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>📸 موقع الصور الجميلة — معرض</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+    }
+    header {
+      background: #1e293b;
+      padding: 15px;
+      text-align: center;
+    }
+    header h1 { margin: 0; }
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
+    }
+    .categories button {
+      background: #334155;
+      border: none;
+      color: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .categories button.active {
+      background: #0ea5e9;
+      color: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 12px;
+      padding: 15px;
+    }
+    .grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .grid img:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      background: #1e293b;
+      text-align: center;
+      padding: 10px;
+      color: #94a3b8;
+      margin-top: 20px;
+    }
+    /* نافذة تكبير الصور */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📸 موقع الصور الجميلة</h1>
+    <p>معرض عام يحتوي على أجمل الصور من الطبيعة، المدن، والفن والآثار</p>
+  </header>
+
+  <nav class="categories">
+    <button class="active" onclick="filter('all', this)">الكل</button>
+    <button onclick="filter('nature', this)">طبيعة</button>
+    <button onclick="filter('cities', this)">مدن</button>
+    <button onclick="filter('art', this)">فن</button>
+    <button onclick="filter('heritage', this)">آثار</button>
+  </nav>
+
+  <main class="grid" id="gallery">
+    <!-- طبيعة -->
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" data-cat="nature" alt="شلال طبيعي">
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" data-cat="nature" alt="جبال خضراء">
+
+    <!-- مدن -->
+    <img src="https://images.unsplash.com/photo-1543349689-9a4d1c1f1f2f?q=80&w=800" data-cat="cities" alt="مدينة بودابست - المجر">
+    <img src="https://images.unsplash.com/photo-1526481280690-1c0a0f1b2ee1?q=80&w=800" data-cat="cities" alt="مدينة بخارست - رومانيا">
+    <img src="https://images.unsplash.com/photo-1549643276-456e3b3e7aa7?q=80&w=800" data-cat="cities" alt="ميدان في مدينة أوروبية">
+
+    <!-- فن -->
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" data-cat="art" alt="فن تشكيلي">
+    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=800" data-cat="art" alt="تمثال فني">
+
+    <!-- آثار -->
+    <img src="https://images.unsplash.com/photo-1602071792739-34b8d9e6ec27?q=80&w=800" data-cat="heritage" alt="المدرج الروماني - إيطاليا">
+    <img src="https://images.unsplash.com/photo-1549899594-1b3e1d06d3a1?q=80&w=800" data-cat="heritage" alt="مدينة أثرية قديمة">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Roman_theatre_Guelma_Algeria.jpg" data-cat="heritage" alt="المسرح الروماني بقالمة - الجزائر">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Timgad_theater.jpg" data-cat="heritage" alt="تيمقاد - الجزائر">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Djemila_Theatre_Algeria.jpg" data-cat="heritage" alt="جميلة - الجزائر">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Casbah_Algiers.jpg" data-cat="heritage" alt="قصبة الجزائر">
+  </main>
+
+  <footer>
+    © 2025 موقع الصور الجميلة — جميع الحقوق محفوظة
+  </footer>
+
+  <!-- نافذة تكبير الصور -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function filter(cat, btn) {
+      // إظهار/إخفاء الصور حسب التصنيف
+      document.querySelectorAll('#gallery img').forEach(img => {
+        img.style.display = (cat === 'all' || img.dataset.cat === cat) ? 'block' : 'none';
+      });
+
+      // تمييز الزر النشط
+      document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // تكبير الصور (Lightbox)
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('#gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    });
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
