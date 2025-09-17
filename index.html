@@ -1,191 +1,149 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>موقع الصور الجميلة — معرض</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>موقعي العصري</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: #0f172a;
-      color: #f1f5f9;
+      padding: 0;
+      background: #f9f9f9;
+      direction: rtl;
+      text-align: center;
     }
     header {
-      background: #1e293b;
+      background: #333;
+      color: #fff;
       padding: 15px;
-      text-align: center;
     }
-    header h1 { margin: 0; }
-
-    .search-bar {
-      text-align: center;
-      margin: 15px 0;
+    nav {
+      margin: 10px 0;
     }
-    .search-bar input {
-      padding: 6px 12px;
-      border-radius: 20px;
+    nav button {
+      margin: 5px;
+      padding: 10px 20px;
       border: none;
-      width: 250px;
-    }
-    .search-bar button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 20px;
-      background: #334155;
+      background: #444;
       color: #fff;
       cursor: pointer;
+      border-radius: 5px;
     }
-
-    .categories {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 15px 0;
+    nav button:hover {
+      background: #666;
     }
-    .categories button {
-      background: #334155;
-      border: none;
-      color: #f1f5f9;
-      padding: 6px 14px;
-      border-radius: 20px;
+    .search-bar {
+      margin: 20px 0;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 70%;
+      max-width: 400px;
+    }
+    .search-bar button {
+      padding: 10px 15px;
       cursor: pointer;
     }
-    .categories button.active {
-      background: #facc15;
-      color: #0f172a;
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-      gap: 10px;
-      padding: 15px;
-    }
-    .grid img {
-      width: 100%;
+    .gallery img {
+      width: 250px;
       height: 180px;
       object-fit: cover;
       border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .grid img:hover {
-      transform: scale(1.05);
-    }
-
     .youtube-card {
-      background: #1e293b;
-      padding: 20px;
+      background: #fff;
       border-radius: 10px;
-      text-align: center;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 400px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .youtube-card h2 {
-      margin-bottom: 10px;
+      margin: 0 0 10px;
     }
     .youtube-card a {
       display: inline-block;
-      padding: 10px 20px;
+      margin-top: 10px;
+      padding: 10px 15px;
       background: red;
       color: #fff;
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: 5px;
     }
-
-    footer {
-      background: #1e293b;
-      text-align: center;
-      padding: 10px;
-      color: #94a3b8;
-      margin-top: 20px;
+    .youtube-card a:hover {
+      background: darkred;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📸 موقع الصور الجميلة</h1>
-    <p>معرض عام يحتوي على أجمل الصور</p>
+    <h1>موقعي العصري ✨</h1>
   </header>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="ابحث عن صورة...">
-    <button onclick="searchImages()">🔍</button>
-    <button onclick="googleSearch()">بحث في جوجل</button>
-  </div>
-
-  <nav class="categories">
-    <button onclick="filter('all')" class="active">الكل</button>
-    <button onclick="filter('nature')">طبيعة</button>
-    <button onclick="filter('cities')">مدن</button>
-    <button onclick="filter('art')">فن</button>
-    <button onclick="filter('monuments')">آثار</button>
+  <nav>
+    <button onclick="showCategory('nature')">🌿 طبيعة</button>
+    <button onclick="showCategory('cities')">🏙 مدن</button>
+    <button onclick="showCategory('art')">🎨 فن</button>
+    <button onclick="showCategory('history')">🏺 آثار</button>
   </nav>
 
-  <main class="grid" id="gallery">
+  <div class="search-bar">
+    <form action="https://www.google.com/search" method="get" target="_blank">
+      <input type="text" name="q" placeholder="ابحث في جوجل...">
+      <button type="submit">🔍 بحث</button>
+    </form>
+  </div>
+
+  <div id="content">
     <!-- طبيعة -->
-    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" data-cat="nature" alt="جبال">
-    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" data-cat="nature" alt="شلال">
+    <div class="gallery" data-cat="nature">
+      <img src="https://source.unsplash.com/250x180/?nature,forest" alt="طبيعة">
+      <img src="https://source.unsplash.com/250x180/?nature,water" alt="طبيعة">
+      <img src="https://source.unsplash.com/250x180/?mountain" alt="طبيعة">
+    </div>
 
     <!-- مدن -->
-    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" data-cat="cities" alt="مدينة">
-    <img src="https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=800" data-cat="cities" alt="بودابست">
-    <img src="https://images.unsplash.com/photo-1544986581-efac024faf62?q=80&w=800" data-cat="cities" alt="بوخارست">
+    <div class="gallery" data-cat="cities" style="display:none;">
+      <img src="https://source.unsplash.com/250x180/?city" alt="مدينة">
+      <img src="https://source.unsplash.com/250x180/?buildings" alt="مدينة">
+      <img src="https://source.unsplash.com/250x180/?street" alt="مدينة">
+    </div>
 
-    <!-- فن (بطاقة قناة يوتيوب) -->
-    <div class="youtube-card" data-cat="art">
+    <!-- فن (قنوات يوتيوب) -->
+    <div class="youtube-card" data-cat="art" style="display:none;">
       <h2>🎨 قناتي على يوتيوب</h2>
-      <p>تابعوني على قناتي لمزيد من المحتوى</p>
-      <a href="https://www.youtube.com/@jananalia2424" target="_blank">زيارة القناة</a>
+      <p>تابعوني على قناتي الأولى</p>
+      <a href="https://www.youtube.com/@jananalia2424" target="_blank">زيارة القناة الأولى</a>
+    </div>
+
+    <div class="youtube-card" data-cat="art" style="display:none;">
+      <h2>🎨 قناتي على يوتيوب</h2>
+      <p>تابعوني على قناتي الثانية</p>
+      <a href="https://www.youtube.com/@jananalia24" target="_blank">زيارة القناة الثانية</a>
     </div>
 
     <!-- آثار -->
-    <img src="https://images.unsplash.com/photo-1602459022063-88ef69e20b6d?q=80&w=800" data-cat="monuments" alt="مدرج روماني">
-    <img src="https://images.unsplash.com/photo-1583241803581-9b77f2e7e6b0?q=80&w=800" data-cat="monuments" alt="آثار قديمة">
-  </main>
-
-  <footer>
-    © 2025 موقع الصور الجميلة — جميع الحقوق محفوظة
-  </footer>
+    <div class="gallery" data-cat="history" style="display:none;">
+      <img src="https://source.unsplash.com/250x180/?ruins" alt="أثر">
+      <img src="https://source.unsplash.com/250x180/?pyramid" alt="أثر">
+      <img src="https://source.unsplash.com/250x180/?temple" alt="أثر">
+    </div>
+  </div>
 
   <script>
-    // تصفية الصور حسب التصنيف
-    function filter(cat) {
-      document.querySelectorAll('.categories button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      document.querySelectorAll('#gallery > *').forEach(item => {
-        if (cat === 'all' || item.dataset.cat === cat) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+    function showCategory(cat) {
+      document.querySelectorAll('#content > div').forEach(div => {
+        div.style.display = (div.getAttribute('data-cat') === cat) ? 'flex' : 'none';
       });
-    }
-
-    // البحث الداخلي
-    function searchImages() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      document.querySelectorAll('#gallery > *').forEach(item => {
-        const alt = item.alt ? item.alt.toLowerCase() : '';
-        if (alt.includes(query) || query === '') {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-
-    // بحث جوجل
-    function googleSearch() {
-      const query = document.getElementById('searchInput').value;
-      if (query) {
-        window.open(`https://www.google.com/search?q=${query}`, '_blank');
-      }
     }
   </script>
 </body>
