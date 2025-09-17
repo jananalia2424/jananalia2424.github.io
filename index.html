@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
@@ -24,6 +25,10 @@
 
     .search-bar {
       margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
     }
     .search-bar input {
       padding: 6px 12px;
@@ -33,6 +38,23 @@
       background: #0d1117;
       color: #e6edf3;
     }
+    .search-bar button {
+      background: #21262d;
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .search-bar button svg {
+      width: 18px;
+      height: 18px;
+      fill: #e6edf3;
+    }
+
     .categories {
       display: flex;
       justify-content: center;
@@ -52,6 +74,7 @@
       background: #3b82f6;
       color: white;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
@@ -80,6 +103,7 @@
       font-weight: bold;
       margin-top: 5px;
     }
+
     footer {
       background: #161b22;
       text-align: center;
@@ -94,8 +118,11 @@
     <h1>📸 Beautiful Images Website</h1>
     <p>A gallery containing the most beautiful photos</p>
     <div class="search-bar">
-      <form action="https://www.google.com/search" method="get" target="_blank">
+      <form action="https://www.google.com/search" method="get" target="_blank" style="display:flex;align-items:center;gap:5px;">
         <input type="text" name="q" placeholder="Search on Google...">
+        <button type="submit" title="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 20l-5.6-5.6A7.9 7.9 0 0016 9a8 8 0 10-8 8 7.9 7.9 0 005.4-2.1L20 21zM4 9a5 5 0 1110 0A5 5 0 014 9z"/></svg>
+        </button>
       </form>
     </div>
   </header>
@@ -106,6 +133,7 @@
     <button onclick="filter('cities', this)">Cities</button>
     <button onclick="filter('art', this)">Art</button>
     <button onclick="filter('monuments', this)">Monuments</button>
+    <button onclick="window.open('https://www.facebook.com/groups/jananalia2424','_blank')">اجمل المناظر الطبيعية في العالم</button>
   </nav>
 
   <main class="grid" id="gallery">
@@ -148,7 +176,7 @@
         }
       });
       document.querySelectorAll('.categories button').forEach(btn => btn.classList.remove('active'));
-      el.classList.add('active');
+      if (el) el.classList.add('active');
     }
   </script>
 </body>
