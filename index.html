@@ -136,3 +136,48 @@
   </script>
 </body>
 </html>
+<section id="support">
+  <h2>💬 فريق الدعم</h2>
+  <div id="chat-box" style="background:#1e293b;padding:10px;border-radius:8px;max-width:500px;margin:auto;">
+    <div id="messages" style="height:200px;overflow-y:auto;border:1px solid #334155;padding:5px;margin-bottom:10px;"></div>
+    <input id="userInput" type="text" placeholder="اكتب سؤالك هنا..." style="width:70%;padding:6px;" />
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+</section>
+
+<script>
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const messages = document.getElementById("messages");
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    // عرض رسالة المستخدم
+    const userDiv = document.createElement("div");
+    userDiv.textContent = "👤: " + userText;
+    messages.appendChild(userDiv);
+
+    input.value = "";
+
+    // طلب للباك إند
+    try {
+      const res = await fetch("https://my-backend-cyj8.onrender.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userText })
+      });
+      const data = await res.json();
+
+      // عرض رد الذكاء الاصطناعي
+      const botDiv = document.createElement("div");
+      botDiv.textContent = "🤖: " + data.reply;
+      messages.appendChild(botDiv);
+
+      messages.scrollTop = messages.scrollHeight;
+    } catch (err) {
+      const errorDiv = document.createElement("div");
+      errorDiv.textContent = "⚠️ خطأ في الاتصال بالخادم";
+      messages.appendChild(errorDiv);
+    }
+  }
+</script>
