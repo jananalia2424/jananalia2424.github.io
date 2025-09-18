@@ -1,108 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>دعم — تواصل</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>موقعي العصري</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2910/2910768.png">
   <style>
-    body{font-family: Arial,Helvetica,sans-serif;padding:18px;background:#f7f7f7;color:#111}
-    .card{max-width:760px;margin:0 auto;background:#fff;padding:16px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-    textarea{width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #ddd;font-size:14px}
-    button{padding:8px 14px;border-radius:6px;border:none;background:#0077ff;color:#fff;cursor:pointer}
-    .messages{margin-top:12px;max-height:360px;overflow:auto;border:1px solid #eee;padding:8px;border-radius:6px;background:#fafafa}
-    .msg{margin:6px 0;padding:8px;border-radius:6px}
-    .me{background:#e6f0ff;text-align:right}
-    .bot{background:#f1f1f1;text-align:left}
-    .meta{font-size:12px;color:#666;margin-bottom:8px}
-    .error{color:#b00020}
+    body {
+      font-family: "Tajawal", sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.8;
+    }
+    header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 2rem;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .chat-box {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    .chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: .5rem;
+      background: #fafafa;
+    }
+    .chat-messages p {
+      padding: .4rem .6rem;
+      border-radius: 8px;
+      margin: .3rem 0;
+    }
+    .user {
+      background: #3498db;
+      color: white;
+      text-align: left;
+    }
+    .bot {
+      background: #ecf0f1;
+      text-align: right;
+    }
+    .chat-input {
+      display: flex;
+      gap: .5rem;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: .6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .chat-input button {
+      padding: .6rem 1rem;
+      border: none;
+      background: #2c3e50;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background: #1a242f;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #2c3e50;
+      color: white;
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h2>دعم الزوار — دردشة</h2>
-    <div class="meta">الخادم: <span id="backend-url"></span></div>
+  <header>
+    <h1>🌍 موقعي العصري</h1>
+    <nav>
+      <a href="#">الرئيسية</a>
+      <a href="#about">من نحن</a>
+      <a href="#gallery">آثار</a>
+      <a href="https://www.google.com" target="_blank">بحث Google</a>
+      <a href="#chat">المجهر</a>
+    </nav>
+  </header>
 
-    <textarea id="userInput" rows="3">سلام، هذا اختبار</textarea>
-    <div style="margin-top:8px">
-      <button id="sendBtn">إرسال</button>
-      <span id="status" style="margin-left:12px"></span>
+  <section id="gallery">
+    <h2>🕌 آثار</h2>
+    <div class="gallery">
+      <img src="https://picsum.photos/id/1015/400/300" alt="أثر 1">
+      <img src="https://picsum.photos/id/1016/400/300" alt="أثر 2">
+      <img src="https://picsum.photos/id/1018/400/300" alt="أثر 3">
+      <img src="https://picsum.photos/id/1020/400/300" alt="أثر 4">
     </div>
+  </section>
 
-    <div class="messages" id="messages" aria-live="polite"></div>
-    <div id="err" class="error"></div>
-  </div>
+  <section id="about">
+    <h2>👥 من نحن</h2>
+    <p>
+      نحن فريق شغوف بالثقافة والتكنولوجيا 🌐.  
+      هدفنا تقديم محتوى عصري يجمع بين الماضي (الآثار) والمستقبل (التقنيات الحديثة).
+    </p>
+  </section>
+
+  <section id="chat">
+    <h2>🔎 المجهر (المحادثة مع الدعم)</h2>
+    <div class="chat-box">
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <input type="text" id="userMessage" placeholder="✍️ اكتب رسالتك...">
+        <button onclick="sendMessage()">إرسال</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 موقعي العصري - جميع الحقوق محفوظة
+  </footer>
 
   <script>
-    // --- عدّل الرابط هذا إذا خدم عندك رابط آخر ---
-    const BACKEND_URL = "https://my-backend-cyj8.onrender.com";
-
-    // عناصر
-    const btn = document.getElementById("sendBtn");
-    const input = document.getElementById("userInput");
-    const messages = document.getElementById("messages");
-    const statusEl = document.getElementById("status");
-    const errEl = document.getElementById("err");
-    document.getElementById("backend-url").textContent = BACKEND_URL;
-
-    // ضمان عدم وجود دوال مكررة (لو كان عندك sendMessage في ملفات قديمة احذفها)
-    if (window.sendMessage) {
-      console.warn("sendMessage already defined — ensure there are no duplicate scripts.");
-    }
-
-    function appendMessage(who, text) {
-      const div = document.createElement("div");
-      div.className = "msg " + (who === "me" ? "me" : "bot");
-      div.textContent = text;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function setLoading(loading) {
-      btn.disabled = loading;
-      statusEl.textContent = loading ? "جارٍ الإرسال..." : "";
-    }
-
-    function showError(text) {
-      errEl.textContent = text;
-    }
-
     async function sendMessage() {
-      errEl.textContent = "";
-      const message = input.value?.trim();
-      if (!message) return showError("الرجاء كتابة رسالة.");
+      const input = document.getElementById("userMessage");
+      const chatMessages = document.getElementById("chatMessages");
+      const message = input.value.trim();
+      if (!message) return;
 
-      appendMessage("me", message);
-      setLoading(true);
+      // عرض رسالة المستخدم
+      const userMsg = document.createElement("p");
+      userMsg.className = "user";
+      userMsg.textContent = "👤: " + message;
+      chatMessages.appendChild(userMsg);
 
+      input.value = "";
+
+      // إرسال للـ backend
       try {
-        const res = await fetch(`${BACKEND_URL}/api/chat`, {
+        const response = await fetch("https://my-backend-cyj8.onrender.com/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message })
         });
+        const data = await response.json();
 
-        if (!res.ok) {
-          // اقرأ النص الكامل للخطأ لو كان متاح
-          const text = await res.text();
-          showError(`خطأ من الخادم: ${res.status} ${res.statusText} — ${text}`);
-          return;
-        }
+        // عرض رد البوت
+        const botMsg = document.createElement("p");
+        botMsg.className = "bot";
+        botMsg.textContent = "🤖: " + data.reply;
+        chatMessages.appendChild(botMsg);
 
-        const data = await res.json();
-        const reply = data.reply ?? "(لا يوجد رد)";
-        appendMessage("bot", reply);
-      } catch (e) {
-        // عادة مشاكل شبكة أو CORS
-        showError(`خطأ في الاتصال: ${e.message}`);
-        console.error(e);
-      } finally {
-        setLoading(false);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      } catch (err) {
+        const errorMsg = document.createElement("p");
+        errorMsg.className = "bot";
+        errorMsg.textContent = "⚠️ حدث خطأ في الاتصال بالخادم.";
+        chatMessages.appendChild(errorMsg);
       }
     }
-
-    // حدث الإرسال
-    btn.addEventListener("click", sendMessage);
-    input.addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) sendMessage(); });
   </script>
 </body>
 </html>
