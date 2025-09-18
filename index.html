@@ -1,120 +1,108 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقعي العصري</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>دعم — تواصل</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      direction: rtl;
-      background-color: #121212;
-      color: #eee;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #222;
-      padding: 10px;
-      text-align: center;
-      color: #fff;
-    }
-    nav {
-      background: #333;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 10px;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-    }
-    section {
-      padding: 20px;
-    }
-    .card {
-      background: #1e1e1e;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.5);
-    }
+    body{font-family: Arial,Helvetica,sans-serif;padding:18px;background:#f7f7f7;color:#111}
+    .card{max-width:760px;margin:0 auto;background:#fff;padding:16px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    textarea{width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #ddd;font-size:14px}
+    button{padding:8px 14px;border-radius:6px;border:none;background:#0077ff;color:#fff;cursor:pointer}
+    .messages{margin-top:12px;max-height:360px;overflow:auto;border:1px solid #eee;padding:8px;border-radius:6px;background:#fafafa}
+    .msg{margin:6px 0;padding:8px;border-radius:6px}
+    .me{background:#e6f0ff;text-align:right}
+    .bot{background:#f1f1f1;text-align:left}
+    .meta{font-size:12px;color:#666;margin-bottom:8px}
+    .error{color:#b00020}
   </style>
 </head>
 <body>
-  <header>
-    <h1>🌍 موقعي العصري</h1>
-  </header>
+  <div class="card">
+    <h2>دعم الزوار — دردشة</h2>
+    <div class="meta">الخادم: <span id="backend-url"></span></div>
 
-  <nav>
-    <a href="#home">الرئيسية</a>
-    <a href="#about">من نحن</a>
-    <a href="#gallery">المعرض</a>
-    <a href="#support">فريق الدعم</a>
-  </nav>
-
-  <section id="home">
-    <h2>مرحبا بك في موقعي ✨</h2>
-    <p>هنا تجد محتوى عصري، روابط قنواتي على يوتيوب وفيسبوك، وأيضا دردشة مباشرة مع شات جي بي تي 🎉</p>
-  </section>
-
-  <section id="about">
-    <h2>من نحن</h2>
-    <div class="card">
-      <p>زورونا على المواقع التالية:</p>
-      <ul>
-        <li><a href="https://www.youtube.com/@jananalia2424" target="_blank">قناتي على يوتيوب 1</a></li>
-        <li><a href="https://www.youtube.com/@jananalia24" target="_blank">قناتي على يوتيوب 2</a></li>
-        <li><a href="https://www.facebook.com/groups/jananalia2424" target="_blank">قروب الفيسبوك</a></li>
-      </ul>
+    <textarea id="userInput" rows="3">سلام، هذا اختبار</textarea>
+    <div style="margin-top:8px">
+      <button id="sendBtn">إرسال</button>
+      <span id="status" style="margin-left:12px"></span>
     </div>
-  </section>
 
-  <section id="support">
-    <h2>💬 فريق الدعم</h2>
-    <div id="chat-box" style="background:#1e293b;padding:10px;border-radius:8px;max-width:500px;margin:auto;">
-      <div id="messages" style="height:200px;overflow-y:auto;border:1px solid #334155;padding:5px;margin-bottom:10px;"></div>
-      <input id="userInput" type="text" placeholder="اكتب سؤالك هنا..." style="width:70%;padding:6px;" />
-      <button onclick="sendMessage()">إرسال</button>
-    </div>
-  </section>
+    <div class="messages" id="messages" aria-live="polite"></div>
+    <div id="err" class="error"></div>
+  </div>
 
   <script>
+    // --- عدّل الرابط هذا إذا خدم عندك رابط آخر ---
+    const BACKEND_URL = "https://my-backend-cyj8.onrender.com";
+
+    // عناصر
+    const btn = document.getElementById("sendBtn");
+    const input = document.getElementById("userInput");
+    const messages = document.getElementById("messages");
+    const statusEl = document.getElementById("status");
+    const errEl = document.getElementById("err");
+    document.getElementById("backend-url").textContent = BACKEND_URL;
+
+    // ضمان عدم وجود دوال مكررة (لو كان عندك sendMessage في ملفات قديمة احذفها)
+    if (window.sendMessage) {
+      console.warn("sendMessage already defined — ensure there are no duplicate scripts.");
+    }
+
+    function appendMessage(who, text) {
+      const div = document.createElement("div");
+      div.className = "msg " + (who === "me" ? "me" : "bot");
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function setLoading(loading) {
+      btn.disabled = loading;
+      statusEl.textContent = loading ? "جارٍ الإرسال..." : "";
+    }
+
+    function showError(text) {
+      errEl.textContent = text;
+    }
+
     async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const messages = document.getElementById("messages");
-      const userText = input.value.trim();
-      if (!userText) return;
+      errEl.textContent = "";
+      const message = input.value?.trim();
+      if (!message) return showError("الرجاء كتابة رسالة.");
 
-      // عرض رسالة المستخدم
-      const userDiv = document.createElement("div");
-      userDiv.textContent = "👤: " + userText;
-      messages.appendChild(userDiv);
+      appendMessage("me", message);
+      setLoading(true);
 
-      input.value = "";
-
-      // طلب للباك إند
       try {
-        const res = await fetch("https://my-backend-cyj8.onrender.com/api/chat", {
+        const res = await fetch(`${BACKEND_URL}/api/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userText })
+          body: JSON.stringify({ message })
         });
+
+        if (!res.ok) {
+          // اقرأ النص الكامل للخطأ لو كان متاح
+          const text = await res.text();
+          showError(`خطأ من الخادم: ${res.status} ${res.statusText} — ${text}`);
+          return;
+        }
+
         const data = await res.json();
-
-        // عرض رد الذكاء الاصطناعي
-        const botDiv = document.createElement("div");
-        botDiv.textContent = "🤖: " + data.reply;
-        messages.appendChild(botDiv);
-
-        messages.scrollTop = messages.scrollHeight;
-      } catch (err) {
-        const errorDiv = document.createElement("div");
-        errorDiv.textContent = "⚠️ خطأ في الاتصال بالخادم";
-        messages.appendChild(errorDiv);
+        const reply = data.reply ?? "(لا يوجد رد)";
+        appendMessage("bot", reply);
+      } catch (e) {
+        // عادة مشاكل شبكة أو CORS
+        showError(`خطأ في الاتصال: ${e.message}`);
+        console.error(e);
+      } finally {
+        setLoading(false);
       }
     }
+
+    // حدث الإرسال
+    btn.addEventListener("click", sendMessage);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) sendMessage(); });
   </script>
 </body>
 </html>
