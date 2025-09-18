@@ -1,376 +1,136 @@
-<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>📸 موقع الصور الجميلة — النسخة الكاملة</title>
+  <m<!doctype html>
+eta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>📸 موقع الصور الجميلة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0f172a;
-      --card:#1e293b;
-      --muted:#94a3b8;
-      --accent:#0ea5e9;
-      --btn:#334155;
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
     }
-    *{box-sizing:border-box}
-    body { margin: 0; font-family: 'Cairo', sans-serif; background: var(--bg); color: #f1f5f9; -webkit-font-smoothing:antialiased; }
-    header { background: var(--card); padding: 18px 12px; text-align: center; }
-    header h1 { margin: 0; font-size: 1.6rem; }
-    header p { margin: 6px 0 0 0; color: var(--muted); }
-    .container { max-width:1200px; margin: 0 auto; padding: 12px; }
-    .search-box { position: relative; width: 100%; max-width:900px; margin: 16px auto; }
-    .search-box input {
-      width: 100%;
-      padding: 10px 44px 10px 12px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      background: #0b1220;
-      color: #eef2ff;
+    header {
+      background: #1e293b;
+      padding: 15px;
+      text-align: center;
     }
-    .search-box .icon {
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size:18px; color:var(--muted);
+    header h1 { margin: 0; }
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0;
     }
-    .controls { display:flex; flex-direction:column; gap:10px; align-items:center; margin-bottom:10px; }
-    .categories { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
     .categories button {
-      background: var(--btn); border:none; color:#f1f5f9; padding:8px 16px; border-radius:22px; cursor:pointer;
-      transition: background .2s, transform .08s;
+      background: #334155;
+      border: none;
+      color: #f1f5f9;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
     }
-    .categories button.active, .categories button:hover { background: var(--accent); transform: translateY(-1px); }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:12px; padding:12px; }
-    .grid .card { overflow:hidden; border-radius:12px; background:#071028; }
-    .grid img { width:100%; height:160px; object-fit:cover; display:block; cursor:pointer; transition: transform .25s; }
-    .grid img:hover { transform: scale(1.04); }
-    .caption { padding:8px 10px; font-size:13px; color:var(--muted); text-align:right; }
-    footer { background: var(--card); text-align:center; padding:12px; color:var(--muted); margin-top:18px; }
-    /* lightbox */
-    .lightbox { display:none; position:fixed; z-index:9999; inset:0; background: rgba(0,0,0,0.88); justify-content:center; align-items:center; }
-    .lightbox img { max-width:92%; max-height:86%; border-radius:10px; box-shadow:0 10px 40px rgba(0,0,0,.6); }
-    .close-x { position:fixed; top:14px; left:16px; color:#fff; font-size:28px; cursor:pointer; z-index:10000; display:none; }
-    /* responsive */
-    @media (max-width:600px){
-      .grid img{ height:140px }
-      header h1{ font-size:1.2rem }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap: 10px;
+      padding: 15px;
+    }
+    .grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    footer {
+      background: #1e293b;
+      text-align: center;
+      padding: 10px;
+      color: #94a3b8;
+      margin-top: 20px;
+    }
+    /* نافذة من نحن */
+    .about {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .about h2 {
+      margin-bottom: 10px;
+      color: #facc15;
+    }
+    .about a {
+      display: block;
+      margin: 8px 0;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .about a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1>📸 موقع الصور الجميلة</h1>
-      <p>النسخة الكاملة — كل القديم محفوظ + تحسينات: بحث بمِجهر، آثار 99 صورة على الأقل، Lightbox و فلترة</p>
-    </div>
+    <h1>📸 موقع الصور الجميلة</h1>
+    <p>معرض عام يحتوي على أجمل الصور</p>
   </header>
 
-  <main class="container">
-    <!-- search -->
-    <div class="search-box" role="search" aria-label="ابحث عن الصور">
-      <input id="search" type="text" placeholder="🔍 ابحث عن صورة (مثال: بودابست، تيمقاد، آثار، مدينة)" aria-label="بحث">
-      <span class="icon">🔍</span>
-    </div>
+  <nav class="categories">
+    <button onclick="filter('all')">الكل</button>
+    <button onclick="filter('nature')">طبيعة</button>
+    <button onclick="filter('cities')">مدن</button>
+    <button onclick="filter('art')">فن</button>
+    <button onclick="filter('monuments')">آثار</button>
+    <button onclick="showAbout()">من نحن</button>
+  </nav>
 
-    <!-- controls: categories -->
-    <div class="controls">
-      <nav class="categories" role="navigation" aria-label="تصنيفات">
-        <button class="active" onclick="filter('all', this)">الكل</button>
-        <button onclick="filter('nature', this)">طبيعة</button>
-        <button onclick="filter('cities', this)">مدن</button>
-        <button onclick="filter('art', this)">فن</button>
-        <button onclick="filter('heritage', this)">آثار</button>
-      </nav>
-    </div>
+  <main id="gallery" class="grid">
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" data-cat="nature" alt="جبال">
+    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" data-cat="cities" alt="مدينة">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" data-cat="art" alt="فن">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" data-cat="nature" alt="شلال">
+  </main>
 
-    <!-- gallery grid -->
-    <section class="grid" id="gallery" aria-live="polite">
-      <!-- --- حفظ جميع الصور القديمة كما هي (لا نقصان) --- -->
-
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800" loading="lazy" data-cat="nature" data-title="جبال" alt="جبال">
-        <div class="caption">جبال</div>
-      </article>
-
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" loading="lazy" data-cat="cities" data-title="مدينة" alt="مدينة">
-        <div class="caption">مدينة</div>
-      </article>
-
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" loading="lazy" data-cat="art" data-title="فن" alt="فن">
-        <div class="caption">فن</div>
-      </article>
-
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800" loading="lazy" data-cat="nature" data-title="شلال" alt="شلال">
-        <div class="caption">شلال</div>
-      </article>
-
-      <!-- ---- آثار محفوظة محددة (جزائرية وعالمية) ---- -->
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Guelma_roman_theater.jpg" loading="lazy" data-cat="heritage" data-title="المسرح الروماني بقالمة" alt="المسرح الروماني بقالمة">
-        <div class="caption">المسرح الروماني بقالمة (الجزائر)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Timgad_Ruins.jpg" loading="lazy" data-cat="heritage" data-title="تيمقاد" alt="تيمقاد">
-        <div class="caption">تيمقاد (الجزائر)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Djemila_Ruins.jpg" loading="lazy" data-cat="heritage" data-title="جميلة" alt="جميلة">
-        <div class="caption">جميلة (الجزائر)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Casbah_Algiers.jpg" loading="lazy" data-cat="heritage" data-title="قصبة الجزائر" alt="قصبة الجزائر">
-        <div class="caption">قصبة الجزائر</div>
-      </article>
-
-      <!-- ---- مدن جديدة: بودابست و بوخارست (مضافة بدون حذف) ---- -->
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Budapest_parliament.jpg" loading="lazy" data-cat="cities" data-title="بودابست" alt="بودابست">
-        <div class="caption">بودابست (المجر)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Bucharest_Romania.jpg" loading="lazy" data-cat="cities" data-title="بوخارست" alt="بوخارست">
-        <div class="caption">بوخارست (رومانيا)</div>
-      </article>
-
-      <!-- ---- بعض معالم مشهورة إضافية ---- -->
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Baalbek-temple-lebanon.jpg" loading="lazy" data-cat="heritage" data-title="بعلبك" alt="بعلبك">
-        <div class="caption">بعلبك (لبنان)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Kheops-Pyramid.jpg" loading="lazy" data-cat="heritage" data-title="الأهرامات" alt="الأهرامات">
-        <div class="caption">الأهرامات (مصر)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Al_Khazneh_Petra_Jordan.jpg" loading="lazy" data-cat="heritage" data-title="البتراء" alt="البتراء">
-        <div class="caption">البتراء (الأردن)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg" loading="lazy" data-cat="heritage" data-title="الكولوسيوم" alt="الكولوسيوم">
-        <div class="caption">الكولوسيوم (إيطاليا)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Palmyra_DSC_0607.JPG" loading="lazy" data-cat="heritage" data-title="تدمر" alt="تدمر">
-        <div class="caption">تدمر / بالميرا (سوريا)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Great_Wall_of_China_July_2006.JPG" loading="lazy" data-cat="heritage" data-title="سور الصين العظيم" alt="سور الصين العظيم">
-        <div class="caption">سور الصين العظيم (الصين)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Machu_Picchu%2C_Peru.JPG" loading="lazy" data-cat="heritage" data-title="ماشو بيتشو" alt="ماشو بيتشو">
-        <div class="caption">ماشو بيتشو (بيرو)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Angkor_Wat_temple.jpg" loading="lazy" data-cat="heritage" data-title="أنغكور وات" alt="أنغكور وات">
-        <div class="caption">أنغكور وات (كمبوديا)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Stonehenge.jpg" loading="lazy" data-cat="heritage" data-title="ستونهينج" alt="ستونهينج">
-        <div class="caption">ستونهينج (إنجلترا)</div>
-      </article>
-
-      <article class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Persepolis_01.jpg" loading="lazy" data-cat="heritage" data-title="برسيبوليس" alt="برسيبوليس">
-        <div class="caption">برسيبوليس (إيران)</div>
-      </article>
-
-      <!-- ---- الآن نملأ الباقي بروابط Unsplash المتنوعة باستخدام sig لضمان التنوع ---- -->
-      <!-- سنضيف 80 صورة اعتماداً على sig=1..80 (مع بعض التعداد الموجود يصبح إجمالي آثار >99) -->
-
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=1" loading="lazy" data-cat="heritage" data-title="أثر 1" alt="أثر 1"><div class="caption">أثر 1</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=2" loading="lazy" data-cat="heritage" data-title="أثر 2" alt="أثر 2"><div class="caption">أثر 2</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=3" loading="lazy" data-cat="heritage" data-title="أثر 3" alt="أثر 3"><div class="caption">أثر 3</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=4" loading="lazy" data-cat="heritage" data-title="أثر 4" alt="أثر 4"><div class="caption">أثر 4</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=5" loading="lazy" data-cat="heritage" data-title="أثر 5" alt="أثر 5"><div class="caption">أثر 5</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=6" loading="lazy" data-cat="heritage" data-title="أثر 6" alt="أثر 6"><div class="caption">أثر 6</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=7" loading="lazy" data-cat="heritage" data-title="أثر 7" alt="أثر 7"><div class="caption">أثر 7</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=8" loading="lazy" data-cat="heritage" data-title="أثر 8" alt="أثر 8"><div class="caption">أثر 8</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=9" loading="lazy" data-cat="heritage" data-title="أثر 9" alt="أثر 9"><div class="caption">أثر 9</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=10" loading="lazy" data-cat="heritage" data-title="أثر 10" alt="أثر 10"><div class="caption">أثر 10</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=11" loading="lazy" data-cat="heritage" data-title="أثر 11" alt="أثر 11"><div class="caption">أثر 11</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=12" loading="lazy" data-cat="heritage" data-title="أثر 12" alt="أثر 12"><div class="caption">أثر 12</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=13" loading="lazy" data-cat="heritage" data-title="أثر 13" alt="أثر 13"><div class="caption">أثر 13</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=14" loading="lazy" data-cat="heritage" data-title="أثر 14" alt="أثر 14"><div class="caption">أثر 14</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=15" loading="lazy" data-cat="heritage" data-title="أثر 15" alt="أثر 15"><div class="caption">أثر 15</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=16" loading="lazy" data-cat="heritage" data-title="أثر 16" alt="أثر 16"><div class="caption">أثر 16</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=17" loading="lazy" data-cat="heritage" data-title="أثر 17" alt="أثر 17"><div class="caption">أثر 17</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=18" loading="lazy" data-cat="heritage" data-title="أثر 18" alt="أثر 18"><div class="caption">أثر 18</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=19" loading="lazy" data-cat="heritage" data-title="أثر 19" alt="أثر 19"><div class="caption">أثر 19</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=20" loading="lazy" data-cat="heritage" data-title="أثر 20" alt="أثر 20"><div class="caption">أثر 20</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=21" loading="lazy" data-cat="heritage" data-title="أثر 21" alt="أثر 21"><div class="caption">أثر 21</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=22" loading="lazy" data-cat="heritage" data-title="أثر 22" alt="أثر 22"><div class="caption">أثر 22</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=23" loading="lazy" data-cat="heritage" data-title="أثر 23" alt="أثر 23"><div class="caption">أثر 23</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=24" loading="lazy" data-cat="heritage" data-title="أثر 24" alt="أثر 24"><div class="caption">أثر 24</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=25" loading="lazy" data-cat="heritage" data-title="أثر 25" alt="أثر 25"><div class="caption">أثر 25</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=26" loading="lazy" data-cat="heritage" data-title="أثر 26" alt="أثر 26"><div class="caption">أثر 26</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=27" loading="lazy" data-cat="heritage" data-title="أثر 27" alt="أثر 27"><div class="caption">أثر 27</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=28" loading="lazy" data-cat="heritage" data-title="أثر 28" alt="أثر 28"><div class="caption">أثر 28</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=29" loading="lazy" data-cat="heritage" data-title="أثر 29" alt="أثر 29"><div class="caption">أثر 29</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=30" loading="lazy" data-cat="heritage" data-title="أثر 30" alt="أثر 30"><div class="caption">أثر 30</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=31" loading="lazy" data-cat="heritage" data-title="أثر 31" alt="أثر 31"><div class="caption">أثر 31</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=32" loading="lazy" data-cat="heritage" data-title="أثر 32" alt="أثر 32"><div class="caption">أثر 32</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=33" loading="lazy" data-cat="heritage" data-title="أثر 33" alt="أثر 33"><div class="caption">أثر 33</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=34" loading="lazy" data-cat="heritage" data-title="أثر 34" alt="أثر 34"><div class="caption">أثر 34</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=35" loading="lazy" data-cat="heritage" data-title="أثر 35" alt="أثر 35"><div class="caption">أثر 35</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=36" loading="lazy" data-cat="heritage" data-title="أثر 36" alt="أثر 36"><div class="caption">أثر 36</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=37" loading="lazy" data-cat="heritage" data-title="أثر 37" alt="أثر 37"><div class="caption">أثر 37</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=38" loading="lazy" data-cat="heritage" data-title="أثر 38" alt="أثر 38"><div class="caption">أثر 38</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=39" loading="lazy" data-cat="heritage" data-title="أثر 39" alt="أثر 39"><div class="caption">أثر 39</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=40" loading="lazy" data-cat="heritage" data-title="أثر 40" alt="أثر 40"><div class="caption">أثر 40</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=41" loading="lazy" data-cat="heritage" data-title="أثر 41" alt="أثر 41"><div class="caption">أثر 41</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=42" loading="lazy" data-cat="heritage" data-title="أثر 42" alt="أثر 42"><div class="caption">أثر 42</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=43" loading="lazy" data-cat="heritage" data-title="أثر 43" alt="أثر 43"><div class="caption">أثر 43</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=44" loading="lazy" data-cat="heritage" data-title="أثر 44" alt="أثر 44"><div class="caption">أثر 44</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=45" loading="lazy" data-cat="heritage" data-title="أثر 45" alt="أثر 45"><div class="caption">أثر 45</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=46" loading="lazy" data-cat="heritage" data-title="أثر 46" alt="أثر 46"><div class="caption">أثر 46</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=47" loading="lazy" data-cat="heritage" data-title="أثر 47" alt="أثر 47"><div class="caption">أثر 47</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=48" loading="lazy" data-cat="heritage" data-title="أثر 48" alt="أثر 48"><div class="caption">أثر 48</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=49" loading="lazy" data-cat="heritage" data-title="أثر 49" alt="أثر 49"><div class="caption">أثر 49</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=50" loading="lazy" data-cat="heritage" data-title="أثر 50" alt="أثر 50"><div class="caption">أثر 50</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=51" loading="lazy" data-cat="heritage" data-title="أثر 51" alt="أثر 51"><div class="caption">أثر 51</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=52" loading="lazy" data-cat="heritage" data-title="أثر 52" alt="أثر 52"><div class="caption">أثر 52</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=53" loading="lazy" data-cat="heritage" data-title="أثر 53" alt="أثر 53"><div class="caption">أثر 53</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=54" loading="lazy" data-cat="heritage" data-title="أثر 54" alt="أثر 54"><div class="caption">أثر 54</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=55" loading="lazy" data-cat="heritage" data-title="أثر 55" alt="أثر 55"><div class="caption">أثر 55</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=56" loading="lazy" data-cat="heritage" data-title="أثر 56" alt="أثر 56"><div class="caption">أثر 56</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=57" loading="lazy" data-cat="heritage" data-title="أثر 57" alt="أثر 57"><div class="caption">أثر 57</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=58" loading="lazy" data-cat="heritage" data-title="أثر 58" alt="أثر 58"><div class="caption">أثر 58</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=59" loading="lazy" data-cat="heritage" data-title="أثر 59" alt="أثر 59"><div class="caption">أثر 59</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=60" loading="lazy" data-cat="heritage" data-title="أثر 60" alt="أثر 60"><div class="caption">أثر 60</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=61" loading="lazy" data-cat="heritage" data-title="أثر 61" alt="أثر 61"><div class="caption">أثر 61</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=62" loading="lazy" data-cat="heritage" data-title="أثر 62" alt="أثر 62"><div class="caption">أثر 62</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=63" loading="lazy" data-cat="heritage" data-title="أثر 63" alt="أثر 63"><div class="caption">أثر 63</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=64" loading="lazy" data-cat="heritage" data-title="أثر 64" alt="أثر 64"><div class="caption">أثر 64</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=65" loading="lazy" data-cat="heritage" data-title="أثر 65" alt="أثر 65"><div class="caption">أثر 65</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=66" loading="lazy" data-cat="heritage" data-title="أثر 66" alt="أثر 66"><div class="caption">أثر 66</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=67" loading="lazy" data-cat="heritage" data-title="أثر 67" alt="أثر 67"><div class="caption">أثر 67</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=68" loading="lazy" data-cat="heritage" data-title="أثر 68" alt="أثر 68"><div class="caption">أثر 68</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=69" loading="lazy" data-cat="heritage" data-title="أثر 69" alt="أثر 69"><div class="caption">أثر 69</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=70" loading="lazy" data-cat="heritage" data-title="أثر 70" alt="أثر 70"><div class="caption">أثر 70</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=71" loading="lazy" data-cat="heritage" data-title="أثر 71" alt="أثر 71"><div class="caption">أثر 71</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=72" loading="lazy" data-cat="heritage" data-title="أثر 72" alt="أثر 72"><div class="caption">أثر 72</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=73" loading="lazy" data-cat="heritage" data-title="أثر 73" alt="أثر 73"><div class="caption">أثر 73</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=74" loading="lazy" data-cat="heritage" data-title="أثر 74" alt="أثر 74"><div class="caption">أثر 74</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=75" loading="lazy" data-cat="heritage" data-title="أثر 75" alt="أثر 75"><div class="caption">أثر 75</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=76" loading="lazy" data-cat="heritage" data-title="أثر 76" alt="أثر 76"><div class="caption">أثر 76</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=77" loading="lazy" data-cat="heritage" data-title="أثر 77" alt="أثر 77"><div class="caption">أثر 77</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=78" loading="lazy" data-cat="heritage" data-title="أثر 78" alt="أثر 78"><div class="caption">أثر 78</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=79" loading="lazy" data-cat="heritage" data-title="أثر 79" alt="أثر 79"><div class="caption">أثر 79</div></article>
-  <article class="card"><img src="https://source.unsplash.com/800x600/?ruins&sig=80" loading="lazy" data-cat="heritage" data-title="أثر 80" alt="أثر 80"><div class="caption">أثر 80</div></article>
-
+  <!-- قسم من نحن -->
+  <section id="about" class="about" style="display:none;">
+    <h2>من نحن</h2>
+    <p>زورونا على المواقع التالية:</p>
+    <a href="https://www.youtube.com/@jananalia2424" target="_blank">🎥 قناتنا على يوتيوب (1)</a>
+    <a href="https://www.youtube.com/@jananalia24" target="_blank">🎥 قناتنا على يوتيوب (2)</a>
+    <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">🌍 قروبنا على فيسبوك</a>
   </section>
 
   <footer>
     © 2025 موقع الصور الجميلة — جميع الحقوق محفوظة
   </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="">
-  </div>
-  <div class="close-x" id="closeX">✖</div>
-
   <script>
-    // ---- فلترة التصنيفات مع تمييز الزر النشط ----
-    function filter(cat, btn) {
-      document.querySelectorAll('#gallery article').forEach(card => {
-        const img = card.querySelector('img');
-        const c = (img.dataset.cat || '').toLowerCase();
-        card.style.display = (cat === 'all' || c === cat) ? 'block' : 'none';
-      });
-      if (btn) {
-        document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      document.getElementById('search').value = '';
-    }
-
-    // ---- وظيفة البحث (تبحث في alt, data-title, data-cat) ----
-    function searchImages() {
-      const input = document.getElementById('search').value.trim().toLowerCase();
-      if (!input) {
-        // show according to active category
-        const activeBtn = document.querySelector('.categories button.active');
-        const btnText = activeBtn ? activeBtn.textContent.trim() : 'الكل';
-        let catKey = 'all';
-        if (btnText.includes('آثار')) catKey='heritage';
-        else if (btnText.includes('مدن')) catKey='cities';
-        else if (btnText.includes('طبيعة')) catKey='nature';
-        else if (btnText.includes('فن')) catKey='art';
-        document.querySelectorAll('#gallery article').forEach(card => {
-          const img = card.querySelector('img');
-          const c = (img.dataset.cat||'').toLowerCase();
-          card.style.display = (catKey==='all' || c===catKey) ? 'block' : 'none';
-        });
-        return;
-      }
-      document.querySelectorAll('#gallery article').forEach(card => {
-        const img = card.querySelector('img');
-        const alt = (img.alt||'').toLowerCase();
-        const title = (img.dataset.title||'').toLowerCase();
-        const cat = (img.dataset.cat||'').toLowerCase();
-        if (alt.includes(input) || title.includes(input) || cat.includes(input)) {
-          card.style.display = 'block';
+    function filter(cat) {
+      document.getElementById('about').style.display = 'none';
+      document.getElementById('gallery').style.display = 'grid';
+      document.querySelectorAll('#gallery img').forEach(img => {
+        if (cat === 'all' || img.dataset.cat === cat) {
+          img.style.display = 'block';
         } else {
-          card.style.display = 'none';
+          img.style.display = 'none';
         }
       });
     }
-
-    // ---- Lightbox behavior ----
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeX = document.getElementById('closeX');
-
-    function openLightbox(src, alt){
-      lightbox.style.display = 'flex';
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || '';
-      closeX.style.display = 'block';
+    function showAbout() {
+      document.getElementById('gallery').style.display = 'none';
+      document.getElementById('about').style.display = 'block';
     }
-    function closeLightbox(){
-      lightbox.style.display = 'none';
-      lightboxImg.src = '';
-      closeX.style.display = 'none';
-    }
-    // attach click listeners to images
-    document.querySelectorAll('#gallery img').forEach(img => {
-      img.addEventListener('click', (e)=>{
-        openLightbox(img.src, img.alt);
-      });
-    });
-    // close on background click
-    lightbox.addEventListener('click', (e)=>{
-      if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
-    });
-    closeX.addEventListener('click', closeLightbox);
-
-    // wire search input
-    document.getElementById('search').addEventListener('input', searchImages);
-
-    // ensure initial state
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // nothing extra needed; all items visible by default
-    });
   </script>
 </body>
 </html>
