@@ -1,196 +1,138 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>موقعي العصري</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2910/2910768.png">
+
+  <!-- استدعاء الخطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Tajawal:wght@400&display=swap" rel="stylesheet">
+
   <style>
+    /* إعدادات عامة */
     body {
-      font-family: "Tajawal", sans-serif;
+      background-color: #f9fafb;
+      color: #1f2937;
+      font-family: 'Tajawal', sans-serif;
       margin: 0;
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.8;
+      padding: 0;
+      line-height: 1.6;
     }
-    header {
-      background: #2c3e50;
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+
+    /* العناوين */
+    h1, h2, h3, h4, h5 {
+      font-family: 'Cairo', sans-serif;
+      color: #111827;
+      margin-bottom: 0.5em;
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-    nav a {
-      color: #fff;
+
+    /* الروابط */
+    a {
+      color: #2563eb;
       text-decoration: none;
-      margin-left: 1rem;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #1d4ed8;
+    }
+
+    /* الأزرار */
+    button, .btn {
+      background-color: #2563eb;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    button:hover, .btn:hover {
+      background-color: #1d4ed8;
+    }
+
+    /* الهيدر */
+    header {
+      background: #2563eb;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: #fff;
       font-weight: bold;
     }
+
     nav a:hover {
-      text-decoration: underline;
+      color: #dbeafe;
     }
+
+    /* الأقسام */
     section {
-      padding: 2rem;
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
     }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    .chat-box {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 1rem;
-    }
-    .chat-messages {
-      max-height: 300px;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: .5rem;
-      background: #fafafa;
-    }
-    .chat-messages p {
-      padding: .4rem .6rem;
-      border-radius: 8px;
-      margin: .3rem 0;
-    }
-    .user {
-      background: #3498db;
-      color: white;
-      text-align: left;
-    }
-    .bot {
-      background: #ecf0f1;
-      text-align: right;
-    }
-    .chat-input {
-      display: flex;
-      gap: .5rem;
-    }
-    .chat-input input {
-      flex: 1;
-      padding: .6rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .chat-input button {
-      padding: .6rem 1rem;
-      border: none;
-      background: #2c3e50;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .chat-input button:hover {
-      background: #1a242f;
-    }
+
     footer {
+      background: #111827;
+      color: #fff;
       text-align: center;
-      padding: 1rem;
-      background: #2c3e50;
-      color: white;
-      margin-top: 2rem;
+      padding: 15px;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
+
+  <!-- الهيدر -->
   <header>
-    <h1>🌍 موقعي العصري</h1>
+    <h1>موقعي العصري ✨</h1>
     <nav>
-      <a href="#">الرئيسية</a>
+      <a href="#home">الرئيسية</a>
       <a href="#about">من نحن</a>
-      <a href="#gallery">آثار</a>
-      <a href="https://www.google.com" target="_blank">بحث Google</a>
-      <a href="#chat">المجهر</a>
+      <a href="#gallery">المعرض</a>
+      <a href="#support">فريق الدعم</a>
     </nav>
   </header>
 
-  <section id="gallery">
-    <h2>🕌 آثار</h2>
-    <div class="gallery">
-      <img src="https://picsum.photos/id/1015/400/300" alt="أثر 1">
-      <img src="https://picsum.photos/id/1016/400/300" alt="أثر 2">
-      <img src="https://picsum.photos/id/1018/400/300" alt="أثر 3">
-      <img src="https://picsum.photos/id/1020/400/300" alt="أثر 4">
-    </div>
+  <!-- الرئيسية -->
+  <section id="home">
+    <h2>مرحباً بك 👋</h2>
+    <p>هذا الموقع جاهز للعرض على GitHub Pages — تصميم عصري، ألوان متناسقة، وخطوط أنيقة.</p>
   </section>
 
+  <!-- من نحن -->
   <section id="about">
-    <h2>👥 من نحن</h2>
-    <p>
-      نحن فريق شغوف بالثقافة والتكنولوجيا 🌐.  
-      هدفنا تقديم محتوى عصري يجمع بين الماضي (الآثار) والمستقبل (التقنيات الحديثة).
-    </p>
+    <h2>من نحن</h2>
+    <p>نشارك محتوى متنوع على قنواتنا وروابطنا:</p>
+    <ul>
+      <li><a href="https://www.youtube.com/" target="_blank">قناة يوتيوب</a></li>
+      <li><a href="https://www.facebook.com/" target="_blank">صفحة فيسبوك</a></li>
+    </ul>
   </section>
 
-  <section id="chat">
-    <h2>🔎 المجهر (المحادثة مع الدعم)</h2>
-    <div class="chat-box">
-      <div class="chat-messages" id="chatMessages"></div>
-      <div class="chat-input">
-        <input type="text" id="userMessage" placeholder="✍️ اكتب رسالتك...">
-        <button onclick="sendMessage()">إرسال</button>
-      </div>
-    </div>
+  <!-- المعرض -->
+  <section id="gallery">
+    <h2>المعرض</h2>
+    <p>صور وأعمال قادمة قريباً 📸</p>
   </section>
 
+  <!-- فريق الدعم -->
+  <section id="support">
+    <h2>فريق الدعم</h2>
+    <p>للتواصل معنا اضغط على الزر أدناه:</p>
+    <button class="btn">إرسال</button>
+  </section>
+
+  <!-- الفوتر -->
   <footer>
-    &copy; 2025 موقعي العصري - جميع الحقوق محفوظة
+    <p>© 2025 جميع الحقوق محفوظة</p>
   </footer>
 
-  <script>
-    async function sendMessage() {
-      const input = document.getElementById("userMessage");
-      const chatMessages = document.getElementById("chatMessages");
-      const message = input.value.trim();
-      if (!message) return;
-
-      // عرض رسالة المستخدم
-      const userMsg = document.createElement("p");
-      userMsg.className = "user";
-      userMsg.textContent = "👤: " + message;
-      chatMessages.appendChild(userMsg);
-
-      input.value = "";
-
-      // إرسال للـ backend
-      try {
-        const response = await fetch("https://my-backend-cyj8.onrender.com/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-        const data = await response.json();
-
-        // عرض رد البوت
-        const botMsg = document.createElement("p");
-        botMsg.className = "bot";
-        botMsg.textContent = "🤖: " + data.reply;
-        chatMessages.appendChild(botMsg);
-
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      } catch (err) {
-        const errorMsg = document.createElement("p");
-        errorMsg.className = "bot";
-        errorMsg.textContent = "⚠️ حدث خطأ في الاتصال بالخادم.";
-        chatMessages.appendChild(errorMsg);
-      }
-    }
-  </script>
 </body>
 </html>
