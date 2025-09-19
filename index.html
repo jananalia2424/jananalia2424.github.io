@@ -1,46 +1,176 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>فريق الدعم - Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>موقعي</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; text-align: center; padding: 20px; }
-    #chat-box { width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    #messages { height: 200px; overflow-y: auto; border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; text-align: left; }
-    input { padding: 10px; width: 80%; }
-    button { padding: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    /* زر ونافذة الشات */
+    #chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2c3e50;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      line-height: 60px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    #chat-box {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    #chat-header {
+      background: #2c3e50;
+      color: white;
+      padding: 10px;
+      border-radius: 10px 10px 0 0;
+      text-align: center;
+    }
+
+    #chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+
+    .msg {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 6px;
+      max-width: 80%;
+    }
+
+    .user {
+      background: #3498db;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .bot {
+      background: #ecf0f1;
+      align-self: flex-start;
+    }
+
+    #chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    #chat-input button {
+      padding: 10px;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h2>💬 دعم مباشر</h2>
+  <header>
+    <h1>مرحبا بك في موقعي</h1>
+  </header>
+
+  <main>
+    <p>هذا هو التصميم الأصلي، لم يتم تغييره.</p>
+  </main>
+
+  <!-- زر فتح الشات -->
+  <div id="chat-icon">💬</div>
+
+  <!-- نافذة الشات -->
   <div id="chat-box">
-    <div id="messages"></div>
-    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
-    <button onclick="sendMessage()">إرسال</button>
+    <div id="chat-header">الدعم المباشر</div>
+    <div id="chat-messages"></div>
+    <div id="chat-input">
+      <input type="text" id="message" placeholder="اكتب رسالتك...">
+      <button id="send">إرسال</button>
+    </div>
   </div>
 
   <script>
+    const chatIcon = document.getElementById("chat-icon");
+    const chatBox = document.getElementById("chat-box");
+    const chatMessages = document.getElementById("chat-messages");
+    const messageInput = document.getElementById("message");
+    const sendBtn = document.getElementById("send");
+
+    chatIcon.addEventListener("click", () => {
+      chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
+    });
+
+    sendBtn.addEventListener("click", sendMessage);
+    messageInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add("msg", sender);
+      msg.innerText = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
     async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const messagesDiv = document.getElementById("messages");
+      const text = messageInput.value.trim();
+      if (!text) return;
+      appendMessage(text, "user");
+      messageInput.value = "";
 
-      const userMessage = input.value;
-      if (!userMessage) return;
-
-      messagesDiv.innerHTML += `<div><b>أنت:</b> ${userMessage}</div>`;
-
-      // إرسال للباك
-      const response = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage })
-      });
-
-      const data = await response.json();
-      messagesDiv.innerHTML += `<div><b>الدعم:</b> ${data.reply}</div>`;
-
-      input.value = "";
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      try {
+        const res = await fetch("http://localhost:5000/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        appendMessage(data.reply, "bot");
+      } catch (err) {
+        appendMessage("⚠️ خطأ في الاتصال بالسيرفر", "bot");
+      }
     }
   </script>
 </body>
