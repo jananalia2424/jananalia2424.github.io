@@ -277,5 +277,41 @@
       }
     }
   </script>
+  <!-- ChatGPT Widget -->
+  <div id='chat-box' style='position:fixed;bottom:20px;right:20px;width:300px;background:#fff;border:1px solid #ccc;padding:10px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.2);z-index:9999;'>
+    <div id='messages' style='max-height:200px;overflow-y:auto;margin-bottom:10px;font-family:Arial;'></div>
+    <input type='text' id='userInput' placeholder='???? ??????...' style='width:70%;padding:5px;'/>
+    <button onclick='sendMessage()' style='width:25%;padding:5px;'>?????</button>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const msg = input.value;
+      if (!msg) return;
+      
+      const box = document.getElementById("messages");
+      box.innerHTML += "<div><b>???:</b> " + msg + "</div>";
+
+      // ????? ????? ??? ???????
+      const res = await fetch("https://my-backend.onrender.com/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg })
+      });
+
+      const data = await res.json();
+
+      // ??? ???? ??? ???? ???? ?????? != "???"
+      if (data.image && data.icon !== "???") {
+        box.innerHTML += "<div><b>???????:</b> <img src='" + data.image + "' style='max-width:100%;border-radius:8px;margin-top:5px;'/></div>";
+      } else {
+        box.innerHTML += "<div><b>???????:</b> " + data.reply + "</div>";
+      }
+
+      input.value = "";
+      box.scrollTop = box.scrollHeight;
+    }
+  </script>
 </body>
 </html>
