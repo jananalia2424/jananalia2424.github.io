@@ -2,310 +2,270 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقعي</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>أجمل المناظر الطبيعية والتاريخية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Tajawal:wght@400;500&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #fdfdfd;
+      font-family: 'Tajawal', Arial, sans-serif;
+      background: #e6f4ff;
       color: #333;
     }
-
     header {
-      background: linear-gradient(90deg, #3498db, #f1c40f);
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    nav {
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      padding: 10px;
-      border-bottom: 2px solid #eee;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #2c3e50;
-      font-weight: bold;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      background: #3498db;
-      color: #fff;
-    }
-
-    /* محرك البحث */
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      margin: 15px;
-    }
-
-    .search-bar input {
-      padding: 8px;
-      width: 250px;
-      border: 2px solid #ccc;
-      border-radius: 20px 0 0 20px;
-      outline: none;
-    }
-
-    .search-bar button {
-      padding: 8px 12px;
-      border: none;
-      background: #3498db;
+      background: #4da6ff;
       color: white;
-      border-radius: 0 20px 20px 0;
+      text-align: center;
+      padding: 15px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 22px;
+      font-weight: bold;
+      position: relative;
+    }
+    /* Search bar */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+    }
+    .search-container input {
+      padding: 8px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
+    .search-container button {
+      margin-right: -35px;
+      background: none;
+      border: none;
       cursor: pointer;
     }
-
-    .search-bar button:hover {
-      background: #1d6fa5;
+    .search-container svg {
+      width: 18px;
+      height: 18px;
+      fill: #555;
     }
-
-    main {
-      padding: 2rem;
-      min-height: 70vh;
+    h2.title {
+      text-align: center;
+      margin: 20px;
+      font-family: 'Cairo', sans-serif;
+      color: #c14438;
     }
-
-    section {
-      margin-bottom: 2rem;
+    /* Icons */
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0;
     }
-
-    section h2 {
-      color: #2c3e50;
-      border-bottom: 3px solid #f1c40f;
-      display: inline-block;
-      margin-bottom: 1rem;
+    .icon {
+      text-align: center;
+      cursor: pointer;
     }
-
+    .icon span {
+      font-size: 40px;
+      display: block;
+    }
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 15px;
+      margin: 20px;
     }
-
     .gallery img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      border-radius: 8px;
     }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    footer {
-      background: #2c3e50;
-      color: #fff;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    footer a {
-      color: #f1c40f;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* صندوق المحادثة */
-    #chat-box {
+    /* Chat icon */
+    .chat-icon {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 320px;
-      max-height: 500px;
-      background: #fff;
+      width: 55px;
+      height: 55px;
+      background: #ff9933;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .chat-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+    /* Chat box */
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
       border: 1px solid #ccc;
       border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      font-size: 14px;
     }
-
-    #chat-messages {
+    .chat-header {
+      background: #4da6ff;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+    .chat-messages {
       flex: 1;
       padding: 10px;
       overflow-y: auto;
+      font-size: 14px;
     }
-
-    .message {
-      margin: 5px 0;
-      padding: 8px 12px;
-      border-radius: 15px;
-      max-width: 80%;
-      clear: both;
-    }
-
-    .user {
-      background: #3498db;
-      color: #fff;
-      margin-left: auto;
-      text-align: left;
-    }
-
-    .bot {
-      background: #ecf0f1;
-      color: #333;
-      margin-right: auto;
-      text-align: left;
-    }
-
-    #chat-form {
+    .chat-input {
       display: flex;
       border-top: 1px solid #ccc;
     }
-
-    #chat-input {
+    .chat-input input {
       flex: 1;
+      border: none;
       padding: 10px;
-      border: none;
-      outline: none;
     }
-
-    #send-btn {
-      background: #2c3e50;
-      color: white;
+    .chat-input button {
+      background: #ff9933;
       border: none;
+      color: white;
       padding: 10px 15px;
       cursor: pointer;
     }
-
-    #send-btn:hover {
-      background: #1a242f;
+    footer {
+      background: #c14438;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    footer a {
+      color: yellow;
+      margin: 0 10px;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>مرحبا بك في موقعي</h1>
-  </header>
 
-  <!-- محرك البحث -->
-  <div class="search-bar">
-    <form action="https://www.google.com/search" method="get" target="_blank">
-      <input type="text" name="q" placeholder="ابحث في جوجل..." required>
-      <button type="submit">🔍</button>
-    </form>
+<header>
+  محرك البحث
+  <div class="search-container">
+    <input type="text" placeholder="ابحث هنا...">
+    <button>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 20l-5.8-5.8a7.5 7.5 0 1 0-1.4 1.4L20 21zM4 10a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"/></svg>
+    </button>
   </div>
+</header>
 
-  <!-- القائمة -->
-  <nav>
-    <a href="#about">من نحن</a>
-    <a href="#athar">الآثار</a>
-    <a href="#images">الصور</a>
-    <a href="#art">الفنون</a>
-  </nav>
+<h2 class="title">✨ أجمل المناظر الطبيعية والتاريخية في العالم ✨</h2>
 
-  <main>
-    <section id="about">
-      <h2>من نحن</h2>
-      <p>نحن فريق مهتم بمشاركة المعرفة والجمال عبر موقعنا. هدفنا هو نشر الطاقة الإيجابية وإثراء التجربة البصرية.</p>
-    </section>
+<div class="icons">
+  <div class="icon" onclick="showGallery('photos')"><span>📷</span>الصور</div>
+  <div class="icon" onclick="showGallery('monuments')"><span>🏛️</span>الآثار</div>
+  <div class="icon" onclick="showGallery('arts')"><span>🎨</span>الفنون</div>
+  <div class="icon" onclick="showGallery('about')"><span>ℹ️</span>من نحن</div>
+</div>
 
-    <section id="athar">
-      <h2>الآثار</h2>
-      <div class="gallery">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Pyramids_of_Egypt_2006.jpg" alt="أهرامات مصر">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Roman_Colosseum.jpg" alt="الكولوسيوم">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Petra_Jordan_BW_21.JPG" alt="البتراء">
-      </div>
-    </section>
+<div id="photos" class="gallery">
+  <img src="https://source.unsplash.com/400x300/?nature,mountains" alt="">
+  <img src="https://source.unsplash.com/400x300/?nature,forest" alt="">
+  <img src="https://source.unsplash.com/400x300/?nature,beach" alt="">
+</div>
 
-    <section id="images">
-      <h2>الصور</h2>
-      <div class="gallery">
-        <img src="https://picsum.photos/400/250?random=1" alt="صورة عشوائية">
-        <img src="https://picsum.photos/400/250?random=2" alt="صورة عشوائية">
-        <img src="https://picsum.photos/400/250?random=3" alt="صورة عشوائية">
-      </div>
-    </section>
+<div id="monuments" class="gallery">
+  <img src="https://source.unsplash.com/400x300/?pyramids" alt="">
+  <img src="https://source.unsplash.com/400x300/?rome,ruins" alt="">
+  <img src="https://source.unsplash.com/400x300/?petra,jordan" alt="">
+</div>
 
-    <section id="art">
-      <h2>الفنون</h2>
-      <div class="gallery">
-        <img src="https://uploads7.wikiart.org/images/vincent-van-gogh/starry-night.jpg" alt="لوحة ليلة النجوم - فان غوخ">
-        <img src="https://uploads7.wikiart.org/images/leonardo-da-vinci/mona-lisa.jpg" alt="الموناليزا - دافنشي">
-        <img src="https://uploads0.wikiart.org/images/pablo-picasso/guernica.jpg" alt="غيرنيكا - بيكاسو">
-      </div>
-    </section>
-  </main>
+<div id="arts" class="gallery">
+  <img src="https://source.unsplash.com/400x300/?mona-lisa" alt="">
+  <img src="https://source.unsplash.com/400x300/?starry-night" alt="">
+  <img src="https://source.unsplash.com/400x300/?picasso,painting" alt="">
+</div>
 
-  <footer>
-    <p>تابعونا على:</p>
-    <a href="https://youtube.com" target="_blank">📺 قناة يوتيوب 1</a> |
-    <a href="https://youtube.com" target="_blank">📺 قناة يوتيوب 2</a> |
-    <a href="https://facebook.com" target="_blank">📘 مجموعتنا على فيسبوك</a>
-    <p>© 2025 جميع الحقوق محفوظة</p>
-  </footer>
+<div id="about" class="gallery">
+  <p style="grid-column: span 3; text-align: center; font-size: 18px;">
+    هذا الموقع يعرض أجمل المناظر الطبيعية، الآثار التاريخية، والفنون العالمية من مختلف الحضارات.
+  </p>
+</div>
 
-  <!-- صندوق الشات -->
-  <div id="chat-box">
-    <div id="chat-messages"></div>
-    <form id="chat-form">
-      <input type="text" id="chat-input" placeholder="اكتب رسالتك..." required />
-      <button type="submit" id="send-btn">إرسال</button>
-    </form>
+<!-- Messenger icon -->
+<div class="chat-icon" onclick="toggleChat()">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path d="M18 0C8.06 0 0 7.34 0 16.39c0 5.14 2.61 9.7 6.67 12.68V36l6.09-3.34c1.68.47 3.47.73 5.24.73 9.94 0 18-7.34 18-16.39C36 7.34 27.94 0 18 0zm1.76 22.41l-4.77-5.1-9.42 5.1 10.51-11.2 4.87 5.1 9.33-5.1-10.52 11.2z"/></svg>
+</div>
+
+<!-- Chat box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">شات جي بي تي</div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="اكتب رسالتك...">
+    <button onclick="sendMessage()">إرسال</button>
   </div>
+</div>
 
-  <script>
-    const chatForm = document.getElementById("chat-form");
-    const chatInput = document.getElementById("chat-input");
-    const chatMessages = document.getElementById("chat-messages");
+<footer>
+  زورونا على مواقعنا:
+  <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب رقم 1</a> |
+  <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب رقم 2</a> |
+  <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">مجموعتنا على فايسبوك</a>
+</footer>
 
-    chatForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const userMessage = chatInput.value.trim();
-      if (!userMessage) return;
+<script>
+  function showGallery(id) {
+    document.querySelectorAll('.gallery').forEach(el => el.style.display = 'none');
+    document.getElementById(id).style.display = 'grid';
+  }
 
-      appendMessage("user", userMessage);
-      chatInput.value = "";
+  function toggleChat() {
+    const box = document.getElementById('chatBox');
+    box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+  }
 
-      try {
-        const res = await fetch("https://my-backend-cyj8.onrender.com/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMessage })
-        });
+  async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const messages = document.getElementById('chatMessages');
+    const text = input.value.trim();
+    if (!text) return;
 
-        const data = await res.json();
-        appendMessage("bot", data.reply || "⚠️ لم أتمكن من الحصول على رد.");
-      } catch (err) {
-        appendMessage("bot", "⚠️ خطأ في الاتصال بالسيرفر.");
-      }
-    });
+    // Display user message
+    const userMsg = document.createElement('div');
+    userMsg.textContent = "👤: " + text;
+    messages.appendChild(userMsg);
 
-    function appendMessage(sender, text) {
-      const msg = document.createElement("div");
-      msg.classList.add("message", sender);
-      msg.textContent = text;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+    input.value = '';
+
+    // Call backend
+    const API_ENDPOINT = "https://my-backend-cyj8.onrender.com/api/chat";
+    try {
+      const res = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+
+      const botMsg = document.createElement('div');
+      botMsg.textContent = "🤖: " + data.reply;
+      messages.appendChild(botMsg);
+
+      messages.scrollTop = messages.scrollHeight;
+    } catch (err) {
+      const errorMsg = document.createElement('div');
+      errorMsg.textContent = "❌ خطأ في الاتصال بالسيرفر";
+      messages.appendChild(errorMsg);
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
