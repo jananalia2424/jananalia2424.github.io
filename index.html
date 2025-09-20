@@ -1,195 +1,54 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>موقعي العصري</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: "Cairo", sans-serif;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-      margin: 0;
-      padding: 0;
-      color: #333;
+    /* --- حافظنا على نفس الخط والألوان لكن زدنا تحسينات لطيفة --- */
+    :root{
+      --primary1:#4facfe;
+      --primary2:#00f2fe;
+      --card-bg:#fff;
     }
-    header {
-      background: linear-gradient(90deg, #4facfe, #00f2fe);
-      padding: 15px;
-      text-align: center;
-      color: #fff;
-      font-size: 24px;
-      font-weight: bold;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      animation: slideDown 1s ease;
-    }
-    @keyframes slideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
-    }
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      margin: 20px auto;
-      max-width: 450px;
-      background: #fff;
-      border-radius: 30px;
-      padding: 8px 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    .search-bar input {
-      flex: 1;
-      border: none;
-      outline: none;
-      padding: 10px 12px;
-      font-size: 14px;
-      border-radius: 30px;
-    }
-    .search-bar button {
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #4facfe;
-      transition: transform 0.2s;
-    }
-    .search-bar button:hover {
-      transform: scale(1.2);
-    }
-    .title {
-      text-align: center;
-      margin: 25px 10px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #2d2d2d;
-    }
-    .icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 25px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      width: 120px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-    .card img {
-      display: block;
-      margin: 0 auto 10px auto;
-      width: 55px;
-      height: 55px;
-      object-fit: contain;
-    }
-    .card p {
-      margin: 0;
-      font-size: 15px;
-      font-weight: bold;
-      color: #444;
-    }
-    .chat-container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .messages {
-      max-height: 250px;
-      overflow-y: auto;
-      margin-bottom: 15px;
-      padding-right: 5px;
-    }
-    .msg {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      animation: fadeSlide 0.5s ease;
-    }
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .user {
-      background: #e1bee7;
-      text-align: right;
-    }
-    .bot {
-      background: #c8e6c9;
-      text-align: left;
-    }
-    .bot::before {
-      content: "💬 فريق الدعم: ";
-      font-weight: bold;
-      color: #2d7a0b;
-    }
-    .input-box {
-      display: flex;
-      gap: 10px;
-    }
-    .input-box input {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .input-box button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: #fff;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .input-box button:hover {
-      transform: scale(1.1);
-    }
-    footer {
-      background: linear-gradient(90deg, #4facfe, #00f2fe);
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-    footer a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
+    html,body{height:100%;margin:0;padding:0;font-family:"Cairo",sans-serif;background:linear-gradient(135deg,#a1c4fd,#c2e9fb);color:#333;scroll-behavior:smooth}
+    header{background:linear-gradient(90deg,var(--primary1),var(--primary2));padding:16px;text-align:center;color:#fff;font-size:26px;font-weight:700;position:sticky;top:0;box-shadow:0 3px 8px rgba(0,0,0,0.18);z-index:10}
+    .search-bar{display:flex;justify-content:center;margin:20px auto;max-width:520px;background:#fff;border-radius:30px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    .search-bar input{flex:1;border:none;outline:none;padding:10px 12px;border-radius:30px;font-size:14px}
+    .search-bar button{border:none;background:none;cursor:pointer;font-size:18px;color:var(--primary1)}
+    .title{text-align:center;margin:24px 10px;font-size:22px;font-weight:700;color:#222}
+    .icons{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:20px}
+    .card{background:var(--card-bg);border-radius:14px;width:150px;padding:10px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.08);cursor:pointer;overflow:hidden;transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 12px 32px rgba(0,0,0,0.16)}
+    .card img{width:100%;height:100px;object-fit:cover;border-radius:10px}
+    .card p{margin:10px 0 0;font-weight:700;color:#333}
+    /* chat */
+    .chat-wrap{max-width:720px;margin:28px auto;padding:0 12px}
+    .chat-container{background:var(--card-bg);border-radius:14px;padding:14px;box-shadow:0 6px 22px rgba(0,0,0,0.10)}
+    .messages{max-height:300px;overflow-y:auto;padding:6px}
+    .msg{margin:10px 0;padding:10px;border-radius:10px;white-space:pre-wrap;line-height:1.45;animation:fadeSlide .36s}
+    @keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .user{background:#e1bee7;text-align:right;}
+    .bot{background:#c8e6c9;text-align:left;}
+    .user::before{content:"👤 أنت: ";font-weight:700;color:#5a2d82}
+    .bot::before{content:"🤖 فريق الدعم: ";font-weight:700;color:#2d7a0b}
+    .input-box{display:flex;gap:10px;margin-top:8px}
+    .input-box input{flex:1;padding:10px;border-radius:10px;border:1px solid #ddd}
+    .input-box button{width:48px;height:48px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--primary1),var(--primary2));color:#fff;font-size:18px;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,0.12)}
+    .input-box button:active{transform:scale(.98)}
+    .loading{display:inline-block;margin-left:8px;font-size:14px;color:#666}
+    footer{background:linear-gradient(90deg,var(--primary1),var(--primary2));color:#fff;text-align:center;padding:18px;margin-top:30px}
+    .visit-btn{display:inline-block;margin-top:12px;padding:10px 18px;border-radius:26px;background:#fff;color:var(--primary1);font-weight:700;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,0.12)}
+    /* responsive */
+    @media(max-width:640px){.card{width:120px}.messages{max-height:220px}}
   </style>
 </head>
 <body>
   <header>🌟 موقعي العصري 🌟</header>
 
-  <!-- محرك البحث -->
   <div class="search-bar">
-    <form action="https://www.google.com/search" method="GET" target="_blank" style="display:flex; width:100%;">
+    <form action="https://www.google.com/search" method="GET" target="_blank" style="display:flex;width:100%">
       <input type="text" name="q" placeholder="ابحث في جوجل..." required>
       <button type="submit">🔍</button>
     </form>
@@ -197,32 +56,38 @@
 
   <div class="title">موقعي العصري لأجمل الصور التاريخية والطبيعة</div>
 
-  <!-- الأيقونات بالصور -->
-  <div class="icons">
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3342/3342137.png" alt="صور">
+  <div class="icons" aria-hidden="false">
+    <div class="card" role="button" tabindex="0" onclick="openGallery('photos')">
+      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1" alt="صور طبيعة">
       <p>صور</p>
     </div>
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="آثار">
+    <div class="card" role="button" tabindex="0" onclick="openGallery('antique')">
+      <img src="https://images.unsplash.com/photo-1526481280698-8f1b4b17a1d2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2" alt="آثار">
       <p>آثار</p>
     </div>
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="فنون">
+    <div class="card" role="button" tabindex="0" onclick="openGallery('art')">
+      <img src="https://images.unsplash.com/photo-1463100099107-aa0980c362e6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3" alt="فنون">
       <p>فنون</p>
     </div>
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="من نحن">
+    <div class="card" role="button" tabindex="0" onclick="openGallery('about')">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4" alt="من نحن">
       <p>من نحن</p>
     </div>
   </div>
 
-  <!-- صندوق الدردشة -->
-  <div class="chat-container">
-    <div class="messages" id="messages"></div>
-    <div class="input-box">
-      <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." />
-      <button onclick="sendMessage()">✈️</button>
+  <div class="chat-wrap">
+    <div class="chat-container">
+      <div class="messages" id="messages" aria-live="polite"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;color:#666;margin-bottom:6px">
+        <small>فريق الدعم: ردود تلقائية عبر الذكاء الاصطناعي</small>
+        <span id="status" style="font-size:13px;color:#2d7a0b"></span>
+      </div>
+
+      <div class="input-box" role="form">
+        <input id="userInput" placeholder="اكتب رسالتك هنا..." aria-label="ادخل رسالتك">
+        <button id="sendBtn" aria-label="إرسال">✈️</button>
+      </div>
     </div>
   </div>
 
@@ -231,23 +96,106 @@
     <a href="https://www.youtube.com/@jananalia24" target="_blank">📺 يوتيوب 1</a>
     <a href="https://www.youtube.com/@jananalia2424" target="_blank">📺 يوتيوب 2</a>
     <a href="https://www.facebook.com/groups/jananalia2424/" target="_blank">📘 فايس بوك</a>
+    <br>
+    <a class="visit-btn" href="https://www.youtube.com/@jananalia24" target="_blank">🌟 زورونا على قناتنا 🌟</a>
   </footer>
 
   <script>
-    // 🔹 غير الرابط حسب وين نشر السيرفر
+    // ------ غيّر هذا الرابط إلى رابط الـ backend الحقيقي لو لازم (Render public URL) -----
     const API_URL = "https://my-backend-cyj8.onrender.com/api/chat";
 
     const messagesDiv = document.getElementById("messages");
     const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const statusSpan = document.getElementById("status");
+
+    let isSending = false;
+    function showStatus(text, clr="#2d7a0b") {
+      statusSpan.textContent = text;
+      statusSpan.style.color = clr;
+      setTimeout(()=> {
+        if (statusSpan.textContent === text) statusSpan.textContent = "";
+      }, 4500);
+    }
 
     function addMessage(text, sender) {
       const div = document.createElement("div");
       div.className = "msg " + sender;
-      div.innerText = text;
+      div.textContent = text;
       messagesDiv.appendChild(div);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
     async function sendMessage() {
       const message = userInput.value.trim();
-      if (!m
+      if (!message || isSending) return;
+      addMessage(message, "user");
+      userInput.value = "";
+      isSending = true;
+      // loading indicator
+      const loadingNode = document.createElement("div");
+      loadingNode.className = "msg bot";
+      loadingNode.textContent = "⏳ جاري المعالجة...";
+      messagesDiv.appendChild(loadingNode);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      showStatus("جاري إرسال الرسالة...", "#0b6eaa");
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        // handle non-JSON (server may respond text) and JSON
+        let replyText = "";
+        const ct = res.headers.get("content-type") || "";
+        if (ct.includes("application/json")) {
+          const data = await res.json();
+          replyText = data.reply || data.error || JSON.stringify(data);
+        } else {
+          replyText = await res.text();
+        }
+
+        // remove loading
+        loadingNode.remove();
+
+        if (replyText) {
+          addMessage(replyText, "bot");
+          showStatus("تم الاستلام", "#2d7a0b");
+        } else {
+          addMessage("⚠️ لم يصلنا رد. حاول مرة أخرى.", "bot");
+          showStatus("لم يصل رد", "#b02a2a");
+        }
+      } catch (err) {
+        // remove loading
+        if (loadingNode && loadingNode.remove) loadingNode.remove();
+        addMessage("⚠️ خطأ: تعذر الاتصال بالسيرفر.", "bot");
+        showStatus("خطأ في الاتصال", "#b02a2a");
+        console.error("Chat error:", err);
+      } finally {
+        isSending = false;
+      }
+    }
+
+    // إرسال بزر الإدخال
+    sendBtn.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+
+    // small function to open gallery (placeholder)
+    function openGallery(name) {
+      showStatus("فتح قسم: " + name);
+      // هنا تقدر تفتح صفحة داخلية أو مودال صور
+    }
+
+    // اختبار صحة الاتصال عند التحميل (health check)
+    (async function healthCheck(){
+      try {
+        const res = await fetch(API_URL, { method: "OPTIONS" });
+        // لو السيرفر يرد OPTIONS أو 200 — نظهر جاهزية
+        if (res.ok || res.status === 204) showStatus("فريق الدعم جاهز ✅");
+      } catch(e){ /* صامت */ }
+    })();
+  </script>
+</body>
+</html>
