@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -88,10 +87,12 @@
       transform: translateY(-8px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
-    .card span {
-      font-size: 32px;
+    .card img {
       display: block;
-      margin-bottom: 8px;
+      margin: 0 auto 10px auto;
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
     }
     .card p {
       margin: 0;
@@ -196,11 +197,24 @@
 
   <div class="title">موقعي العصري لأجمل الصور التاريخية والطبيعة</div>
 
+  <!-- الأيقونات بالصور -->
   <div class="icons">
-    <div class="card"><span>🖼️</span><p>صور</p></div>
-    <div class="card"><span>🏛️</span><p>آثار</p></div>
-    <div class="card"><span>🎨</span><p>فنون</p></div>
-    <div class="card"><span>ℹ️</span><p>من نحن</p></div>
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3342/3342137.png" alt="صور">
+      <p>صور</p>
+    </div>
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="آثار">
+      <p>آثار</p>
+    </div>
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="فنون">
+      <p>فنون</p>
+    </div>
+    <div class="card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="من نحن">
+      <p>من نحن</p>
+    </div>
   </div>
 
   <!-- صندوق الدردشة -->
@@ -236,31 +250,4 @@
 
     async function sendMessage() {
       const message = userInput.value.trim();
-      if (!message) return;
-
-      addMessage("👤 أنت: " + message, "user");
-      userInput.value = "";
-
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-        const data = await res.json();
-        if (data.reply) {
-          addMessage(data.reply, "bot");
-        } else {
-          addMessage("⚠️ خطأ: لم يصلنا رد من الخادم.", "bot");
-        }
-      } catch (err) {
-        addMessage("⚠️ خطأ: تعذر الاتصال بالسيرفر.", "bot");
-      }
-    }
-
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-  </script>
-</body>
-</html>
+      if (!m
