@@ -164,7 +164,6 @@
     <div class="icon"><span>ℹ️</span><p>من نحن</p></div>
   </div>
 
-  <!-- صندوق الشات -->
   <div class="chat-container">
     <div class="messages" id="messages"></div>
     <div class="input-box">
@@ -181,7 +180,6 @@
   </footer>
 
   <script>
-    // رابط السيرفر على Render
     const API_URL = "https://my-backend-cyj8.onrender.com/api/chat";
 
     const messagesDiv = document.getElementById("messages");
@@ -196,4 +194,32 @@
     }
 
     async function sendMessage() {
-      con
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      addMessage("👤 أنت: " + message, "user");
+      userInput.value = "";
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+        const data = await res.json();
+        if (data.reply) {
+          addMessage(data.reply, "bot");
+        } else {
+          addMessage("⚠️ خطأ: لم يصلنا رد من الخادم.", "bot");
+        }
+      } catch (err) {
+        addMessage("⚠️ خطأ: تعذر الاتصال بالسيرفر.", "bot");
+      }
+    }
+
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+</body>
+</html>
