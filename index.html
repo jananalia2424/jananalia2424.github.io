@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,118 +6,86 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>بوابة Jananalia — الصفحة الرئيسية</title>
   <style>
-    /* ====== قواعد عامة ====== */
     :root{
-      --brick:#8B2F2F;         /* Rouge Brique */
+      --brick:#8B2F2F;
       --brick-2:#a54444;
-      --accent1:#FFDAB9;       /* بيج فاتح */
-      --white: #ffffff;
-      --muted:#f7f4f2;
+      --accent1:#FFDAB9;
       --glass: rgba(255,255,255,0.12);
+      --card-radius:14px;
+      --text-dark:#122;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: "Cairo", "Tajawal", system-ui, sans-serif;
+      font-family: "Cairo","Tajawal",system-ui,-apple-system,Segoe UI, Roboto, "Helvetica Neue", Arial;
+      color:var(--text-dark);
       background: linear-gradient(180deg, var(--brick) 0%, #FF7F50 40%, var(--accent1) 100%);
-      min-height:100vh;
-      color:#222;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
       direction:rtl;
+      overflow-x:hidden;
     }
 
-    /* ====== Header / Search ====== */
+    /* HEADER + SEARCH */
     header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      padding:18px 16px;
+      position:sticky; top:0; z-index:80;
+      padding:18px 12px;
       backdrop-filter: blur(6px);
       background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      box-shadow:0 2px 8px rgba(0,0,0,0.12);
+      box-shadow:0 2px 10px rgba(0,0,0,0.12);
+      display:flex; justify-content:center; align-items:center;
     }
     .search-wrap{
-      width:100%;
-      max-width:980px;
-      display:flex;
-      align-items:center;
-      gap:8px;
+      width:100%; max-width:1100px; display:flex; gap:8px; align-items:center;
     }
     .search-input{
       flex:1;
       padding:12px 16px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,0.2);
-      outline:none;
+      border:1px solid rgba(255,255,255,0.22);
       font-size:15px;
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.9);
       text-align:right;
+      outline:none;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
     }
     .search-btn{
-      width:48px;
-      height:48px;
-      border-radius:50%;
-      border:none;
-      background:linear-gradient(180deg,var(--brick),var(--brick-2));
-      color:white;
-      font-size:20px;
-      cursor:pointer;
-      box-shadow:0 6px 14px rgba(0,0,0,0.2);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width:50px; height:50px; border-radius:50%;
+      border:none; cursor:pointer;
+      background: linear-gradient(180deg,var(--brick),var(--brick-2));
+      color:white; font-size:20px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.18);
+      display:flex; align-items:center; justify-content:center;
     }
-    .quick-links{
-      display:none;
-      margin-top:8px;
-      text-align:center;
+    #quickLinks{
+      max-width:1100px; margin:8px auto; text-align:center; display:none;
     }
-    .quick-links a{
-      display:inline-block;
-      margin:6px 8px;
-      padding:8px 12px;
-      background:rgba(255,255,255,0.95);
-      color:var(--brick);
-      text-decoration:none;
-      border-radius:8px;
-      font-weight:600;
-      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    #quickLinks a{
+      margin:6px 8px; padding:8px 12px; display:inline-block;
+      background:rgba(255,255,255,0.95); color:var(--brick); text-decoration:none; border-radius:8px;
+      font-weight:600; box-shadow:0 6px 12px rgba(0,0,0,0.05);
     }
 
-    /* ====== Grid of cards (icons) ====== */
-    main{padding:28px 16px 120px;}
+    /* MAIN GRID CARDS */
+    main{ padding:28px 14px 160px; }
     .cards{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      max-width:1200px; margin:0 auto; display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap:18px;
     }
     .card{
-      height:160px;
-      border-radius:14px;
-      color:var(--white);
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding:14px;
-      cursor:pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      height:170px; border-radius:var(--card-radius); color:white;
+      padding:14px; display:flex; flex-direction:column; justify-content:space-between;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      position:relative; overflow:hidden; cursor:pointer;
       transition: transform .22s ease, box-shadow .22s ease;
-      overflow:hidden;
-      position:relative;
     }
-    .card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.28); }
+    .card:hover{ transform: translateY(-8px); box-shadow:0 28px 60px rgba(0,0,0,0.28); }
+    .card .title{ font-size:18px; font-weight:800; text-align:right; }
+    .card .sub{ font-size:13px; opacity:0.95; text-align:right; }
 
-    .card .title{ font-size:18px; font-weight:700; text-align:right; }
-    .card .subtitle{ font-size:13px; opacity:0.95; text-align:right; }
-
-    /* gradients per card (harmonized with Rouge Brique) */
+    /* gradients */
     .c-accueil{ background: linear-gradient(135deg,#a1776f,#7b3b3b); }
     .c-photos{ background: linear-gradient(135deg,#2b75d9,#0ea5d5); }
     .c-artifacts{ background: linear-gradient(135deg,#d4af37,#b06b3a); }
@@ -130,131 +99,86 @@
     .c-gaming{ background: linear-gradient(135deg,#3a1c71,#6c2bd9); }
     .c-chat{ background: linear-gradient(135deg,#11998e,#38ef7d); color:#062b1f; }
 
-    /* decorative image layer inside card (bottom-left faded) */
-    .card .card-img{
-      position:absolute;
-      left:8px; bottom:8px;
-      width:80px; height:80px;
-      border-radius:10px;
-      opacity:0.18;
-      object-fit:cover;
-      box-shadow:inset 0 0 30px rgba(0,0,0,0.2);
+    .card .img-fade{
+      position:absolute; left:10px; bottom:10px; width:90px; height:90px; opacity:0.16; border-radius:10px; object-fit:cover;
+      box-shadow:inset 0 0 30px rgba(0,0,0,0.1);
     }
 
-    /* ====== Modal / Popup for galleries and lists ====== */
+    /* MODAL / POPUP */
     .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(5,5,10,0.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:120;
-      padding:20px;
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(5,5,10,0.6); z-index:120; padding:20px;
     }
     .modal{
-      width:100%;
-      max-width:1000px;
-      max-height:90vh;
-      background:var(--white);
-      border-radius:12px;
-      overflow:auto;
-      padding:18px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
+      width:100%; max-width:1100px; max-height:90vh; overflow:auto;
+      background:#fff; border-radius:12px; padding:16px; box-shadow:0 20px 60px rgba(0,0,0,0.35);
     }
-    .modal .modal-header{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      margin-bottom:10px;
-    }
-    .modal .modal-header h3{ margin:0; }
-    .close-btn{
-      cursor:pointer; background:#eee; border-radius:8px; padding:6px 10px; color:#333;
-    }
+    .modal .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;}
+    .modal .close{ cursor:pointer; padding:6px 10px; border-radius:8px; background:#f0f0f0; color:#333;}
     .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
-      gap:10px;
+      display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
     }
-    .grid img{
-      width:100%; height:120px; object-fit:cover; border-radius:8px; display:block;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
+    .grid img{ width:100%; height:120px; object-fit:cover; border-radius:8px; display:block; box-shadow:0 8px 20px rgba(0,0,0,0.12); }
+
     .links-list a{
-      display:block; padding:10px; margin:6px 0; background:#f7f7f7; border-radius:8px; color:#222; text-decoration:none;
-      box-shadow:0 6px 12px rgba(0,0,0,0.04);
+      display:block; padding:10px; margin:6px 0; background:#fafafa; color:#222; text-decoration:none; border-radius:8px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.04);
     }
 
-    /* ====== Chat widget bottom-right ====== */
+    /* CHAT WIDGET */
     .chat-btn{
-      position:fixed;
-      bottom:18px; right:18px;
-      width:62px; height:62px; border-radius:50%;
-      background:linear-gradient(180deg,var(--brick),var(--brick-2));
-      color:white; display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      z-index:80;
+      position:fixed; right:18px; bottom:18px; width:62px; height:62px; border-radius:50%;
+      background:linear-gradient(180deg,var(--brick),var(--brick-2)); color:white; display:flex; align-items:center; justify-content:center;
+      font-size:26px; cursor:pointer; z-index:200; box-shadow: 0 12px 40px rgba(0,0,0,0.3);
     }
     .chat-window{
-      position:fixed;
-      right:18px; bottom:92px;
-      width:360px; max-width:90vw;
-      height:460px;
-      background: #fff;
-      border-radius:12px;
-      box-shadow:0 18px 60px rgba(0,0,0,0.35);
-      display:none; flex-direction:column; overflow:hidden; z-index:80;
+      position:fixed; right:18px; bottom:92px; width:380px; height:480px; border-radius:12px; background:#fff;
+      box-shadow:0 24px 70px rgba(0,0,0,0.35); display:none; flex-direction:column; z-index:200; overflow:hidden;
     }
-    .chat-head{
-      background: linear-gradient(90deg,var(--brick),var(--brick-2));
-      color:white; padding:12px; font-weight:700; display:flex; align-items:center; gap:10px;
-    }
-    .chat-body{ padding:12px; flex:1; overflow:auto; background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01)); }
-    .bubble{ max-width:78%; margin:8px 0; padding:10px 12px; border-radius:14px; line-height:1.3; }
+    .chat-head{ background: linear-gradient(90deg,var(--brick),var(--brick-2)); color:#fff; padding:12px; font-weight:700; display:flex; justify-content:space-between; align-items:center;}
+    .chat-body{ padding:12px; flex:1; overflow:auto; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01)); }
+    .bubble{ max-width:78%; padding:10px 12px; border-radius:14px; margin:8px 0; line-height:1.3; }
     .bubble.user{ margin-left:auto; background: linear-gradient(90deg,#ffd1b8,#ffb899); color:#2b0700; }
     .bubble.bot{ margin-right:auto; background:#f1f4f8; color:#062b1f; }
+    .chat-footer{ display:flex; gap:8px; padding:12px; border-top:1px solid #eee; background:#fff; }
+    .chat-input{ flex:1; padding:8px; border-radius:8px; border:1px solid #eee; outline:none; }
 
-    .chat-footer{ padding:10px; border-top:1px solid #eee; display:flex; gap:8px; background:#fff; }
-    .chat-input{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid #eee; outline:none; }
     .send-btn{ padding:8px 12px; border-radius:8px; background:var(--brick); color:white; border:none; cursor:pointer; }
 
-    /* ====== floating animated decorations bottom ====== */
-    .floating-row{ position:fixed; left:0; right:0; bottom:0; height:120px; pointer-events:none; z-index:10; overflow:visible; }
+    /* FLOATING decorative bottom */
+    .floating-row{ position:fixed; left:0; right:0; bottom:0; height:120px; pointer-events:none; z-index:30; overflow:visible; }
     .float-item{
-      position:absolute; width:72px; height:72px; border-radius:12px; background:rgba(255,255,255,0.15);
-      display:flex; align-items:center; justify-content:center; font-size:28px; color:rgba(255,255,255,0.85);
-      animation: floaty 6s ease-in-out infinite;
-      box-shadow:0 6px 18px rgba(0,0,0,0.2);
+      position:absolute; width:72px; height:72px; border-radius:12px; background:rgba(255,255,255,0.12);
+      display:flex; align-items:center; justify-content:center; font-size:28px; color:rgba(255,255,255,0.9);
+      animation: floaty 6s ease-in-out infinite; box-shadow:0 6px 18px rgba(0,0,0,0.2);
     }
-    .float-item:nth-child(1){ left:6%; animation-delay:0s; transform:translateY(0); }
-    .float-item:nth-child(2){ left:26%; animation-delay:1s; transform:translateY(0); }
-    .float-item:nth-child(3){ left:46%; animation-delay:2s; transform:translateY(0); }
-    .float-item:nth-child(4){ left:66%; animation-delay:3s; transform:translateY(0); }
-    .float-item:nth-child(5){ left:86%; animation-delay:1.5s; transform:translateY(0); }
+    .float-item:nth-child(1){ left:6%; animation-delay:0s; }
+    .float-item:nth-child(2){ left:26%; animation-delay:1s; }
+    .float-item:nth-child(3){ left:46%; animation-delay:2s; }
+    .float-item:nth-child(4){ left:66%; animation-delay:3s; }
+    .float-item:nth-child(5){ left:86%; animation-delay:1.5s; }
 
-    @keyframes floaty{
-      0%{ transform:translateY(0px) rotate(0deg); }
-      50%{ transform:translateY(-22px) rotate(6deg); }
-      100%{ transform:translateY(0px) rotate(0deg); }
-    }
+    @keyframes floaty{ 0%{transform:translateY(0) } 50%{transform:translateY(-22px) } 100%{transform:translateY(0)} }
 
-    /* responsive tweaks */
-    @media (max-width:700px){
-      .card{ height:150px; padding:12px; }
-      .chat-window{ width:92vw; right:4vw; bottom:90px; }
+    /* responsive */
+    @media (max-width:800px){
+      .chat-window{ width:92vw; right:4vw; bottom:90px; height:70vh;}
+      .card{ height:150px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER / SEARCH -->
+  <!-- HEADER -->
   <header>
-    <div class="search-wrap" style="max-width:1100px;">
-      <input id="searchInput" class="search-input" placeholder="ابحث في Google أو اضغط المجهر لروابط القنوات..." />
+    <div class="search-wrap">
+      <input id="searchInput" class="search-input" placeholder="ابحث في Google أو اترك الحقل فارغ لعرض الروابط..." />
       <button id="searchBtn" class="search-btn" title="بحث">🔍</button>
     </div>
   </header>
 
-  <!-- QUICK LINKS (shown when search icon clicked or empty search) -->
-  <div id="quickLinks" class="quick-links" style="text-align:center; max-width:1100px; margin:6px auto;">
+  <!-- QUICK LINKS (shown when search empty & button clicked) -->
+  <div id="quickLinks">
     <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب @jananalia24</a>
     <a href="https://www.youtube.com/@jananalia2424" target="_blank">قناة يوتيوب @jananalia2424</a>
     <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">قروب فيسبوك jananalia2424</a>
@@ -265,246 +189,122 @@
     <section class="cards">
 
       <div class="card c-accueil" data-action="home">
-        <div>
-          <div class="title">🏠 Accueil</div>
-          <div class="subtitle">الصفحة الرئيسية</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/home/200/140" alt="">
+        <div><div class="title">🏠 Accueil</div><div class="sub">الصفحة الرئيسية</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/home/400/300" alt="">
       </div>
 
       <div class="card c-photos" data-modal="photosModal">
-        <div>
-          <div class="title">📷 صور</div>
-          <div class="subtitle">مناظر وطبيعة واضحة</div>
-        </div>
-        <img class="card-img" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=60&auto=format&fit=crop" alt="">
+        <div><div class="title">📷 صور</div><div class="sub">مناظر طبيعية واضحة</div></div>
+        <img class="img-fade" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=60&auto=format&fit=crop" alt="">
       </div>
 
       <div class="card c-artifacts" data-modal="artifactsModal">
-        <div>
-          <div class="title">🏛️ آثار</div>
-          <div class="subtitle">معالم وتاريخ</div>
-        </div>
-        <img class="card-img" src="https://images.unsplash.com/photo-1505765052294-5f3c9f3e9d6d?w=800&q=60&auto=format&fit=crop" alt="">
+        <div><div class="title">🏛️ آثار</div><div class="sub">معالم تاريخية</div></div>
+        <img class="img-fade" src="https://images.unsplash.com/photo-1505765052294-5f3c9f3e9d6d?w=800&q=60&auto=format&fit=crop" alt="">
       </div>
 
       <div class="card c-arts" data-modal="artsModal">
-        <div>
-          <div class="title">🎨 فنون</div>
-          <div class="subtitle">لوحات وإبداع</div>
-        </div>
-        <img class="card-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=60&auto=format&fit=crop" alt="">
+        <div><div class="title">🎨 فنون</div><div class="sub">لوحات وأعمال فنية</div></div>
+        <img class="img-fade" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=60&auto=format&fit=crop" alt="">
       </div>
 
       <div class="card c-about" data-modal="aboutModal">
-        <div>
-          <div class="title">ℹ️ من نحن</div>
-          <div class="subtitle">ترحيب ووصف قصير</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/about/200/140" alt="">
+        <div><div class="title">ℹ️ من نحن</div><div class="sub">تعرف على هدف الموقع</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/about/400/300" alt="">
       </div>
 
       <div class="card c-video" data-modal="videoModal">
-        <div>
-          <div class="title">🎬 Vidéo</div>
-          <div class="subtitle">قنواتك وأفلام</div>
-        </div>
-        <img class="card-img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=60&auto=format&fit=crop" alt="">
+        <div><div class="title">🎬 Vidéo</div><div class="sub">قنواتك وروابط الأفلام</div></div>
+        <img class="img-fade" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=60&auto=format&fit=crop" alt="">
       </div>
 
       <div class="card c-gaming" data-modal="gamingModal">
-        <div>
-          <div class="title">🎮 Gaming</div>
-          <div class="subtitle">ألعاب أطفال وروابط</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/game/200/140" alt="">
+        <div><div class="title">🎮 Gaming</div><div class="sub">ألعاب أطفال وروابط ممتعة</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/game/400/300" alt="">
       </div>
 
       <div class="card c-amis" data-modal="amisModal">
-        <div>
-          <div class="title">👥 Amis</div>
-          <div class="subtitle">وصلات وصور للأصدقاء</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/friends/200/140" alt="">
+        <div><div class="title">👥 Amis</div><div class="sub">روابط الأصدقاء</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/friends/400/300" alt="">
       </div>
 
       <div class="card c-partage" data-modal="partageModal">
-        <div>
-          <div class="title">📤 Partage</div>
-          <div class="subtitle">مشاركة الصفحة</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/share/200/140" alt="">
+        <div><div class="title">📤 Partage</div><div class="sub">مشاركة الصفحة بسهولة</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/share/400/300" alt="">
       </div>
 
       <div class="card c-invite" data-modal="inviteModal">
-        <div>
-          <div class="title">✉️ Inviter</div>
-          <div class="subtitle">دعوة الأصدقاء بسهولة</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/invite/200/140" alt="">
+        <div><div class="title">✉️ Inviter</div><div class="sub">ادعُ أصدقائك</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/invite/400/300" alt="">
       </div>
 
       <div class="card c-plus" data-modal="plusModal">
-        <div>
-          <div class="title">➕ Plus</div>
-          <div class="subtitle">محتوى إضافي</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/plus/200/140" alt="">
+        <div><div class="title">➕ Plus</div><div class="sub">محتوى إضافي</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/plus/400/300" alt="">
       </div>
 
       <div class="card c-chat" data-action="openChat">
-        <div>
-          <div class="title">💬 Chat</div>
-          <div class="subtitle">مواقع شات + TikTok</div>
-        </div>
-        <img class="card-img" src="https://picsum.photos/seed/chat/200/140" alt="">
+        <div><div class="title">💬 Chat</div><div class="sub">روابط الشات + TikTok</div></div>
+        <img class="img-fade" src="https://picsum.photos/seed/chat/400/300" alt="">
       </div>
 
     </section>
   </main>
 
-  <!-- ===== Modals ===== -->
-  <!-- Photos Modal -->
-  <div id="photosModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>📷 صور — مناظر طبيعية</h3>
-        <div class="close-btn" data-close="photosModal">إغلاق ✖</div>
-      </div>
-      <div class="grid" id="photosGrid">
-        <!-- images inserted by JS for clarity -->
+  <!-- MODALS -->
+  <div id="photosModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>📷 صور — مناظر</h3><div class="close" data-close="photosModal">إغلاق ✖</div></div><div class="grid" id="photosGrid"></div></div></div>
+
+  <div id="artifactsModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>🏛️ آثار — معالم</h3><div class="close" data-close="artifactsModal">إغلاق ✖</div></div><div class="grid" id="artifactsGrid"></div></div></div>
+
+  <div id="artsModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>🎨 فنون — لوحات</h3><div class="close" data-close="artsModal">إغلاق ✖</div></div><div class="grid" id="artsGrid"></div></div></div>
+
+  <div id="videoModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>🎬 فيديو — قنواتك وأفلام</h3><div class="close" data-close="videoModal">إغلاق ✖</div></div><div class="links-list">
+    <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب: @jananalia24</a>
+    <a href="https://www.youtube.com/@jananalia2424" target="_blank">قناة يوتيوب: @jananalia2424</a>
+    <a href="https://www.youtube.com/results?search_query=افلام+عادل+امام" target="_blank">بحث عن أفلام عادل إمام على YouTube</a>
+    <a href="https://www.imdb.com/name/nm0407682/" target="_blank">IMDb — Adel Imam</a>
+    <a href="https://www.rottentomatoes.com/celebrity/adel_imam" target="_blank">RottenTomatoes — Adel Imam</a>
+  </div></div></div>
+
+  <div id="gamingModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>🎮 ألعاب أطفال</h3><div class="close" data-close="gamingModal">إغلاق ✖</div></div><div class="links-list">
+    <a href="https://pbskids.org/games/" target="_blank">PBS Kids Games</a>
+    <a href="https://www.cartoonnetworkhq.com/games" target="_blank">Cartoon Network Games</a>
+    <a href="https://www.nick.com/games" target="_blank">Nickelodeon Games</a>
+    <a href="https://www.friv.com" target="_blank">Friv</a>
+  </div></div></div>
+
+  <div id="amisModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>👥 Amis — تواصل</h3><div class="close" data-close="amisModal">إغلاق ✖</div></div><div class="links-list">
+    <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">قروب فيسبوك</a>
+    <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب</a>
+  </div></div></div>
+
+  <div id="partageModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>📤 مشاركة</h3><div class="close" data-close="partageModal">إغلاق ✖</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a class="links-list" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">شارك على فيسبوك</a>
+      <a class="links-list" href="https://wa.me/?text=https://example.com" target="_blank">شارك على واتساب</a>
+      <a class="links-list" href="mailto:?subject=تعال%20شوف&body=https://example.com">أرسل عبر البريد</a>
+    </div>
+  </div></div>
+
+  <div id="inviteModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>✉️ Inviter — دعوة</h3><div class="close" data-close="inviteModal">إغلاق ✖</div></div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <input id="inviteLink" value="https://www.facebook.com/groups/jananalia2424" style="padding:8px;border-radius:8px;border:1px solid #ddd" />
+      <div style="display:flex;gap:8px;">
+        <button onclick="copyInvite()" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--brick);color:white;cursor:pointer">نسخ الرابط</button>
+        <a class="links-list" href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/jananalia2424" target="_blank" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:#f2f2f2;color:#333;text-decoration:none">مشاركة فيسبوك</a>
       </div>
     </div>
-  </div>
+  </div></div>
 
-  <!-- Artifacts Modal -->
-  <div id="artifactsModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🏛️ آثار — معالم تاريخية</h3>
-        <div class="close-btn" data-close="artifactsModal">إغلاق ✖</div>
-      </div>
-      <div class="grid" id="artifactsGrid"></div>
-    </div>
-  </div>
+  <div id="aboutModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>ℹ️ من نحن</h3><div class="close" data-close="aboutModal">إغلاق ✖</div></div>
+    <div><p>أهلاً بك في بوابة Jananalia — مساحة مريحة للترفيه والمعرفة والتواصل. تجد هنا صوراً، مقاطع فيديو، روابط لمواضيع تهم الجماهير، وفريق دعم افتراضي عبر ChatGPT لمساعدتك فوراً.</p></div>
+  </div></div>
 
-  <!-- Arts Modal -->
-  <div id="artsModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🎨 فنون — لوحات واختيارات فنية</h3>
-        <div class="close-btn" data-close="artsModal">إغلاق ✖</div>
-      </div>
-      <div class="grid" id="artsGrid"></div>
-    </div>
-  </div>
+  <div id="plusModal" class="modal-backdrop"><div class="modal"><div class="modal-header"><h3>➕ Plus</h3><div class="close" data-close="plusModal">إغلاق ✖</div></div>
+    <div><p>محتوى إضافي سيضاف لاحقاً — روابط أو أقسام جديدة.</p></div>
+  </div></div>
 
-  <!-- Video Modal -->
-  <div id="videoModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🎬 فيديو — قنواتك وروابط أفلام</h3>
-        <div class="close-btn" data-close="videoModal">إغلاق ✖</div>
-      </div>
-      <div class="links-list">
-        <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب: @jananalia24</a>
-        <a href="https://www.youtube.com/@jananalia2424" target="_blank">قناة يوتيوب: @jananalia2424</a>
-        <a href="https://www.youtube.com/results?search_query=افلام+عادل+امام" target="_blank">بحث YouTube: أفلام عادل إمام</a>
-        <a href="https://www.imdb.com/name/nm0407682/" target="_blank">IMDb — Adel Imam</a>
-        <a href="https://www.rottentomatoes.com/celebrity/adel_imam" target="_blank">RottenTomatoes — Adel Imam</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Gaming Modal -->
-  <div id="gamingModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>🎮 Gaming — ألعاب أطفال وروابط</h3>
-        <div class="close-btn" data-close="gamingModal">إغلاق ✖</div>
-      </div>
-      <div class="links-list">
-        <a href="https://pbskids.org/games/" target="_blank">PBS Kids Games</a>
-        <a href="https://www.cartoonnetworkhq.com/games" target="_blank">Cartoon Network Games</a>
-        <a href="https://www.nick.com/games" target="_blank">Nickelodeon Games</a>
-        <a href="https://www.friv.com" target="_blank">Friv</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Chat Links Modal -->
-  <div id="amisModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>👥 Amis — روابط تواصل</h3>
-        <div class="close-btn" data-close="amisModal">إغلاق ✖</div>
-      </div>
-      <div class="links-list">
-        <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">قروب فيسبوك</a>
-        <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Partage Modal -->
-  <div id="partageModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>📤 مشاركة — شارك الصفحة</h3>
-        <div class="close-btn" data-close="partageModal">إغلاق ✖</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <a class="links-list" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">شارك على فيسبوك</a>
-        <a class="links-list" href="https://wa.me/?text=https://example.com" target="_blank">شارك على واتساب</a>
-        <a class="links-list" href="mailto:?subject=تعال%20شوف&body= https://example.com">أرسل عبر البريد</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Invite Modal -->
-  <div id="inviteModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>✉️ Inviter — دعوة الأصدقاء</h3>
-        <div class="close-btn" data-close="inviteModal">إغلاق ✖</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <input id="inviteLink" value="https://www.facebook.com/groups/jananalia2424" style="padding:8px;border-radius:8px;border:1px solid #ddd" />
-        <div style="display:flex;gap:8px;">
-          <button onclick="copyInvite()" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--brick);color:white;cursor:pointer">نسخ الرابط</button>
-          <a class="links-list" href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/jananalia2424" target="_blank" style="flex:1;text-align:center;padding:10px;border-radius:8px;background:#f2f2f2;color:#333;text-decoration:none">مشاركة فيسبوك</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- About Modal -->
-  <div id="aboutModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>ℹ️ من نحن</h3>
-        <div class="close-btn" data-close="aboutModal">إغلاق ✖</div>
-      </div>
-      <div>
-        <p>أهلاً وسهلاً بك في بوابة Jananalia — مساحة مريحة للترفيه والمعرفة والتواصل. تجد هنا صوراً، مقاطع فيديو، روابط لمواضيع تهم الجماهير، وفريق دعم افتراضي عبر ChatGPT لمساعدتك فوراً.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Plus Modal (placeholder) -->
-  <div id="plusModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>➕ Plus</h3>
-        <div class="close-btn" data-close="plusModal">إغلاق ✖</div>
-      </div>
-      <div>
-        <p>محتوى إضافي سيضاف لاحقاً — هنا يمكنك وضع روابط أو أقسام جديدة.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating animated decorative row -->
+  <!-- FLOATING DECORATIONS -->
   <div class="floating-row" aria-hidden="true">
     <div class="float-item">🌸</div>
     <div class="float-item">⭐</div>
@@ -513,132 +313,122 @@
     <div class="float-item">✨</div>
   </div>
 
-  <!-- CHAT: button + window -->
-  <div class="chat-btn" id="openChat" title="دعم">
+  <!-- CHAT WIDGET -->
+  <div class="chat-btn" id="chatBtn" title="دعم">
     💬
   </div>
 
   <div class="chat-window" id="chatWindow" role="dialog" aria-label="دردشة الدعم">
     <div class="chat-head">
-      <div style="flex:1">دردشة الدعم — ChatGPT</div>
+      <div>دردشة الدعم — ChatGPT</div>
       <button id="closeChat" style="background:transparent;border:none;color:#fff;cursor:pointer;font-weight:700">✖</button>
     </div>
-    <div class="chat-body" id="chatBody">
-      <!-- messages go here -->
-    </div>
+    <div class="chat-body" id="chatBody"></div>
     <div class="chat-footer">
-      <input id="chatInput" class="chat-input" placeholder="اكتب رسالتك..." aria-label="رسالة">
+      <input id="chatInput" class="chat-input" placeholder="اكتب رسالتك..." aria-label="رسالة"/>
       <button id="chatSend" class="send-btn">إرسال</button>
     </div>
   </div>
 
   <script>
-    /* ========== Utility to open/close modals ========== */
-    function openModal(id){
-      document.getElementById(id).style.display = "flex";
-    }
-    function closeModalById(id){
-      document.getElementById(id).style.display = "none";
-    }
-    document.querySelectorAll('.close-btn').forEach(btn=>{
-      btn.addEventListener('click',()=> closeModalById(btn.dataset.close || btn.getAttribute('data-close')));
-    });
-
-    /* ====== Populate galleries with clear images (Unsplash) ====== */
+    /* ---------- Populate galleries ---------- */
     const photos = [
       "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?crop=entropy&w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1503264116251-35a269479413?w=1200&q=80&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1430105971761-1c20c1f7f2a0?w=1200&q=80&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1430105971761-1c20c1f7f2a0?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=1200&q=80&auto=format&fit=crop"
     ];
     const artifacts = [
       "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?crop=entropy&w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&q=80&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1200&q=80&auto=format&fit=crop"
-    ];
-    const arts = [
-      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1529101091764-c3526daf38fe?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=1200&q=80&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1506765515384-028b60a970df?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1200&q=80&auto=format&fit=crop",
       "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1200&q=80&auto=format&fit=crop"
     ];
+    const arts = [
+      "https://images.unsplash.com/photo-1529101091764-c3526daf38fe?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1481277542470-605612bd2d61?w=1200&q=80&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=1200&q=80&auto=format&fit=crop"
+    ];
 
-    function fillGrid(gridId, arr){
-      const container = document.getElementById(gridId);
-      if(!container) return;
-      container.innerHTML = "";
+    function fillGrid(id, arr){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.innerHTML = "";
       arr.forEach(src=>{
         const img = document.createElement('img');
         img.src = src;
         img.loading = "lazy";
-        container.appendChild(img);
+        el.appendChild(img);
       });
     }
     fillGrid('photosGrid', photos);
     fillGrid('artifactsGrid', artifacts);
     fillGrid('artsGrid', arts);
 
-    /* ====== Cards click handlers ====== */
+    /* ---------- Card handlers ---------- */
     document.querySelectorAll('.card').forEach(card=>{
       card.addEventListener('click', ()=>{
         const modal = card.dataset.modal;
         const action = card.dataset.action;
         if(modal) openModal(modal);
-        if(action === 'home'){
-          window.scrollTo({top:0, behavior:'smooth'});
-        }
-        if(action === 'openChat'){
-          toggleChat(true);
-        }
+        if(action === 'home') window.scrollTo({top:0, behavior:'smooth'});
+        if(action === 'openChat') toggleChat(true);
       });
     });
 
-    /* ====== Quick links toggle (search button) ====== */
+    /* ---------- Modal utilities ---------- */
+    function openModal(id){ document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id){ document.getElementById(id).style.display = 'none'; }
+    document.querySelectorAll('.close').forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        const id = btn.getAttribute('data-close') || btn.dataset.close;
+        if(id) closeModal(id);
+      });
+    });
+    document.querySelectorAll('.modal-backdrop').forEach(b=>{
+      b.addEventListener('click', e => { if(e.target === b) b.style.display='none'; });
+    });
+
+    /* ---------- Quick links (search) ---------- */
     const searchBtn = document.getElementById('searchBtn');
     const quickLinks = document.getElementById('quickLinks');
     const searchInput = document.getElementById('searchInput');
     searchBtn.addEventListener('click', ()=>{
       const q = searchInput.value.trim();
-      if(q){
-        // if user typed query, open Google search in new tab
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
-      } else {
-        // if empty -> show quick links (toggle)
-        quickLinks.style.display = quickLinks.style.display === 'block' ? 'none' : 'block';
-      }
+      if(q) window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
+      else quickLinks.style.display = quickLinks.style.display === 'block' ? 'none' : 'block';
     });
 
-    /* ====== Invite copy ====== */
+    /* ---------- Invite copy ---------- */
     function copyInvite(){
       const el = document.getElementById('inviteLink');
-      el.select();
-      el.setSelectionRange(0, 99999);
+      el.select(); el.setSelectionRange(0,99999);
       document.execCommand('copy');
-      alert('تم نسخ الرابط إلى الحافظة');
+      alert('تم نسخ الرابط');
     }
 
-    /* ====== Chat widget logic (send/receive to local server) ====== */
-    const chatBtn = document.getElementById('openChat');
+    /* ---------- Chat widget (connect to local server) ---------- */
+    const chatBtn = document.getElementById('chatBtn');
     const chatWindow = document.getElementById('chatWindow');
-    const chatClose = document.getElementById('closeChat');
+    const closeChat = document.getElementById('closeChat');
     const chatSend = document.getElementById('chatSend');
     const chatInput = document.getElementById('chatInput');
     const chatBody = document.getElementById('chatBody');
 
-    function toggleChat(open){
-      if(open === true) chatWindow.style.display='flex';
+    function toggleChat(forceOpen){
+      if(forceOpen === true) chatWindow.style.display = 'flex';
       else chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
       chatBody.scrollTop = chatBody.scrollHeight;
     }
     chatBtn.addEventListener('click', ()=> toggleChat());
-    chatClose.addEventListener('click', ()=> toggleChat(false));
+    closeChat.addEventListener('click', ()=> toggleChat(false));
 
     function appendBubble(text, who='bot'){
       const el = document.createElement('div');
@@ -654,20 +444,19 @@
       appendBubble(txt, 'user');
       chatInput.value = '';
       try{
-        const res = await fetch('http://localhost:5000/api/chat', {
+        const res = await fetch('http://localhost:5000/api/chat',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ message: txt })
         });
         const data = await res.json();
-        // handle different response shapes: prefer data.reply then data.choices...
         let reply = '';
         if(data.reply) reply = data.reply;
         else if(data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) reply = data.choices[0].message.content;
         else if(data.choices && data.choices[0] && data.choices[0].text) reply = data.choices[0].text;
-        else reply = JSON.stringify(data).slice(0,800);
+        else reply = JSON.stringify(data).slice(0,1000);
         appendBubble(reply, 'bot');
-      } catch (err){
+      } catch(err){
         appendBubble('⚠️ تعذر الاتصال بالسيرفر المحلي. تأكد أن server.js شغّال.', 'bot');
       }
     }
@@ -675,14 +464,7 @@
     chatSend.addEventListener('click', sendChat);
     chatInput.addEventListener('keypress', e => { if(e.key === 'Enter') sendChat(); });
 
-    /* ====== Close modals when clicking backdrop ====== */
-    document.querySelectorAll('.modal-backdrop').forEach(back=>{
-      back.addEventListener('click', (ev)=>{
-        if(ev.target === back) back.style.display = 'none';
-      });
-    });
-
-    /* ====== Initialize: hide quick links by default ====== */
+    /* init */
     quickLinks.style.display = 'none';
   </script>
 </body>
