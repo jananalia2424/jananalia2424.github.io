@@ -1,204 +1,138 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>بوابة Jananalia — الصفحة الرئيسية</title>
-  <style>
-    /* ====== الألوان الأساسية ====== */
-    :root{
-      --red-brique:#8B2F2F;  /* Rouge Brique */
-      --red-strong:#D32F2F;  /* أحمر قوي */
-      --dark:#121212;         /* دارك */
-      --white:#ffffff;
-      --black:#000000;
-      --accent:#f2f2f2;      /* فاتح للتباين */
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:"Cairo","Tajawal",system-ui,sans-serif;
-      background: linear-gradient(180deg,var(--dark) 0%,var(--black) 100%);
-      min-height:100vh;
-      color:var(--white);
-      direction:rtl;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>بوابة Jananalia — الصفحة الرئيسية</title>
+<style>
+:root{
+  --brick:#8B2F2F; /* Rouge Brique */
+  --dark:#222;
+  --white:#fff;
+  --black:#000;
+  --red:#FF3B3B;
+  --orange:#FF7F50;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:"Cairo","Tajawal",sans-serif;
+  background:var(--dark);
+  color:var(--white);
+  min-height:100vh;
+  direction:rtl;
+}
 
-    /* ====== Header / Search ====== */
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      padding:16px;
-      backdrop-filter:blur(6px);
-      background: rgba(18,18,18,0.95);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      box-shadow:0 2px 8px rgba(0,0,0,0.3);
-    }
-    .search-wrap{
-      width:100%;
-      max-width:980px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .search-input{
-      flex:1;
-      padding:12px 16px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.2);
-      outline:none;
-      font-size:15px;
-      background: var(--white);
-      color: var(--black);
-      text-align:right;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-    .search-btn{
-      width:48px; height:48px; border-radius:50%;
-      border:none;
-      background: linear-gradient(180deg,var(--red-brique),var(--red-strong));
-      color:white;
-      font-size:20px;
-      cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      box-shadow:0 6px 14px rgba(0,0,0,0.2);
-    }
+/* HEADER / SEARCH */
+header{
+  position:sticky; top:0; z-index:50;
+  display:flex; justify-content:center; align-items:center;
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.6);
+  padding:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.search-wrap{
+  width:100%; max-width:980px; display:flex; gap:8px;
+}
+.search-input{
+  flex:1; padding:12px 16px; border-radius:999px;
+  border:1px solid rgba(255,255,255,0.3);
+  outline:none; font-size:15px; text-align:right;
+  background: rgba(255,255,255,0.85); color:#222;
+}
+.search-btn{
+  width:48px; height:48px; border-radius:50%; border:none;
+  background: linear-gradient(180deg,var(--brick),var(--red));
+  color:white; font-size:20px; cursor:pointer;
+  display:flex; justify-content:center; align-items:center;
+  box-shadow:0 6px 14px rgba(0,0,0,0.4);
+}
 
-    /* ====== Quick Links ====== */
-    .quick-links{
-      display:none;
-      margin-top:8px;
-      text-align:center;
-    }
-    .quick-links a{
-      display:inline-block;
-      margin:6px 8px;
-      padding:8px 12px;
-      background:var(--white);
-      color:var(--red-brique);
-      text-decoration:none;
-      border-radius:8px;
-      font-weight:600;
-      box-shadow:0 3px 8px rgba(0,0,0,0.08);
-    }
+/* QUICK LINKS */
+.quick-links{
+  display:none; text-align:center; margin:8px auto; max-width:1100px;
+}
+.quick-links a{
+  display:inline-block; margin:6px 8px; padding:8px 12px;
+  background:var(--white); color:var(--brick);
+  text-decoration:none; border-radius:8px; font-weight:600;
+  box-shadow:0 3px 8px rgba(0,0,0,0.2);
+}
 
-    /* ====== Grid of Cards ====== */
-    main{padding:28px 16px 120px;}
-    .cards{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap:18px;
-    }
-    .card{
-      height:160px;
-      border-radius:14px;
-      color:var(--white);
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding:14px;
-      cursor:pointer;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      transition: transform .22s ease, box-shadow .22s ease;
-      overflow:hidden;
-      position:relative;
-    }
-    .card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.45); }
-    .card .title{ font-size:18px; font-weight:700; text-align:right; }
-    .card .subtitle{ font-size:13px; opacity:0.9; text-align:right; }
+/* GRID CARDS */
+main{padding:28px 16px 120px;}
+.cards{
+  display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+}
+.card{
+  position:relative; width:180px; height:160px;
+  border-radius:14px; display:flex; flex-direction:column;
+  justify-content:space-between; padding:14px;
+  cursor:pointer; overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  transition:0.22s;
+}
+.card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,0.6);}
+.card .title{ font-size:18px; font-weight:700; }
+.card .subtitle{ font-size:13px; opacity:0.95; }
 
-    /* ====== ألوان الكروت ====== */
-    .c-accueil{ background: linear-gradient(135deg,var(--red-brique),var(--red-strong)); }
-    .c-photos{ background: linear-gradient(135deg,var(--white),var(--accent)); color: var(--black); }
-    .c-artifacts{ background: linear-gradient(135deg,var(--dark),var(--black)); }
-    .c-arts{ background: linear-gradient(135deg,#C2185B,#E91E63); }
-    .c-about{ background: linear-gradient(135deg,#FF5722,#FF7043); }
-    .c-video{ background: linear-gradient(135deg,#9C27B0,#673AB7); }
-    .c-gaming{ background: linear-gradient(135deg,#03A9F4,#00BCD4); }
-    .c-amis{ background: linear-gradient(135deg,#4CAF50,#81C784); color: var(--black); }
-    .c-partage{ background: linear-gradient(135deg,#F44336,#EF5350); }
-    .c-invite{ background: linear-gradient(135deg,#FFC107,#FFEB3B); color: var(--black); }
-    .c-plus{ background: linear-gradient(135deg,#795548,#A1887F); }
-    .c-chat{ background: linear-gradient(135deg,#607D8B,#90A4AE); }
+/* كل بطاقة لون مختلف */
+.c-accueil{ background: linear-gradient(135deg,var(--white),var(--brick)); color:var(--dark);}
+.c-photos{ background: linear-gradient(135deg,var(--red),var(--black)); }
+.c-artifacts{ background: linear-gradient(135deg,var(--orange),var(--brick)); }
+.c-arts{ background: linear-gradient(135deg,var(--white),var(--red)); color:var(--black);}
+.c-about{ background: linear-gradient(135deg,var(--brick),var(--orange)); }
+.c-video{ background: linear-gradient(135deg,var(--red),var(--orange)); }
+.c-gaming{ background: linear-gradient(135deg,var(--dark),var(--brick)); }
+.c-amis{ background: linear-gradient(135deg,var(--white),var(--black)); color:var(--brick);}
+.c-partage{ background: linear-gradient(135deg,var(--orange),var(--red)); }
+.c-invite{ background: linear-gradient(135deg,var(--brick),var(--white)); color:var(--dark);}
+.c-plus{ background: linear-gradient(135deg,var(--red),var(--dark)); }
+.c-chat{ background: linear-gradient(135deg,var(--orange),var(--brick)); }
 
-    .card .card-img{
-      position:absolute;
-      left:8px; bottom:8px;
-      width:80px; height:80px;
-      border-radius:10px;
-      opacity:0.18;
-      object-fit:cover;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
-    }
+/* صور داخل البطاقة */
+.card .card-img{
+  position:absolute; left:8px; bottom:8px;
+  width:80px; height:80px;
+  border-radius:10px; opacity:0.15; object-fit:cover;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+}
 
-    /* ====== Modals ====== */
-    .modal-backdrop{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,0.75);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:120;
-      padding:20px;
-    }
-    .modal{
-      width:100%;
-      max-width:1000px;
-      max-height:90vh;
-      background:var(--white);
-      border-radius:12px;
-      overflow:auto;
-      padding:18px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
-      color:var(--black);
-    }
-    .modal .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
-    .close-btn{ cursor:pointer; background:#eee; border-radius:8px; padding:6px 10px; color:#333; }
+/* CHAT MESSENGER */
+#messengerIcon{
+  position:fixed; bottom:18px; right:18px;
+  width:62px; height:62px; border-radius:50%;
+  background:linear-gradient(180deg,var(--brick),var(--red));
+  color:white; font-size:26px; display:flex;
+  justify-content:center; align-items:center;
+  cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:80;
+}
+#messengerChat{
+  position:fixed; right:18px; bottom:92px;
+  width:360px; max-width:90vw; height:460px;
+  background:var(--white); color:var(--dark);
+  border-radius:12px; display:none; flex-direction:column;
+  overflow:hidden; z-index:80; box-shadow:0 18px 60px rgba(0,0,0,0.5);
+}
+#messengerChat .head{ background:var(--brick); color:white; padding:12px; font-weight:700; display:flex; justify-content:space-between;}
+#messengerBody{ flex:1; padding:12px; overflow:auto; background:var(--black); color:var(--white);}
+#messengerInput{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid #ccc; outline:none;}
+#sendBtn{ padding:8px 12px; border-radius:8px; background:var(--brick); color:white; border:none; cursor:pointer; margin-left:4px;}
 
-    /* ====== Chat widget ====== */
-    .chat-btn{
-      position:fixed; bottom:18px; right:18px;
-      width:62px; height:62px; border-radius:50%;
-      background: linear-gradient(180deg,var(--red-brique),var(--red-strong));
-      color:white; display:flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index:80;
-    }
-    .chat-window{
-      position:fixed; right:18px; bottom:92px;
-      width:360px; max-width:90vw;
-      height:460px;
-      background: var(--white);
-      border-radius:12px;
-      box-shadow:0 18px 60px rgba(0,0,0,0.35);
-      display:none; flex-direction:column; overflow:hidden; z-index:80;
-      color:var(--black);
-    }
-    .chat-head{
-      background: linear-gradient(90deg,var(--red-brique),var(--red-strong));
-      color:white; padding:12px; font-weight:700; display:flex; align-items:center; gap:10px;
-    }
-    .chat-body{ padding:12px; flex:1; overflow:auto; background: var(--accent); }
-    .bubble{ max-width:78%; margin:8px 0; padding:10px 12px; border-radius:14px; line-height:1.3; }
-    .bubble.user{ margin-left:auto; background: var(--red-brique); color: var(--white);}
-    .bubble.bot{ margin-right:auto; background:#f1f4f8; color:#000;}
-
-    .chat-footer{ padding:10px; border-top:1px solid #eee; display:flex; gap:8px; background:#fff; }
-    .chat-input{ flex:1; padding:8px 10px; border-radius:8px; border:1px solid #eee; outline:none; }
-    .send-btn{ padding:8px 12px; border-radius:8px; background:var(--red-brique); color:white; border:none; cursor:pointer; }
-  </style>
+/* Bubbles */
+.bubble{ margin:6px 0; padding:8px 10px; border-radius:12px; max-width:75%; }
+.userBubble{ background:var(--red); color:white; margin-left:auto;}
+.botBubble{ background:var(--white); color:var(--dark); margin-right:auto;}
+</style>
 </head>
 <body>
 
 <header>
-  <div class="search-wrap" style="max-width:1100px;">
-    <input id="searchInput" class="search-input" placeholder="ابحث في Google أو اضغط المجهر لروابط القنوات..." />
-    <button id="searchBtn" class="search-btn" title="بحث">🔍</button>
-  </div>
+<div class="search-wrap">
+  <input id="searchInput" class="search-input" placeholder="ابحث في Google أو اضغط المجهر لروابط القنوات..." />
+  <button id="searchBtn">🔍</button>
+</div>
 </header>
 
 <div id="quickLinks" class="quick-links">
@@ -208,95 +142,43 @@
 </div>
 
 <main>
-  <section class="cards">
-    <div class="card c-accueil" data-action="home">
-      <div><div class="title">🏠 Accueil</div><div class="subtitle">الصفحة الرئيسية</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/home/200/140" alt="">
-    </div>
-    <div class="card c-photos" data-modal="photosModal">
-      <div><div class="title">📷 صور</div><div class="subtitle">مناظر وطبيعة واضحة</div></div>
-      <img class="card-img" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=60&auto=format&fit=crop" alt="">
-    </div>
-    <div class="card c-artifacts" data-modal="artifactsModal">
-      <div><div class="title">🏛️ آثار</div><div class="subtitle">معالم وتاريخ</div></div>
-      <img class="card-img" src="https://images.unsplash.com/photo-1505765052294-5f3c9f3e9d6d?w=800&q=60&auto=format&fit=crop" alt="">
-    </div>
-    <div class="card c-arts" data-modal="artsModal">
-      <div><div class="title">🎨 فنون</div><div class="subtitle">لوحات وإبداع</div></div>
-      <img class="card-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=60&auto=format&fit=crop" alt="">
-    </div>
-    <div class="card c-about" data-modal="aboutModal">
-      <div><div class="title">ℹ️ من نحن</div><div class="subtitle">ترحيب ووصف قصير</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/about/200/140" alt="">
-    </div>
-    <div class="card c-video" data-modal="videoModal">
-      <div><div class="title">🎬 Vidéo</div><div class="subtitle">قنواتك وأفلام</div></div>
-      <img class="card-img" src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=60&auto=format&fit=crop" alt="">
-    </div>
-    <div class="card c-gaming" data-modal="gamingModal">
-      <div><div class="title">🎮 Gaming</div><div class="subtitle">ألعاب أطفال وروابط</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/game/200/140" alt="">
-    </div>
-    <div class="card c-amis" data-modal="amisModal">
-      <div><div class="title">👥 Amis</div><div class="subtitle">وصلات وصور للأصدقاء</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/friends/200/140" alt="">
-    </div>
-    <div class="card c-partage" data-modal="partageModal">
-      <div><div class="title">📤 Partage</div><div class="subtitle">مشاركة الصفحة</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/share/200/140" alt="">
-    </div>
-    <div class="card c-invite" data-modal="inviteModal">
-      <div><div class="title">✉️ Inviter</div><div class="subtitle">دعوة الأصدقاء بسهولة</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/invite/200/140" alt="">
-    </div>
-    <div class="card c-plus" data-modal="plusModal">
-      <div><div class="title">➕ Plus</div><div class="subtitle">محتوى إضافي</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/plus/200/140" alt="">
-    </div>
-    <div class="card c-chat" data-action="openChat">
-      <div><div class="title">💬 Chat</div><div class="subtitle">مواقع شات + TikTok</div></div>
-      <img class="card-img" src="https://picsum.photos/seed/chat/200/140" alt="">
-    </div>
-  </section>
+<section class="cards">
+  <div class="card c-accueil"><div><div class="title">🏠 الرئيسية</div><div class="subtitle">Accueil</div></div><img class="card-img" src="https://picsum.photos/seed/home/400/300" alt=""></div>
+  <div class="card c-photos"><div><div class="title">📷 صور</div><div class="subtitle">Photos</div></div><img class="card-img" src="https://picsum.photos/seed/photos/400/300" alt=""></div>
+  <div class="card c-artifacts"><div><div class="title">🏛️ آثار</div><div class="subtitle">Artifacts</div></div><img class="card-img" src="https://picsum.photos/seed/artifacts/400/300" alt=""></div>
+  <div class="card c-arts"><div><div class="title">🎨 فنون</div><div class="subtitle">Arts</div></div><img class="card-img" src="https://picsum.photos/seed/arts/400/300" alt=""></div>
+  <div class="card c-about"><div><div class="title">ℹ️ من نحن</div><div class="subtitle">About</div></div><img class="card-img" src="https://picsum.photos/seed/about/400/300" alt=""></div>
+  <div class="card c-video"><div><div class="title">🎬 فيديو</div><div class="subtitle">Video</div></div><img class="card-img" src="https://picsum.photos/seed/video/400/300" alt=""></div>
+  <div class="card c-gaming"><div><div class="title">🎮 ألعاب</div><div class="subtitle">Gaming</div></div><img class="card-img" src="https://picsum.photos/seed/gaming/400/300" alt=""></div>
+  <div class="card c-amis"><div><div class="title">👥 أصدقاء</div><div class="subtitle">Amis</div></div><img class="card-img" src="https://picsum.photos/seed/amis/400/300" alt=""></div>
+  <div class="card c-partage"><div><div class="title">📤 مشاركة</div><div class="subtitle">Share</div></div><img class="card-img" src="https://picsum.photos/seed/share/400/300" alt=""></div>
+  <div class="card c-invite"><div><div class="title">✉️ دعوة</div><div class="subtitle">Invite</div></div><img class="card-img" src="https://picsum.photos/seed/invite/400/300" alt=""></div>
+  <div class="card c-plus"><div><div class="title">➕ المزيد</div><div class="subtitle">Plus</div></div><img class="card-img" src="https://picsum.photos/seed/plus/400/300" alt=""></div>
+  <div class="card c-chat"><div><div class="title">💬 دعم</div><div class="subtitle">Chat</div></div><img class="card-img" src="https://picsum.photos/seed/chat/400/300" alt=""></div>
+  <div id="messengerIcon">💬</div>
+</section>
 </main>
 
+<div id="messengerChat">
+  <div class="head">ChatGPT فريق الدعم <span id="closeChat">✖️</span></div>
+  <div id="messengerBody"></div>
+  <div style="display:flex;padding:8px;background:#eee;">
+    <input id="messengerInput" placeholder="اكتب رسالتك هنا..." />
+    <button id="sendBtn">إرسال</button>
+  </div>
+</div>
+
 <script>
-  // ====== Cards click handlers ======
-  document.querySelectorAll('.card').forEach(card=>{
-    card.addEventListener('click', ()=>{
-      const modal = card.dataset.modal;
-      const action = card.dataset.action;
-      if(modal) document.getElementById(modal).style.display='flex';
-      if(action==='home') window.scrollTo({top:0,behavior:'smooth'});
-      if(action==='openChat') toggleChat(true);
-    });
-  });
+// البحث
+document.getElementById('searchBtn').addEventListener('click',()=>{
+  const q=document.getElementById('searchInput').value;
+  if(q) window.open('https://www.google.com/search?q='+encodeURIComponent(q),'_blank');
+});
 
-  // ====== Search button ======
-  const searchBtn = document.getElementById('searchBtn');
-  const quickLinks = document.getElementById('quickLinks');
-  const searchInput = document.getElementById('searchInput');
-  searchBtn.addEventListener('click', ()=>{
-    const q = searchInput.value.trim();
-    if(q){ window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`,'_blank'); }
-    else { quickLinks.style.display = quickLinks.style.display==='block'?'none':'block'; }
-  });
+// Quick links toggle
+document.getElementById('searchInput').addEventListener('focus',()=>{document.getElementById('quickLinks').style.display='block';});
+document.getElementById('searchInput').addEventListener('blur',()=>{setTimeout(()=>{document.getElementById('quickLinks').style.display='none';},200);});
 
-  // ====== Chat ======
-  const chatBtn = document.getElementById('openChat');
-  const chatWindow = document.getElementById('chatWindow');
-  const chatClose = document.getElementById('closeChat');
-  const chatSend = document.getElementById('chatSend');
-  const chatInput = document.getElementById('chatInput');
-  const chatBody = document.getElementById('chatBody');
-
-  function toggleChat(open){
-    if(open===true) chatWindow.style.display='flex';
-    else chatWindow.style.display = chatWindow.style.display==='flex'?'none':'flex';
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }
-  chatBtn.addEventListener('click', ()=> toggleChat());
-  chatClose.addEventListener('click', ()=> toggleChat(false));
-
-  function appendBubble(text, who='bot'){
-    const el=document.createElement('div
+// Messenger Chat
+const messengerIcon=document.getElementById('messengerIcon');
+const messengerChat=document.getElementById('messengerChat');
