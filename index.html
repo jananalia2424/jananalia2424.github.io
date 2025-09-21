@@ -3,269 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقعي مع شات جيبيتي</title>
+  <title>موقعي</title>
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, #8B0000, #FF7F50, #F5DEB3);
       overflow-x: hidden;
-    }
-
-    /* أشكال عائمة */
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.4;
-      animation: float 8s infinite ease-in-out;
-    }
-    .shape1 { width: 120px; height: 120px; background: #81d4fa; top: 10%; left: 10%; }
-    .shape2 { width: 200px; height: 200px; background: #a5d6a7; bottom: 15%; right: 15%; }
-    .shape3 { width: 80px; height: 80px; background: #ffcc80; top: 50%; right: 30%; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
+      color: #333;
     }
 
     /* محرك البحث */
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px;
+    .search-container {
+      text-align: center;
+      padding: 20px;
     }
-    .search-bar input {
-      padding: 10px;
-      border-radius: 20px;
-      border: 1px solid #ccc;
-      width: 250px;
-    }
-    .search-bar button {
-      margin-left: -40px;
-      background: none;
+    .search-box {
+      width: 60%;
+      padding: 10px 40px 10px 10px;
+      border-radius: 25px;
       border: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 16px;
+    }
+    .search-icon {
+      position: relative;
+      left: -35px;
       cursor: pointer;
+      color: #555;
+    }
+    .links {
+      display: none;
+      margin-top: 10px;
+    }
+    .links a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #0077cc;
     }
 
     /* أيقونات */
     .icons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       gap: 15px;
+      padding: 20px;
     }
     .icon {
-      width: 120px;
-      height: 120px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .icon:hover { transform: scale(1.1); }
-
-    /* Popup */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
       padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-    .popup a { display: block; margin: 5px 0; color: #00796b; text-decoration: none; }
-    .popup a:hover { text-decoration: underline; }
-    .close-popup {
-      cursor: pointer;
-      color: red;
+      border-radius: 12px;
+      color: white;
       font-weight: bold;
-      float: left;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .icon:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
     }
 
-    /* شات جيبيتي */
-    .chatbot-btn {
+    .photos { background: linear-gradient(45deg, #00c6ff, #0072ff); }
+    .history { background: linear-gradient(45deg, #f7971e, #ffd200); }
+    .art { background: linear-gradient(45deg, #7b4397, #dc2430); }
+    .about { background: linear-gradient(45deg, #56ab2f, #a8e063); }
+    .share { background: linear-gradient(45deg, #ff8008, #ffc837); }
+    .plus { background: linear-gradient(45deg, #ff6a00, #ee0979); }
+    .invite { background: linear-gradient(45deg, #43cea2, #185a9d); }
+    .home { background: linear-gradient(45deg, #757f9a, #d7dde8); }
+    .friends { background: linear-gradient(45deg, #36d1dc, #5b86e5); }
+    .video { background: linear-gradient(45deg, #cb2d3e, #ef473a); }
+    .gaming { background: linear-gradient(45deg, #141E30, #243B55); }
+    .chat { background: linear-gradient(45deg, #11998e, #38ef7d); }
+
+    /* شات الدعم */
+    .chat-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #0078ff;
+      background: #0084ff;
       color: white;
-      border: none;
       border-radius: 50%;
       width: 60px;
       height: 60px;
-      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      font-size: 24px;
     }
-    .chat-window {
+    .chat-box {
       display: none;
       position: fixed;
       bottom: 90px;
       right: 20px;
       width: 300px;
-      max-height: 400px;
+      height: 400px;
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
-    .chat-header {
-      background: #0078ff;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ccc;
-    }
-    .chat-input input {
-      flex: 1;
+    .chat-box iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      padding: 10px;
-    }
-    .chat-input button {
-      background: #0078ff;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <!-- أشكال -->
-  <div class="shape shape1"></div>
-  <div class="shape shape2"></div>
-  <div class="shape shape3"></div>
 
   <!-- محرك البحث -->
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="ابحث في قوقل...">
-    <button onclick="openLinks()">🔍</button>
+  <div class="search-container">
+    <input type="text" class="search-box" placeholder="ابحث في جوجل...">
+    <span class="search-icon" onclick="toggleLinks()">🔍</span>
+    <div class="links" id="links">
+      <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب 1</a>
+      <a href="https://www.youtube.com/@jananalia2424" target="_blank">قناة يوتيوب 2</a>
+      <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">مجموعة فيسبوك</a>
+    </div>
   </div>
 
   <!-- الأيقونات -->
   <div class="icons">
-    <div class="icon">🏠<br>Accueil</div>
-    <div class="icon">🖼️<br>صور</div>
-    <div class="icon">🏛️<br>آثار</div>
-    <div class="icon">🎨<br>فنون</div>
-    <div class="icon">ℹ️<br>من نحن</div>
-    <div class="icon">🔗<br>بارتاج</div>
-    <div class="icon">➕<br>Plus</div>
-    <div class="icon">👥<br>Inviter</div>
-    <div class="icon">👫<br>Amie</div>
-    <div class="icon" onclick="openPopup('videoPopup')">🎥<br>Video</div>
-    <div class="icon" onclick="openPopup('gamingPopup')">🎮<br>Gaming</div>
-    <div class="icon" onclick="openPopup('chatPopup')">💬<br>Chat</div>
+    <div class="icon photos">🖼️ صور</div>
+    <div class="icon history">🏛️ آثار</div>
+    <div class="icon art">🎨 فنون</div>
+    <div class="icon about">👋 من نحن</div>
+    <div class="icon share">🔄 Partage</div>
+    <div class="icon plus">➕ Plus</div>
+    <div class="icon invite">👥 Inviter</div>
+    <div class="icon home">🏠 Accueil</div>
+    <div class="icon friends">🤝 Amis</div>
+    <div class="icon video">🎬 Vidéo</div>
+    <div class="icon gaming">🎮 Gaming</div>
+    <div class="icon chat">💬 Chat</div>
   </div>
 
-  <!-- Popups -->
-  <div id="videoPopup" class="popup">
-    <span class="close-popup" onclick="closePopup('videoPopup')">X</span>
-    <h3>📺 أفلام عادل إمام</h3>
-    <a href="https://www.youtube.com/results?search_query=افلام+عادل+امام" target="_blank">YouTube</a>
-    <a href="https://www.imdb.com/name/nm0407682/" target="_blank">IMDb</a>
-    <a href="https://www.rottentomatoes.com/celebrity/adel_imam" target="_blank">Rotten Tomatoes</a>
-  </div>
-
-  <div id="gamingPopup" class="popup">
-    <span class="close-popup" onclick="closePopup('gamingPopup')">X</span>
-    <h3>🎮 ألعاب أطفال</h3>
-    <a href="https://pbskids.org/games/" target="_blank">PBS Kids</a>
-    <a href="https://www.cartoonnetworkhq.com/games" target="_blank">Cartoon Network</a>
-    <a href="https://www.nick.com/games" target="_blank">Nickelodeon</a>
-    <a href="https://www.friv.com" target="_blank">Friv</a>
-  </div>
-
-  <div id="chatPopup" class="popup">
-    <span class="close-popup" onclick="closePopup('chatPopup')">X</span>
-    <h3>💬 مواقع الشات</h3>
-    <a href="https://www.omegle.com" target="_blank">Omegle</a>
-    <a href="https://chatroulette.com" target="_blank">Chatroulette</a>
-    <a href="https://chatiw.com" target="_blank">Chatiw</a>
-    <a href="https://tinychat.com" target="_blank">Tinychat</a>
-    <a href="https://www.tiktok.com" target="_blank">TikTok</a>
-  </div>
-
-  <!-- زر شات جيبيتي -->
-  <button class="chatbot-btn" onclick="toggleChat()">🤖</button>
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">شات الدعم - ChatGPT</div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input">
-      <input type="text" id="chatInput" placeholder="اكتب رسالتك...">
-      <button onclick="sendMessage()">إرسال</button>
-    </div>
+  <!-- شات جيبيتي -->
+  <div class="chat-btn" onclick="toggleChat()">💬</div>
+  <div class="chat-box" id="chatBox">
+    <iframe src="http://localhost:5000"></iframe>
   </div>
 
   <script>
-    function openLinks() {
-      let query = document.getElementById("searchInput").value;
-      if (query.trim() !== "") {
-        window.open(`https://www.google.com/search?q=${query}`, "_blank");
-      } else {
-        window.open("https://www.youtube.com/@jananalia24", "_blank");
-        window.open("https://www.youtube.com/@jananalia2424", "_blank");
-        window.open("https://www.facebook.com/groups/jananalia2424", "_blank");
-      }
+    function toggleLinks() {
+      const links = document.getElementById("links");
+      links.style.display = (links.style.display === "block") ? "none" : "block";
     }
-
-    function openPopup(id) {
-      document.getElementById(id).style.display = "block";
-    }
-    function closePopup(id) {
-      document.getElementById(id).style.display = "none";
-    }
-
     function toggleChat() {
-      const chat = document.getElementById("chatWindow");
-      chat.style.display = (chat.style.display === "none" || chat.style.display === "") ? "flex" : "none";
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById("chatInput");
-      const messages = document.getElementById("chatMessages");
-      const text = input.value.trim();
-      if (!text) return;
-
-      messages.innerHTML += `<div><b>أنت:</b> ${text}</div>`;
-      input.value = "";
-
-      try {
-        const res = await fetch("http://localhost:5000/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text })
-        });
-        const data = await res.json();
-        messages.innerHTML += `<div><b>ChatGPT:</b> ${data.reply}</div>`;
-      } catch (err) {
-        messages.innerHTML += `<div style="color:red;"><b>خطأ:</b> تعذر الاتصال بالسيرفر.</div>`;
-      }
-
-      messages.scrollTop = messages.scrollHeight;
+      const chatBox = document.getElementById("chatBox");
+      chatBox.style.display = (chatBox.style.display === "block") ? "none" : "block";
     }
   </script>
+
 </body>
 </html>
