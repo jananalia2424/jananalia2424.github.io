@@ -180,7 +180,9 @@
   </footer>
 
   <script>
-    const API_URL = "https://my-backend-cyj8.onrender.com/api/chat";
+    const API_URL = window.location.hostname === "localhost"
+      ? "http://localhost:5000/api/chat"
+      : "https://my-backend-cyj8.onrender.com/api/chat";
 
     const messagesDiv = document.getElementById("messages");
     const userInput = document.getElementById("userInput");
