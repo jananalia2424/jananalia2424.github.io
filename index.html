@@ -2,177 +2,278 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقعي العصري</title>
+  <title>صفحتي</title>
   <style>
     body {
-      font-family: "Tahoma", Arial, sans-serif;
-      background: #f4f6f9;
       margin: 0;
-      padding: 0;
+      font-family: "Tahoma", sans-serif;
+      background: linear-gradient(to bottom, #a8e6cf, #dcedc1, #ffd3b6);
       color: #333;
-    }
-    header {
-      background: #2d89ef;
-      padding: 15px;
       text-align: center;
-      color: #fff;
-      font-size: 22px;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-    .search-bar {
+
+    /* 🔍 محرك البحث */
+    .search-container {
+      margin: 20px auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 15px auto;
-      max-width: 400px;
-      background: #fff;
-      border-radius: 30px;
-      padding: 5px 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     }
-    .search-bar input {
-      flex: 1;
-      border: none;
+    .search-container input {
+      width: 300px;
+      padding: 10px;
+      border: 2px solid #4caf50;
+      border-radius: 25px 0 0 25px;
       outline: none;
-      padding: 8px 12px;
-      border-radius: 30px;
-      font-size: 14px;
     }
-    .search-bar button {
+    .search-container button {
+      padding: 10px 15px;
       border: none;
-      background: none;
+      background: #4caf50;
+      color: white;
+      border-radius: 0 25px 25px 0;
       cursor: pointer;
-      font-size: 16px;
-      color: #2d89ef;
     }
-    .title {
-      text-align: center;
-      margin: 20px 10px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #2d2d2d;
-    }
+
+    /* 🖼️ الأيقونات */
     .icons {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 20px;
+      flex-wrap: wrap;
       margin: 20px;
     }
     .icon {
-      text-align: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
       cursor: pointer;
+      position: relative;
+      transition: transform 0.3s;
     }
-    .icon span {
-      display: block;
-      font-size: 30px;
-      margin-bottom: 5px;
+    .icon:hover {
+      transform: scale(1.05);
     }
-    .icon p {
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .icon-label {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 5px;
       font-size: 14px;
-      margin: 0;
     }
-    .chat-container {
-      max-width: 600px;
+
+    /* 📌 المحتوى داخل الأيقونة */
+    .content {
+      display: none;
       margin: 20px auto;
-      background: #fff;
-      border-radius: 10px;
+      max-width: 800px;
+      background: rgba(255,255,255,0.9);
       padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    .messages {
-      max-height: 250px;
-      overflow-y: auto;
-      margin-bottom: 15px;
+    .content img {
+      width: 120px;
+      margin: 5px;
+      border-radius: 10px;
     }
-    .msg {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-    .user {
-      background: #e1f5fe;
-      text-align: right;
-    }
-    .bot {
-      background: #f1f8e9;
-      text-align: left;
-    }
-    .bot::before {
-      content: "💬 فريق الدعم: ";
+    .links a {
+      display: block;
+      margin: 10px;
+      text-decoration: none;
+      color: #4caf50;
       font-weight: bold;
-      color: #2d7a0b;
     }
-    .input-box {
+
+    /* 🤖 أيقونة الدعم */
+    .chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0084ff;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
       display: flex;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
-    .input-box input {
+    .chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .chat-messages {
       flex: 1;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      overflow-y: auto;
+      font-size: 14px;
     }
-    .input-box button {
-      padding: 10px 15px;
+    .chat-input {
+      display: flex;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 8px;
       border: none;
-      border-radius: 8px;
-      background: #2d89ef;
-      color: #fff;
+      border-top: 1px solid #ddd;
+      outline: none;
+    }
+    .chat-input button {
+      padding: 8px 12px;
+      border: none;
+      background: #0084ff;
+      color: white;
       cursor: pointer;
     }
-    .input-box button:hover {
-      background: #1b5cb8;
-    }
+
+    /* 🎨 أسفل الصفحة */
     footer {
-      background: #2d89ef;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
+      margin-top: 40px;
+      padding: 20px;
+      background: #f7f7f7;
     }
-    footer a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    footer a:hover {
-      text-decoration: underline;
+    footer img {
+      width: 100px;
+      margin: 10px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- ✅ صندوق الشات -->
-<div id="chatbox" style="border:1px solid #ccc; padding:10px; width:300px; margin:20px auto; border-radius:10px;">
-  <div id="messages" style="height:200px; overflow-y:auto; margin-bottom:10px;"></div>
-  <input type="text" id="userInput" placeholder="اكتب رسالتك..." style="width:70%; padding:5px;">
-  <button onclick="sendMessage()" style="width:25%; padding:5px;">إرسال</button>
-</div>
 
-<script>
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const message = input.value;
-  if (!message) return;
+  <!-- 🔍 محرك البحث -->
+  <div class="search-container">
+    <form action="https://www.google.com/search" method="GET" target="_blank">
+      <input type="text" name="q" placeholder="ابحث في جوجل...">
+      <button type="submit">🔍</button>
+    </form>
+  </div>
 
-  // نعرض رسالة المستخدم
-  document.getElementById("messages").innerHTML += `<p><b>أنت:</b> ${message}</p>`;
+  <!-- 🖼️ الأيقونات -->
+  <div class="icons">
+    <div class="icon" onclick="toggleContent('photos')">
+      <img src="https://source.unsplash.com/150x150/?nature" alt="">
+      <div class="icon-label">📷 صور</div>
+    </div>
+    <div class="icon" onclick="toggleContent('history')">
+      <img src="https://source.unsplash.com/150x150/?ruins" alt="">
+      <div class="icon-label">🏛️ آثار</div>
+    </div>
+    <div class="icon" onclick="toggleContent('art')">
+      <img src="https://source.unsplash.com/150x150/?art" alt="">
+      <div class="icon-label">🎨 فنون</div>
+    </div>
+    <div class="icon" onclick="toggleContent('about')">
+      <img src="https://source.unsplash.com/150x150/?team" alt="">
+      <div class="icon-label">ℹ️ من نحن</div>
+    </div>
+  </div>
 
-  // نبعث الرسالة للسيرفر
-  const response = await fetch("http://localhost:5000/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message })
-  });
+  <!-- 📌 محتوى الأيقونات -->
+  <div id="photos" class="content">
+    <h3>📷 صور رائعة</h3>
+    <img src="https://source.unsplash.com/120x120/?spring" alt="">
+    <img src="https://source.unsplash.com/120x120/?flowers" alt="">
+    <img src="https://source.unsplash.com/120x120/?forest" alt="">
+  </div>
 
-  const data = await response.json();
+  <div id="history" class="content">
+    <h3>🏛️ صور آثار</h3>
+    <img src="https://source.unsplash.com/120x120/?pyramid" alt="">
+    <img src="https://source.unsplash.com/120x120/?temple" alt="">
+    <img src="https://source.unsplash.com/120x120/?ancient" alt="">
+  </div>
 
-  // نعرض جواب السيرفر
-  document.getElementById("messages").innerHTML += `<p><b>الدعم:</b> ${data.reply}</p>`;
+  <div id="art" class="content">
+    <h3>🎨 فنون عالمية</h3>
+    <img src="https://source.unsplash.com/120x120/?painting" alt="">
+    <img src="https://source.unsplash.com/120x120/?pencil-drawing" alt="">
+    <img src="https://source.unsplash.com/120x120/?museum" alt="">
+  </div>
 
-  input.value = "";
-}
-</script>
+  <div id="about" class="content">
+    <h3>ℹ️ من نحن</h3>
+    <div class="links">
+      <a href="https://youtube.com" target="_blank">📺 قناة يوتيوب الأولى</a>
+      <a href="https://youtube.com" target="_blank">📺 قناة يوتيوب الثانية</a>
+      <a href="https://facebook.com" target="_blank">👥 قروب فيسبوك</a>
+    </div>
+  </div>
+
+  <!-- 🤖 شات الدعم -->
+  <div class="chat-icon" onclick="toggleChat()">💬</div>
+  <div class="chat-box" id="chatBox">
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="اكتب رسالتك...">
+      <button onclick="sendMessage()">إرسال</button>
+    </div>
+  </div>
+
+  <!-- 🎨 أسفل الصفحة -->
+  <footer>
+    <h3>🖼️ قطع أثرية ورسوم للأطفال</h3>
+    <img src="https://source.unsplash.com/100x100/?artifact" alt="">
+    <img src="https://source.unsplash.com/100x100/?ancient" alt="">
+    <img src="https://source.unsplash.com/100x100/?cartoon" alt="">
+    <img src="https://source.unsplash.com/100x100/?kids-drawing" alt="">
+  </footer>
+
+  <script>
+    function toggleContent(id) {
+      document.querySelectorAll('.content').forEach(c => c.style.display = "none");
+      document.getElementById(id).style.display = "block";
+    }
+
+    function toggleChat() {
+      const box = document.getElementById("chatBox");
+      box.style.display = box.style.display === "flex" ? "none" : "flex";
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+      const messages = document.getElementById("chatMessages");
+      messages.innerHTML += `<div><b>أنت:</b> ${msg}</div>`;
+      input.value = "";
+
+      try {
+        const res = await fetch("http://localhost:5000/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await res.json();
+        messages.innerHTML += `<div><b>GPT:</b> ${data.reply}</div>`;
+        messages.scrollTop = messages.scrollHeight;
+      } catch (e) {
+        messages.innerHTML += `<div style="color:red"><b>خطأ:</b> لم يتم الاتصال بالسيرفر</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
