@@ -104,6 +104,7 @@
       align-items: center;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
     .chat-icon svg {
       width: 30px;
@@ -122,6 +123,7 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       display: none;
       flex-direction: column;
+      z-index: 1000;
     }
     .chat-header {
       background: #0084ff;
@@ -254,6 +256,7 @@
       msgContainer.style.textAlign = sender === "user" ? "right" : "left";
       msgContainer.textContent = text;
       document.getElementById("chatMessages").appendChild(msgContainer);
+      document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
     }
 
     async function sendMessage() {
