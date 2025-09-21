@@ -145,83 +145,34 @@
   </style>
 </head>
 <body>
-  <header>موقعي العصري</header>
+  <!-- ✅ صندوق الشات -->
+<div id="chatbox" style="border:1px solid #ccc; padding:10px; width:300px; margin:20px auto; border-radius:10px;">
+  <div id="messages" style="height:200px; overflow-y:auto; margin-bottom:10px;"></div>
+  <input type="text" id="userInput" placeholder="اكتب رسالتك..." style="width:70%; padding:5px;">
+  <button onclick="sendMessage()" style="width:25%; padding:5px;">إرسال</button>
+</div>
 
-  <!-- محرك البحث -->
-  <div class="search-bar">
-    <form action="https://www.google.com/search" method="GET" target="_blank" style="display:flex; width:100%;">
-      <input type="text" name="q" placeholder="ابحث في جوجل..." required>
-      <button type="submit">🔍</button>
-    </form>
-  </div>
+<script>
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value;
+  if (!message) return;
 
-  <div class="title">موقعي العصري لأجمل الصور التاريخية والطبيعة</div>
+  // نعرض رسالة المستخدم
+  document.getElementById("messages").innerHTML += `<p><b>أنت:</b> ${message}</p>`;
 
-  <div class="icons">
-    <div class="icon"><span>🖼️</span><p>صور</p></div>
-    <div class="icon"><span>🏛️</span><p>آثار</p></div>
-    <div class="icon"><span>🎨</span><p>فنون</p></div>
-    <div class="icon"><span>ℹ️</span><p>من نحن</p></div>
-  </div>
+  // نبعث الرسالة للسيرفر
+  const response = await fetch("http://localhost:5000/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message })
+  });
 
-  <div class="chat-container">
-    <div class="messages" id="messages"></div>
-    <div class="input-box">
-      <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." />
-      <button onclick="sendMessage()">إرسال</button>
-    </div>
-  </div>
+  const data = await response.json();
 
-  <footer>
-    <p>زورونا على مواقعنا:</p>
-    <a href="https://www.youtube.com/@jananalia24" target="_blank">📺 يوتيوب 1</a>
-    <a href="https://www.youtube.com/@jananalia2424" target="_blank">📺 يوتيوب 2</a>
-    <a href="https://www.facebook.com/groups/jananalia2424/" target="_blank">📘 فايس بوك</a>
-  </footer>
+  // نعرض جواب السيرفر
+  document.getElementById("messages").innerHTML += `<p><b>الدعم:</b> ${data.reply}</p>`;
 
-  <script>
-    const API_URL = window.location.hostname === "localhost"
-      ? "http://localhost:5000/api/chat"
-      : "https://my-backend-cyj8.onrender.com/api/chat";
-
-    const messagesDiv = document.getElementById("messages");
-    const userInput = document.getElementById("userInput");
-
-    function addMessage(text, sender) {
-      const div = document.createElement("div");
-      div.className = "msg " + sender;
-      div.innerText = text;
-      messagesDiv.appendChild(div);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    async function sendMessage() {
-      const message = userInput.value.trim();
-      if (!message) return;
-
-      addMessage("👤 أنت: " + message, "user");
-      userInput.value = "";
-
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-        const data = await res.json();
-        if (data.reply) {
-          addMessage(data.reply, "bot");
-        } else {
-          addMessage("⚠️ خطأ: لم يصلنا رد من الخادم.", "bot");
-        }
-      } catch (err) {
-        addMessage("⚠️ خطأ: تعذر الاتصال بالسيرفر.", "bot");
-      }
-    }
-
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-  </script>
-</body>
-</html>
+  input.value = "";
+}
+</script>
