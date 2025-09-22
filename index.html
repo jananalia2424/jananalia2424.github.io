@@ -3,135 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>نسخة 47 المريحة</title>
+<title>هيا بنا إلى المستقبل المشرق يا قوم</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #b76e79, #f4a460);
-    color: #fff;
-  }
-  header {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background: rgba(0,0,0,0.5);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  header input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-  }
-  header button {
-    margin-left: 10px;
-    padding: 8px 12px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-  }
-  .icons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 15px;
-  }
-  .icon {
-    width: 120px;
-    height: 120px;
-    margin: 10px;
-    border-radius: 15px;
-    text-align: center;
-    padding: 5px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background: rgba(255,255,255,0.2);
-    transition: transform 0.2s, box-shadow 0.3s;
-  }
-  .icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255,255,255,0.5);
-  }
-  .icon img { max-width: 80px; max-height: 60px; margin: auto; }
-  .icon span { display: block; margin-top: 5px; font-size: 14px; color: #fff; }
-  .floating-images {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    pointer-events: none;
-    opacity: 0.8;
-  }
-  .floating-images img {
-    width: 60px;
-    animation: float 5s infinite ease-in-out;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-  .chat-box {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 300px;
-    max-height: 400px;
-    background: rgba(0,0,0,0.7);
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .chat-messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-  }
-  .chat-input {
-    display: flex;
-    border-top: 1px solid #fff;
-  }
-  .chat-input input {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    outline: none;
-  }
-  .chat-input button {
-    padding: 8px 12px;
-    border: none;
-    background: #b22222;
-    color: #fff;
-    cursor: pointer;
-  }
+body {
+  margin: 0;
+  font-family: 'Cairo', 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #002f6c, #ffffff, #cc6600);
+  color: #000;
+}
+header {
+  text-align: center;
+  padding: 20px;
+}
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #002f6c;
+}
+header h2 {
+  margin: 5px 0 0 0;
+  font-size: 20px;
+  color: #cc6600;
+}
+#searchContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+#searchContainer input[type="text"] {
+  width: 50%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+#searchContainer button {
+  padding: 10px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 50%;
+  background-color: #cc6600;
+  cursor: pointer;
+}
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 15px;
+  gap: 15px;
+}
+.icon {
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  transition: transform 0.2s, box-shadow 0.3s;
+  border-radius: 15px;
+  background: #ffffff;
+}
+.icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+.icon img { max-width: 80px; max-height: 60px; margin: auto; }
+.icon span { display: block; margin-top: 5px; font-size: 14px; color: #000; }
+.floating-images {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.floating-images img {
+  width: 60px;
+  animation: float 5s infinite ease-in-out;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.chat-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+.chat-input button {
+  padding: 8px 12px;
+  border: none;
+  background: #cc6600;
+  color: #fff;
+  cursor: pointer;
+}
+.logo {
+  display: block;
+  margin: 10px auto;
+  width: 50px;
+  height: auto;
+}
 </style>
 </head>
 <body>
 
 <header>
-  <input type="text" id="search" placeholder="ابحث هنا...">
-  <button onclick="searchGoogle()">🔍</button>
+  <img src="https://img.icons8.com/ios-filled/50/000000/handshake.png" class="logo" alt="رمز التعاون">
+  <h1>هيا بنا إلى المستقبل المشرق يا قوم</h1>
+  <h2>بكم نرتقي</h2>
+  <div id="searchContainer">
+    <input type="text" id="search" placeholder="ابحث هنا...">
+    <button onclick="searchGoogle()">🔍</button>
+  </div>
 </header>
 
 <div class="icons">
-  <div class="icon" onclick="openLinks(['https://www.youtube.com/@jananalia24','https://www.youtube.com/@jananalia2424'])">
+  <div class="icon" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank')">
     <img src="https://img.icons8.com/ios-filled/100/youtube-play.png"/>
     <span>فيديوهات</span>
-  </div>
-  <div class="icon" onclick="openLinks(['https://www.facebook.com/groups/jananalia2424'])">
-    <img src="https://img.icons8.com/ios-filled/100/facebook.png"/>
-    <span>فيسبوك</span>
-  </div>
-  <div class="icon" onclick="window.open('https://1xbet.com','_blank')">
-    <img src="https://img.icons8.com/ios-filled/100/controller.png"/>
-    <span>Gaming</span>
   </div>
   <div class="icon">
     <img src="https://img.icons8.com/ios-filled/100/image.png"/>
@@ -141,33 +155,21 @@
     <img src="https://img.icons8.com/ios-filled/100/museum.png"/>
     <span>آثار</span>
   </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/paint-palette.png"/>
-    <span>فنون</span>
+  <div class="icon" onclick="openLinks([ 
+    'https://www.facebook.com/groups/@jananalia24etusg',
+    'https://www.facebook.com/groups/1958224537698284/',
+    'https://www.facebook.com/profile.php?id=100079983123728'
+  ])">
+    <img src="https://img.icons8.com/ios-filled/100/briefcase.png"/>
+    <span>أعمال</span>
   </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/home.png"/>
-    <span>Accueil</span>
-  </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/add-user-group-man-man.png"/>
-    <span>Amis</span>
-  </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/share.png"/>
-    <span>Partage</span>
-  </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/plus-math.png"/>
-    <span>Plus</span>
-  </div>
-  <div class="icon">
-    <img src="https://img.icons8.com/ios-filled/100/invite.png"/>
-    <span>Inviter</span>
-  </div>
-  <div class="icon" onclick="toggleChat()">
+  <div class="icon" style="background:#cc6600;" onclick="toggleChat()">
     <img src="https://img.icons8.com/ios-filled/100/chat.png"/>
-    <span>Chat GPT</span>
+    <span>نحن هنا في خدمتكم</span>
+  </div>
+  <div class="icon">
+    <img src="https://img.icons8.com/ios-filled/100/info.png"/>
+    <span>من نحن</span>
   </div>
 </div>
 
@@ -190,16 +192,13 @@ function searchGoogle() {
   const query = document.getElementById('search').value;
   if(query) window.open('https://www.google.com/search?q=' + encodeURIComponent(query));
 }
-
 function openLinks(links) {
   links.forEach(link => window.open(link, '_blank'));
 }
-
 function toggleChat() {
   const box = document.getElementById('chatBox');
   box.style.display = box.style.display === 'none' ? 'flex' : 'none';
 }
-
 async function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
@@ -207,6 +206,7 @@ async function sendMessage() {
   addMessage('أنت: ' + msg);
   input.value = '';
   try {
+    // اتصال مباشر بسيرفر ChatGPT المحلي
     const res = await fetch('http://localhost:5000', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
@@ -218,7 +218,6 @@ async function sendMessage() {
     addMessage('خطأ في الاتصال بالسيرفر');
   }
 }
-
 function addMessage(text) {
   const container = document.getElementById('chatMessages');
   const div = document.createElement('div');
