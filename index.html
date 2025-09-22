@@ -1,280 +1,143 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>أجمل المناظر الطبيعية والتاريخية في العالم</title>
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f0f8ff;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(90deg, #ffffff, #000000, #dc143c, #ffa500);
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-    }
-    header h1 {
-      font-size: 1.4rem;
-    }
-    .search-box {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 20px;
-      padding: 5px 10px;
-    }
-    .search-box input {
-      border: none;
-      outline: none;
-      padding: 5px;
-      font-size: 14px;
-    }
-    .search-box button {
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 20px 0;
-    }
-    nav button {
-      background: #ffa500;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      color: white;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    nav button:hover {
-      background: #dc143c;
-    }
-    .section {
-      display: none;
-      padding: 20px;
-      text-align: center;
-    }
-    .section.active {
-      display: block;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 20px;
-    }
-    footer a {
-      color: #ffa500;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-    /* Chat icon */
-    .chat-icon {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #0084ff;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    }
-    .chat-icon svg {
-      width: 30px;
-      height: 30px;
-      fill: white;
-    }
-    /* Chat box */
-    .chat-box {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 300px;
-      max-height: 400px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      display: none;
-      flex-direction: column;
-    }
-    .chat-header {
-      background: #0084ff;
-      color: white;
-      padding: 10px;
-      border-radius: 10px 10px 0 0;
-      font-weight: bold;
-      text-align: center;
-    }
-    .chat-messages {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ddd;
-    }
-    .chat-input input {
-      flex: 1;
-      border: none;
-      padding: 10px;
-      font-size: 14px;
-    }
-    .chat-input button {
-      background: #0084ff;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>أجمل المناظر الطبيعية والتاريخية والفنية</title>
+<style>
+  body { font-family: 'Cairo', sans-serif; margin:0; padding:0; background:#fff; color:#000; }
+  header { background: linear-gradient(90deg, #fff, #dc143c, #ffa500); padding:10px 20px; display:flex; justify-content:space-between; align-items:center; color:white; }
+  header h1 { font-size:1.5rem; }
+  .search-box { display:flex; align-items:center; background:white; border-radius:20px; padding:5px 10px; }
+  .search-box input { border:none; outline:none; padding:5px; font-size:14px; }
+  .search-box button { background:none; border:none; cursor:pointer; }
+  nav { display:flex; justify-content:center; gap:20px; margin:20px 0; }
+  nav button { background:#dc143c; border:none; padding:10px 15px; border-radius:20px; cursor:pointer; color:white; font-weight:bold; transition:0.3s; }
+  nav button:hover { background:#ffa500; }
+  .section { display:none; padding:20px; text-align:center; }
+  .section.active { display:block; }
+  .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:20px; }
+  .gallery img { width:100%; border-radius:10px; }
+  footer { background:#000; color:white; text-align:center; padding:20px; margin-top:20px; }
+  footer a { color:#dc143c; margin:0 5px; text-decoration:none; }
+  .chat-icon { position:fixed; bottom:20px; right:20px; background:#dc143c; border-radius:50%; width:60px; height:60px; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); }
+  .chat-icon svg { width:30px; height:30px; fill:white; }
+  .chat-box { position:fixed; bottom:90px; right:20px; width:320px; max-height:400px; background:#fff; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.3); display:none; flex-direction:column; }
+  .chat-header { background:#dc143c; color:white; padding:10px; border-radius:10px 10px 0 0; font-weight:bold; text-align:center; }
+  .chat-messages { flex:1; padding:10px; overflow-y:auto; font-size:14px; }
+  .chat-messages .user { text-align:right; background:#ffe0cc; margin:5px 0; padding:6px 10px; border-radius:10px; }
+  .chat-messages .bot { text-align:left; background:#f1f4f8; margin:5px 0; padding:6px 10px; border-radius:10px; }
+  .chat-input { display:flex; border-top:1px solid #ddd; }
+  .chat-input input { flex:1; border:none; padding:10px; font-size:14px; }
+  .chat-input button { background:#dc143c; color:white; border:none; padding:10px 15px; cursor:pointer; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>أجمل المناظر الطبيعية والتاريخية في العالم</h1>
-    <div class="search-box">
-      <input type="text" placeholder="ابحث في جوجل..." />
-      <button onclick="searchGoogle()">🔍</button>
-    </div>
-  </header>
 
-  <nav>
-    <button onclick="showSection('photos')">📷 الصور</button>
-    <button onclick="showSection('monuments')">🏛️ الآثار</button>
-    <button onclick="showSection('arts')">🎨 الفنون</button>
-    <button onclick="showSection('about')">ℹ️ من نحن</button>
-  </nav>
-
-  <div id="photos" class="section">
-    <h2>📷 الصور</h2>
-    <div class="gallery">
-      <img src="https://picsum.photos/400/300?random=1" alt="صورة 1">
-      <img src="https://picsum.photos/400/300?random=2" alt="صورة 2">
-      <img src="https://picsum.photos/400/300?random=3" alt="صورة 3">
-    </div>
+<header>
+  <h1>أجمل المناظر الطبيعية والتاريخية والفنية</h1>
+  <div class="search-box">
+    <input type="text" placeholder="ابحث في جوجل..." />
+    <button onclick="searchGoogle()">🔍</button>
   </div>
+</header>
 
-  <div id="monuments" class="section">
-    <h2>🏛️ الآثار</h2>
-    <div class="gallery">
-      <img src="https://picsum.photos/400/300?random=4" alt="أثر 1">
-      <img src="https://picsum.photos/400/300?random=5" alt="أثر 2">
-      <img src="https://picsum.photos/400/300?random=6" alt="أثر 3">
-    </div>
+<nav>
+  <button onclick="showSection('photos')">📷 الصور</button>
+  <button onclick="showSection('monuments')">🏛️ الآثار</button>
+  <button onclick="showSection('arts')">🎨 الفنون</button>
+  <button onclick="showSection('about')">ℹ️ من نحن</button>
+</nav>
+
+<div id="photos" class="section">
+  <h2>📷 الصور</h2>
+  <div class="gallery">
+    <img src="https://picsum.photos/300/200?random=1" />
+    <img src="https://picsum.photos/300/200?random=2" />
+    <img src="https://picsum.photos/300/200?random=3" />
   </div>
+</div>
 
-  <div id="arts" class="section">
-    <h2>🎨 الفنون</h2>
-    <div class="gallery">
-      <img src="https://picsum.photos/400/300?random=7" alt="فن 1">
-      <img src="https://picsum.photos/400/300?random=8" alt="فن 2">
-      <img src="https://picsum.photos/400/300?random=9" alt="فن 3">
-    </div>
+<div id="monuments" class="section">
+  <h2>🏛️ الآثار</h2>
+  <div class="gallery">
+    <img src="https://picsum.photos/300/200?random=4" />
+    <img src="https://picsum.photos/300/200?random=5" />
+    <img src="https://picsum.photos/300/200?random=6" />
   </div>
+</div>
 
-  <div id="about" class="section">
-    <h2>ℹ️ من نحن</h2>
-    <p>نحن موقع يهتم بجمع أجمل المناظر الطبيعية والتاريخية والفنية من مختلف أنحاء العالم.</p>
-    <p>تابعونا على قنواتنا: قناة يوتيوب 1، قناة يوتيوب 2، ومجموعتنا على فيسبوك.</p>
+<div id="arts" class="section">
+  <h2>🎨 الفنون</h2>
+  <div class="gallery">
+    <img src="https://picsum.photos/300/200?random=7" />
+    <img src="https://picsum.photos/300/200?random=8" />
+    <img src="https://picsum.photos/300/200?random=9" />
   </div>
+</div>
 
-  <footer>
-    <p>زورونا على مواقعنا:</p>
-    <a href="https://www.youtube.com/@jananalia24" target="_blank">قناة يوتيوب 1</a> |
-    <a href="https://www.youtube.com/@jananalia2424" target="_blank">قناة يوتيوب 2</a> |
-    <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">مجموعتنا على فيسبوك</a>
-  </footer>
+<div id="about" class="section">
+  <h2>ℹ️ من نحن</h2>
+  <p>مرحباً بكم في قنواتنا: قناة <a href="https://www.youtube.com/@jananalia24" target="_blank">يوتيوب 1</a>، قناة <a href="https://www.youtube.com/@jananalia2424" target="_blank">يوتيوب 2</a>، ومجموعتنا على <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">فيسبوك</a>.</p>
+</div>
 
-  <!-- Chat Icon -->
-  <div class="chat-icon" onclick="toggleChat()">
-    <svg viewBox="0 0 24 24">
-      <path d="M12 3C6.48 3 2 6.92 2 12c0 2.39 1.04 4.55 2.75 6.19L4 21l3.11-1.66C8.18 20.12 10.01 21 12 21c5.52 0 10-3.92 10-9s-4.48-9-10-9z"/>
-    </svg>
+<footer>
+  <p>زورونا على مواقعنا:</p>
+  <a href="https://www.youtube.com/@jananalia24" target="_blank">يوتيوب 1</a> |
+  <a href="https://www.youtube.com/@jananalia2424" target="_blank">يوتيوب 2</a> |
+  <a href="https://www.facebook.com/groups/jananalia2424" target="_blank">فيسبوك</a>
+</footer>
+
+<div class="chat-icon" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24"><path d="M12 3C6.48 3 2 6.92 2 12c0 2.39 1.04 4.55 2.75 6.19L4 21l3.11-1.66C8.18 20.12 10.01 21 12 21c5.52 0 10-3.92 10-9s-4.48-9-10-9z"/></svg>
+</div>
+
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">💬 فريق الدعم</div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="اكتب رسالتك..." />
+    <button onclick="sendMessage()">إرسال</button>
   </div>
+</div>
 
-  <!-- Chat Box -->
-  <div class="chat-box" id="chatBox">
-    <div class="chat-header">💬 فريق الدعم</div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="اكتب رسالتك..." />
-      <button onclick="sendMessage()">إرسال</button>
-    </div>
-  </div>
+<script>
+function searchGoogle(){ 
+  const query=document.querySelector('.search-box input').value; 
+  if(query) window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`,'_blank'); 
+}
+function showSection(id){ 
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active')); 
+  document.getElementById(id).classList.add('active'); 
+}
+function toggleChat(){ 
+  const chatBox=document.getElementById("chatBox"); 
+  chatBox.style.display=chatBox.style.display==="flex"?"none":"flex"; 
+}
+function addMessage(sender,text){ 
+  const msg=document.createElement("div"); 
+  msg.className=sender; 
+  msg.textContent=text; 
+  document.getElementById("chatMessages").appendChild(msg); 
+  document.getElementById("chatMessages").scrollTop=document.getElementById("chatMessages").scrollHeight;
+}
+async function sendMessage(){ 
+  const input=document.getElementById("userInput"); 
+  const message=input.value.trim(); 
+  if(!message) return; 
+  addMessage("user",message); 
+  input.value=""; 
+  try{ 
+    const res=await fetch("http://localhost:5000/api/chat",{ 
+      method:"POST", 
+      headers:{"Content-Type":"application/json"}, 
+      body:JSON.stringify({message}) 
+    }); 
+    const data=await res.json(); 
+    addMessage("bot",data.reply); 
+  }catch(err){ 
+    addMessage("bot","⚠️ خطأ في الاتصال بالسيرفر المحلي."); 
+  }
+}
+</script>
 
-  <script>
-    function searchGoogle() {
-      const query = document.querySelector('.search-box input').value;
-      if (query) {
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
-      }
-    }
-
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function toggleChat() {
-      const chatBox = document.getElementById("chatBox");
-      chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-    }
-
-    function addMessage(sender, text) {
-      const msgContainer = document.createElement("div");
-      msgContainer.style.margin = "5px 0";
-      msgContainer.style.textAlign = sender === "user" ? "right" : "left";
-      msgContainer.textContent = text;
-      document.getElementById("chatMessages").appendChild(msgContainer);
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value.trim();
-      if (!message) return;
-
-      addMessage("user", message);
-      input.value = "";
-
-      try {
-        const res = await fetch("http://localhost:5000/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-        const data = await res.json();
-        addMessage("bot", data.reply);
-      } catch (err) {
-        addMessage("bot", "⚠️ خطأ في الاتصال بالسيرفر المحلي.");
-      }
-    }
-  </script>
-</body>
-</html>
