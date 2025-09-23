@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>اتصال مع السيرفر</title>
+</head>
+<body>
+  <h1>مثال HTML + JavaScript مع Backend</h1>
+  <button onclick="getMessage()">جلب الرسالة من الباك اند</button>
+  <p id="response"></p>
+
+  <script>
+    async function getMessage() {
+      try {
+        // الاتصال بالسيرفر على البورت 5000
+        const res = await fetch("http://localhost:5000/api/message");
+        const data = await res.json();
+        document.getElementById("response").innerText = data.message;
+      } catch (error) {
+        console.error("خطأ:", error);
+        document.getElementById("response").innerText = "تعذر الاتصال بالسيرفر ⚠️";
+      }
+    }
+  </script>
+</body>
+</html>
+
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
