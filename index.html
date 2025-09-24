@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>أجمل المناظر الطبيعية والتاريخية والفنية + ChatGPT</title>
+<title>أجمل المناظر الطبيعية والتاريخية في العالم + ChatGPT</title>
 <style>
-  body { font-family: 'Cairo', sans-serif; margin:0; padding:0; background:#fff; color:#000; }
+  body { font-family: 'Cairo', sans-serif; margin:0; padding:0; background:#fdfdfd; color:#000; }
   header { background: linear-gradient(90deg, #fff, #dc143c, #ffa500); padding:10px 20px; display:flex; justify-content:space-between; align-items:center; color:white; flex-wrap:wrap; }
   header h1 { font-size:1.5rem; margin:5px 0; }
   .search-box { display:flex; align-items:center; background:white; border-radius:20px; padding:5px 10px; margin:5px 0; }
-  .search-box input { border:none; outline:none; padding:5px; font-size:14px; }
-  .search-box button { background:none; border:none; cursor:pointer; }
+  .search-box input { border:none; outline:none; padding:5px; font-size:14px; border-radius:15px; }
+  .search-box button { background:none; border:none; cursor:pointer; font-size:16px; }
   .mode-switch { margin:5px 0; }
   .mode-switch select { padding:5px; border-radius:5px; border:1px solid #ccc; }
   nav { display:flex; justify-content:center; gap:20px; margin:20px 0; flex-wrap:wrap; }
@@ -22,20 +22,22 @@
   .gallery img { width:100%; border-radius:10px; }
   footer { background:#000; color:white; text-align:center; padding:20px; margin-top:20px; }
   footer a { color:#dc143c; margin:0 5px; text-decoration:none; }
-  .chat-icon { position:fixed; bottom:20px; right:20px; background:#dc143c; border-radius:50%; width:60px; height:60px; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); }
+  .chat-icon { position:fixed; bottom:20px; right:20px; background:#dc143c; border-radius:50%; width:60px; height:60px; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); transition:0.3s; }
+  .chat-icon:hover { transform:scale(1.1); }
   .chat-icon svg { width:30px; height:30px; fill:white; }
-  .chat-box { position:fixed; bottom:90px; right:20px; width:300px; max-height:400px; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.3); display:none; flex-direction:column; }
-  .chat-header { background:#dc143c; color:white; padding:10px; border-radius:10px 10px 0 0; font-weight:bold; text-align:center; }
-  .chat-messages { flex:1; padding:10px; overflow-y:auto; font-size:14px; }
+  .chat-box { position:fixed; bottom:90px; right:20px; width:320px; max-height:450px; background:white; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.3); display:none; flex-direction:column; }
+  .chat-header { background:#dc143c; color:white; padding:10px; border-radius:10px 10px 0 0; font-weight:bold; text-align:center; font-size:16px; }
+  .chat-messages { flex:1; padding:10px; overflow-y:auto; font-size:14px; background:#f9f9f9; }
   .chat-input { display:flex; border-top:1px solid #ddd; }
-  .chat-input input { flex:1; border:none; padding:10px; font-size:14px; }
-  .chat-input button { background:#dc143c; color:white; border:none; padding:10px 15px; cursor:pointer; }
+  .chat-input input { flex:1; border:none; padding:10px; font-size:14px; border-radius:0 0 0 10px; }
+  .chat-input button { background:#dc143c; color:white; border:none; padding:10px 15px; cursor:pointer; border-radius:0 0 10px 0; transition:0.2s; }
+  .chat-input button:hover { background:#ffa500; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>أجمل المناظر الطبيعية والتاريخية والفنية</h1>
+  <h1>أجمل المناظر الطبيعية والتاريخية في العالم </h1>
   <div class="search-box">
     <input type="text" placeholder="ابحث في جوجل..." />
     <button onclick="searchGoogle()">🔍</button>
@@ -43,8 +45,8 @@
   <div class="mode-switch">
     <label>🌐 وضع الاتصال: </label>
     <select id="modeSelect" onchange="changeMode()">
+      <option value="render">Render API</option>
       <option value="local">سيرفر محلي</option>
-      <option value="api">OpenAI API مباشر</option>
     </select>
   </div>
 </header>
@@ -109,19 +111,16 @@
 </div>
 
 <script>
-/* ------------ البحث ------------ */
 function searchGoogle(){ 
   const query = document.querySelector('.search-box input').value; 
   if(query) window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`,'_blank'); 
 }
 
-/* ------------ تبديل الأقسام ------------ */
 function showSection(id){ 
   document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); 
   document.getElementById(id).classList.add('active'); 
 }
 
-/* ------------ الشات ------------ */
 function toggleChat(){ 
   const chatBox = document.getElementById("chatBox"); 
   chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex"; 
@@ -131,22 +130,23 @@ function addMessage(sender,text){
   const msg=document.createElement("div"); 
   msg.style.margin="5px 0"; 
   msg.style.textAlign = sender === "user" ? "right" : "left"; 
-  msg.textContent=text; 
+  msg.style.padding="5px 10px";
+  msg.style.borderRadius="10px";
+  msg.style.background = sender === "user" ? "#dc143c" : "#eee";
+  msg.style.color = sender === "user" ? "#fff" : "#000";
+  msg.textContent = sender === "user" ? `أنت: ${text}` : `البوت: ${text}`;
   document.getElementById("chatMessages").appendChild(msg); 
   document.getElementById("chatMessages").scrollTop=document.getElementById("chatMessages").scrollHeight; 
 }
 
-/* ------------ إعدادات الاتصال ------------ */
-let mode = "local"; // default: local
-const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY"; // 🔴 ضع مفتاحك هنا
+let mode = "render"; // default: Render API
 
 function changeMode(){
   const select = document.getElementById("modeSelect");
   mode = select.value;
-  addMessage("bot", `✅ تم اختيار الوضع: ${mode === "local" ? "سيرفر محلي" : "OpenAI API"}`);
+  addMessage("bot", `✅ تم اختيار الوضع: ${mode === "render" ? "Render API" : "سيرفر محلي"}`);
 }
 
-/* ------------ إرسال الرسائل ------------ */
 async function sendMessage(){ 
   const input=document.getElementById("userInput"); 
   const message=input.value.trim(); 
@@ -156,36 +156,26 @@ async function sendMessage(){
 
   try{ 
     let reply;
-    if(mode === "local"){
-      // --- الاتصال بالسيرفر المحلي ---
-      const res=await fetch("http://localhost:5000/api/chat", { 
-        method:"POST", 
-        headers:{"Content-Type":"application/json"}, 
-        body:JSON.stringify({message}) 
+    if(mode === "render"){
+      const res = await fetch("https://my-backend-cyj8.onrender.com/api/chat", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ message }) 
       }); 
-      const data=await res.json(); 
+      const data = await res.json(); 
       reply = data.reply;
-    }else{
-      // --- الاتصال بـ OpenAI API مباشر ---
-      const res=await fetch("https://api.openai.com/v1/chat/completions", {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          "Authorization":`Bearer ${OPENAI_API_KEY}`
-        },
-        body:JSON.stringify({
-          model:"gpt-4o-mini",
-          messages:[{role:"user", content:message}]
-        })
-      });
-      const data=await res.json();
-      reply = data.choices[0].message.content;
+    } else {
+      const res = await fetch("http://localhost:5000/api/chat", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ message }) 
+      }); 
+      const data = await res.json(); 
+      reply = data.reply;
     }
-
     addMessage("bot", reply); 
-
-  }catch(err){ 
-    addMessage("bot","⚠️ خطأ في الاتصال."); 
+  } catch(err){ 
+    addMessage("bot","⚠️ خطأ في الاتصال بالسيرفر."); 
   }
 }
 </script>
