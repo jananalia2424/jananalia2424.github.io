@@ -138,7 +138,7 @@ function addMessage(sender,text){
 
 /* ------------ إعدادات الاتصال ------------ */
 let mode = "local"; // default: local
-const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY"; // 🔴 ضع مفتاحك هنا
+const OPENAI_API_KEY = ""; // ضع هنا مفتاح OpenAI عند الحاجة
 
 function changeMode(){
   const select = document.getElementById("modeSelect");
@@ -157,7 +157,7 @@ async function sendMessage(){
   try{ 
     let reply;
     if(mode === "local"){
-      // --- الاتصال بالسيرفر المحلي ---
+      // الاتصال بالسيرفر المحلي
       const res=await fetch("http://localhost:5000/api/chat", { 
         method:"POST", 
         headers:{"Content-Type":"application/json"}, 
@@ -166,7 +166,11 @@ async function sendMessage(){
       const data=await res.json(); 
       reply = data.reply;
     }else{
-      // --- الاتصال بـ OpenAI API مباشر ---
+      // الاتصال بـ OpenAI API مباشر
+      if(!OPENAI_API_KEY){
+        addMessage("bot","⚠️ لم يتم العثور على مفتاح OpenAI!");
+        return;
+      }
       const res=await fetch("https://api.openai.com/v1/chat/completions", {
         method:"POST",
         headers:{
@@ -186,16 +190,10 @@ async function sendMessage(){
 
   }catch(err){ 
     addMessage("bot","⚠️ خطأ في الاتصال."); 
+    console.error(err);
   }
 }
 </script>
 
-</body>
-</html>
-
-
-<script>
-// جافا سكريبت للشات متصل بالسيرفر
-</script>
 </body>
 </html>
