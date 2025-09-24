@@ -44,6 +44,7 @@
     <label>🌐 وضع الاتصال: </label>
     <select id="modeSelect" onchange="changeMode()">
       <option value="local">سيرفر محلي</option>
+      <option value="render">سيرفر Render</option>
       <option value="api">OpenAI API مباشر</option>
     </select>
   </div>
@@ -138,12 +139,13 @@ function addMessage(sender,text){
 
 /* ------------ إعدادات الاتصال ------------ */
 let mode = "local"; // default: local
-const OPENAI_API_KEY = ""; // ضع هنا مفتاح OpenAI عند الحاجة
+const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY"; // 🔴 ضع مفتاحك هنا
+const RENDER_URL = "https://your-app.onrender.com"; // 🔴 ضع رابط السيرفر من Render
 
 function changeMode(){
   const select = document.getElementById("modeSelect");
   mode = select.value;
-  addMessage("bot", `✅ تم اختيار الوضع: ${mode === "local" ? "سيرفر محلي" : "OpenAI API"}`);
+  addMessage("bot", `✅ تم اختيار الوضع: ${mode}`);
 }
 
 /* ------------ إرسال الرسائل ------------ */
@@ -157,7 +159,6 @@ async function sendMessage(){
   try{ 
     let reply;
     if(mode === "local"){
-      // الاتصال بالسيرفر المحلي
       const res=await fetch("http://localhost:5000/api/chat", { 
         method:"POST", 
         headers:{"Content-Type":"application/json"}, 
@@ -165,12 +166,15 @@ async function sendMessage(){
       }); 
       const data=await res.json(); 
       reply = data.reply;
+    }else if(mode === "render"){
+      const res=await fetch(`${RENDER_URL}/api/chat`, { 
+        method:"POST", 
+        headers:{"Content-Type":"application/json"}, 
+        body:JSON.stringify({message}) 
+      }); 
+      const data=await res.json(); 
+      reply = data.reply;
     }else{
-      // الاتصال بـ OpenAI API مباشر
-      if(!OPENAI_API_KEY){
-        addMessage("bot","⚠️ لم يتم العثور على مفتاح OpenAI!");
-        return;
-      }
       const res=await fetch("https://api.openai.com/v1/chat/completions", {
         method:"POST",
         headers:{
@@ -190,7 +194,6 @@ async function sendMessage(){
 
   }catch(err){ 
     addMessage("bot","⚠️ خطأ في الاتصال."); 
-    console.error(err);
   }
 }
 </script>
