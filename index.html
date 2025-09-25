@@ -44,7 +44,6 @@
     <label>🌐 وضع الاتصال: </label>
     <select id="modeSelect" onchange="changeMode()">
       <option value="local">سيرفر محلي</option>
-      <option value="render">سيرفر Render</option>
       <option value="api">OpenAI API مباشر</option>
     </select>
   </div>
@@ -110,19 +109,19 @@
 </div>
 
 <script>
-/* ------------ البحث ------------ */
+/* البحث */
 function searchGoogle(){ 
   const query = document.querySelector('.search-box input').value; 
   if(query) window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`,'_blank'); 
 }
 
-/* ------------ تبديل الأقسام ------------ */
+/* تبديل الأقسام */
 function showSection(id){ 
   document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); 
   document.getElementById(id).classList.add('active'); 
 }
 
-/* ------------ الشات ------------ */
+/* الشات */
 function toggleChat(){ 
   const chatBox = document.getElementById("chatBox"); 
   chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex"; 
@@ -137,18 +136,19 @@ function addMessage(sender,text){
   document.getElementById("chatMessages").scrollTop=document.getElementById("chatMessages").scrollHeight; 
 }
 
-/* ------------ إعدادات الاتصال ------------ */
-let mode = "local"; // default: local
-const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY"; // 🔴 ضع مفتاحك هنا
-const RENDER_URL = "https://your-app.onrender.com"; // 🔴 ضع رابط السيرفر من Render
+/* إعدادات الاتصال */
+let mode = "local"; // الوضع الافتراضي
+const LOCAL_SERVER = "http://localhost:5000/api/chat";
+const RENDER_SERVER = "https://my-backend-cyj8.onrender.com/api/chat";
 
+/* تبديل الوضع */
 function changeMode(){
   const select = document.getElementById("modeSelect");
   mode = select.value;
-  addMessage("bot", `✅ تم اختيار الوضع: ${mode}`);
+  addMessage("bot", `✅ تم اختيار الوضع: ${mode === "local" ? "سيرفر محلي" : "Render Server"}`);
 }
 
-/* ------------ إرسال الرسائل ------------ */
+/* إرسال الرسائل */
 async function sendMessage(){ 
   const input=document.getElementById("userInput"); 
   const message=input.value.trim(); 
@@ -159,41 +159,28 @@ async function sendMessage(){
   try{ 
     let reply;
     if(mode === "local"){
-      const res=await fetch("http://localhost:5000/api/chat", { 
+      const res=await fetch(LOCAL_SERVER, { 
         method:"POST", 
         headers:{"Content-Type":"application/json"}, 
         body:JSON.stringify({message}) 
       }); 
       const data=await res.json(); 
       reply = data.reply;
-    }else if(mode === "render"){
-      const res=await fetch(`${RENDER_URL}/api/chat`, { 
-        method:"POST", 
-        headers:{"Content-Type":"application/json"}, 
-        body:JSON.stringify({message}) 
-      }); 
-      const data=await res.json(); 
-      reply = data.reply;
-    }else{
-      const res=await fetch("https://api.openai.com/v1/chat/completions", {
+    } else {
+      const res=await fetch(RENDER_SERVER, {
         method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          "Authorization":`Bearer ${OPENAI_API_KEY}`
-        },
-        body:JSON.stringify({
-          model:"gpt-4o-mini",
-          messages:[{role:"user", content:message}]
-        })
+        headers:{"Content-Type":"application/json"}, 
+        body:JSON.stringify({message})
       });
       const data=await res.json();
-      reply = data.choices[0].message.content;
+      reply = data.reply;
     }
 
     addMessage("bot", reply); 
 
   }catch(err){ 
-    addMessage("bot","⚠️ خطأ في الاتصال."); 
+    console.error(err);
+    addMessage("bot","🤖 فريق GPT جاهز للرد، لكن حدث خطأ مؤقت!");
   }
 }
 </script>
