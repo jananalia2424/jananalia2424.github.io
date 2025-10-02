@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social App</title>
+<style>
+body { font-family: Arial; background-color: #f8f9fa; margin:0; padding:20px; }
+input, textarea, button { padding:10px; margin:5px 0; width:100%; box-sizing:border-box; }
+button { cursor:pointer; background-color:#007bff; color:white; border:none; border-radius:4px; }
+button:hover { background-color:#0056b3; }
+section { margin-bottom:30px; }
+h1,h2 { text-align:center; }
+.post { border:1px solid #ccc; padding:10px; margin:10px 0; }
+textarea { resize:none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+// Mock PostService
+const PostService = {
+    posts: [
+        { id: 1, title: 'Post 1', content: 'This is post 1' },
+        { id: 2, title: 'Post 2', content: 'This is post 2' }
+    ],
+    getPosts: async function() {
+        return { data: this.posts };
+    },
+    createPost: async function(post) {
+        const newPost = { id: this.posts.length + 1, title: `Post ${this.posts.length + 1}`, content: post.content };
+        this.posts.push(newPost);
+        return { data: newPost };
+    }
+};
+
+// AuthForm Component
+function AuthForm() {
+    const [isRegister, setIsRegister] = useState(true);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleRegister = () => alert('Registered successfully!');
+    const handleLogin = () => alert('Logged in successfully!');
+
+    return (
+        <div style={{ maxWidth:'400px', margin:'0 auto' }}>
+        {isRegister ? (
+            <div>
+                <input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
+                <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                <button onClick={handleRegister}>Register</button>
+                <p onClick={()=>setIsRegister(false)} style={{ cursor:'pointer', color:'blue', textAlign:'center' }}>
+                    Already have an account? Login
+                </p>
+            </div>
+        ) : (
+            <div>
+                <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+                <button onClick={handleLogin}>Login</button>
+                <p onClick={()=>setIsRegister(true)} style={{ cursor:'pointer', color:'blue', textAlign:'center' }}>
+                    Don't have an account? Register
+                </p>
+            </div>
+        )}
+        </div>
+    );
+}
+
+// CommentList Component
+function CommentList({ postId }) {
+    const commentsData = {
+        '1': ['Great post!', 'Thanks for sharing.'],
+        '2': ['Interesting!', 'Nice one!']
+    };
+    const comments = commentsData[postId] || [];
+    return <ul>{comments.map((c,i)=><li key={i}>{c}</li>)}</ul>;
+}
+
+// PostList Component
+function PostList({ posts }) {
+    return (
+        <div>
+            {posts.map(post => (
+                <div key={post.id} className="post">
+                    <h3>{post.title}</h3>
+                    <p>{post.content}</p>
+                    <CommentList postId={post.id} />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+// PostForm Component
+function PostForm({ onPostCreated }) {
+    const [content, setContent] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await PostService.createPost({ content });
+        setContent('');
+        if(onPostCreated) onPostCreated();
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <textarea value={content} onChange={e=>setContent(e.target.value)} placeholder="Write a post..." />
+            <button type="submit">Post</button>
+        </form>
+    );
+}
+
+// App Component
+function App() {
+    const [posts, setPosts] = useState([]);
+
+    const fetchPosts = async () => {
+        const res = await PostService.getPosts();
+        setPosts([...res.data]);
+    };
+
+    useEffect(()=>{ fetchPosts(); }, []);
+
+    return (
+        <div>
+            <h1>Social App</h1>
+
+            <section>
+                <h2>Register / Login</h2>
+                <AuthForm />
+            </section>
+
+            <section>
+                <h2>Create Post</h2>
+                <PostForm onPostCreated={fetchPosts} />
+            </section>
+
+            <section>
+                <h2>Posts</h2>
+                <PostList posts={posts} />
+            </section>
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
