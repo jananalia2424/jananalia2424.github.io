@@ -3,47 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Social App - Backend Test</title>
-  <base href="/" />
+  <title>🔗 Backend API Test</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f4f6fa;
       margin: 0;
       padding: 0;
       text-align: center;
     }
+
     header {
-      background: #007bff;
+      background: linear-gradient(90deg, #007bff, #0056b3);
       color: white;
       padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
+
     main {
       padding: 2rem;
     }
+
     button {
-      padding: 0.7rem 1.2rem;
+      padding: 0.8rem 1.5rem;
       margin: 0.5rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       background: #007bff;
       color: white;
       font-size: 1rem;
-      transition: background 0.2s;
+      transition: 0.3s;
     }
+
     button:hover {
       background: #0056b3;
+      transform: scale(1.05);
     }
-    .response {
-      margin-top: 1rem;
-      padding: 1rem;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+
+    #result {
+      margin-top: 2rem;
       display: inline-block;
       text-align: left;
-      max-width: 500px;
+      padding: 1rem;
+      border-radius: 8px;
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      overflow-x: auto;
+    }
+
+    .success {
+      border-left: 5px solid #28a745;
+    }
+
+    .error {
+      border-left: 5px solid #dc3545;
+      color: #dc3545;
     }
   </style>
 </head>
@@ -59,21 +76,27 @@
     <button onclick="testApi('/api/posts')">تجربة Posts</button>
     <button onclick="testApi('/api/comments')">تجربة Comments</button>
 
-    <div id="result" class="response"></div>
+    <div id="result">⚙️ لم يتم تنفيذ أي اختبار بعد.</div>
   </main>
 
   <script>
     async function testApi(endpoint) {
-      const backendUrl = "https://my-backend-cyj8.onrender.com"; // 🔗 رابط الـ backend الخاص بك
+      const backendUrl = "https://my-backend-cyj8.onrender.com";
       const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = "⏳ جاري التحميل...";
+      resultDiv.innerHTML = "⏳ جاري الاتصال بـ " + endpoint + "...";
+      resultDiv.className = "";
 
       try {
         const res = await fetch(backendUrl + endpoint);
         const data = await res.json();
-        resultDiv.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
+        resultDiv.className = "success";
+        resultDiv.innerHTML =
+          "✅ <b>تم الاتصال بنجاح:</b><br><pre>" +
+          JSON.stringify(data, null, 2) +
+          "</pre>";
       } catch (err) {
-        resultDiv.innerHTML = "❌ خطأ: " + err.message;
+        resultDiv.className = "error";
+        resultDiv.innerHTML = "❌ <b>خطأ:</b> " + err.message;
       }
     }
   </script>
