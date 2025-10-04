@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Backend Test Page</title>
+  <title>Social App - Backend Test</title>
+  <base href="/" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,7 +14,7 @@
       text-align: center;
     }
     header {
-      background: #333;
+      background: #007bff;
       color: white;
       padding: 1rem;
     }
@@ -29,6 +30,7 @@
       background: #007bff;
       color: white;
       font-size: 1rem;
+      transition: background 0.2s;
     }
     button:hover {
       background: #0056b3;
@@ -47,30 +49,33 @@
 </head>
 <body>
   <header>
-    <h1>Backend Test Page</h1>
+    <h1>🔗 Backend API Test</h1>
   </header>
 
   <main>
-    <p>Click a button to test API endpoints from your backend:</p>
+    <p>اضغط على أي زر لاختبار الاتصال بالخلفية:</p>
 
-    <button onclick="testApi('/api/auth')">Test Auth Route</button>
-    <button onclick="testApi('/api/posts')">Test Posts Route</button>
-    <button onclick="testApi('/api/comments')">Test Comments Route</button>
+    <button onclick="testApi('/api/auth')">تجربة Auth</button>
+    <button onclick="testApi('/api/posts')">تجربة Posts</button>
+    <button onclick="testApi('/api/comments')">تجربة Comments</button>
 
     <div id="result" class="response"></div>
   </main>
 
   <script>
     async function testApi(endpoint) {
-      const backendUrl = "https://my-backend-cyj8.onrender.com"; // ضع هنا رابط backend الخاص بك
+      const backendUrl = "https://my-backend-cyj8.onrender.com"; // 🔗 رابط الـ backend الخاص بك
       const resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = "⏳ Loading...";
+      resultDiv.innerHTML = "⏳ جاري التحميل...";
 
       try {
         const res = await fetch(backendUrl + endpoint);
         const data = await res.json();
         resultDiv.innerHTML = "<pre>" + JSON.stringify(data, null, 2) + "</pre>";
       } catch (err) {
-        resultDiv.innerHTML = "❌ Error: " + err.message;
+        resultDiv.innerHTML = "❌ خطأ: " + err.message;
       }
-   
+    }
+  </script>
+</body>
+</html>
