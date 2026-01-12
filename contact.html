@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>اتصل بنا</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <style>
+    body {
+      font-family: Tahoma;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #fff;
+      padding: 25px;
+      width: 360px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+<div class="box">
+  <h3 style="text-align:center">اتصل بنا</h3>
+
+  <form id="contact-form">
+    <input type="text" name="from_name" placeholder="الاسم" required>
+    <input type="email" name="from_email" placeholder="البريد الإلكتروني" required>
+    <textarea name="message" placeholder="رسالتك" required></textarea>
+    <button type="submit">إرسال</button>
+  </form>
+
+  <p id="status" style="text-align:center"></p>
+</div>
+
+<script>
+(function(){
+  emailjs.init("PUBLIC_KEY_QV9wtFYyFMCFB7rs_
+
+");
+})();
+
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  document.getElementById("status").innerText = "جاري الإرسال...";
+
+  emailjs.sendForm(
+    "SERVICE_ID_service_8x4ve9k
+",
+    "TEMPLATE_ID_y8yxvhv",
+    this
+  ).then(() => {
+    document.getElementById("status").innerText = "تم الإرسال بنجاح ✅";
+    this.reset();
+  }, (error) => {
+    document.getElementById("status").innerText = "فشل الإرسال ❌";
+    console.log(error);
+  });
+});
+</script>
+
+</body>
+</html>
