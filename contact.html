@@ -53,8 +53,8 @@
 
 <script>
 (function(){
-  // استبدل هذا بالقيمة الحقيقية الخاصة بك
-  emailjs.init("QV9wtFYyFMCFB7rs_"); // Public Key
+  // Public Key من حسابك EmailJS
+  emailjs.init("QV9wtFYyFMCFB7rs_");
 })();
 
 document.getElementById("contact-form").addEventListener("submit", function(e) {
@@ -63,8 +63,8 @@ document.getElementById("contact-form").addEventListener("submit", function(e) {
   document.getElementById("status").innerText = "⏳ جاري الإرسال...";
 
   emailjs.sendForm(
-    "service_gwsy1jr_",   // Service ID
-    "template_y8yxvhv",   // Template ID
+    "service_gwsy1jr",   // Service ID
+    "template_y8yxvhv",  // Template ID
     this
   ).then(function(response) {
     console.log("SUCCESS!", response.status, response.text);
