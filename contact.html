@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>اتصل بنا</title>
+
+  <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
   <style>
@@ -13,6 +15,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
     .box {
       background: #fff;
@@ -21,56 +24,99 @@
       border-radius: 10px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
+    h3 {
+      margin-bottom: 15px;
+      text-align: center;
+    }
     input, textarea, button {
       width: 100%;
       padding: 10px;
       margin-bottom: 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 90px;
     }
     button {
       background: #2563eb;
       color: #fff;
       border: none;
       cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #1e4fd6;
+    }
+    #status {
+      text-align: center;
+      font-weight: bold;
+    }
+    /* Honeypot ضد السبام */
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 
 <body>
+
 <div class="box">
-  <h3 style="text-align:center">اتصل بنا</h3>
+  <h3>اتصل بنا</h3>
 
   <form id="contact-form">
     <input type="text" name="from_name" placeholder="الاسم" required>
     <input type="email" name="from_email" placeholder="البريد الإلكتروني" required>
     <textarea name="message" placeholder="رسالتك" required></textarea>
+
+    <!-- حقل مخفي ضد السبام -->
+    <input type="text" name="website" class="hidden">
+
     <button type="submit">إرسال</button>
   </form>
 
-  <p id="status" style="text-align:center"></p>
+  <p id="status"></p>
 </div>
 
 <script>
-  // Public Key كامل من EmailJS
+  // Public Key
   emailjs.init("0HSBMHm0hlpMBhllo");
 
-  document.getElementById("contact-form").addEventListener("submit", function(e) {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("status");
+
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    document.getElementById("status").innerText = "⏳ جاري الإرسال...";
+    // حماية سبام
+    if (form.website.value !== "") {
+      return;
+    }
 
+    status.innerText = "⏳ جاري الإرسال...";
+
+    // 1️⃣ إرسال الرسالة إليك
     emailjs.sendForm(
-      "service_gwsy1jr",   // Service ID
-      "template_y8yxvhv",  // Template ID
-      this
-    ).then(function(response) {
-      console.log("SUCCESS!", response.status, response.text);
-      document.getElementById("status").innerText = "✅ تم الإرسال بنجاح";
-      document.getElementById("contact-form").reset();
-    }, function(error) {
-      console.log("FAILED...", error);
-      document.getElementById("status").innerText = "❌ فشل الإرسال";
+      "service_gwsy1jr",
+      "template_y8yxvhv",
+      form
+    ).then(() => {
+
+      // 2️⃣ إرسال رسالة تأكيد تلقائية للمرسل
+      emailjs.sendForm(
+        "service_gwsy1jr",
+        "template_z99aa18",
+        form
+      );
+
+      status.innerText = "✅ تم إرسال رسالتك بنجاح";
+      form.reset();
+
+    }).catch(error => {
+      console.error(error);
+      status.innerText = "❌ حدث خطأ، حاول مرة أخرى";
     });
   });
 </script>
