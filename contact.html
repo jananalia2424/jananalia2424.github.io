@@ -53,7 +53,6 @@
     #status {
       text-align: center;
       font-weight: bold;
-      margin-top: 10px;
     }
     /* Honeypot ضد السبام */
     .hidden {
@@ -82,7 +81,7 @@
 </div>
 
 <script>
-  // Public Key EmailJS
+  // Public Key من EmailJS
   emailjs.init("0HSBMHm0hlpMBhllo");
 
   const form = document.getElementById("contact-form");
@@ -91,15 +90,16 @@
   form.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    // حماية سبام
+    // حماية ضد السبام
     if (form.website.value !== "") return;
 
     status.innerText = "⏳ جاري الإرسال...";
 
-    // 1️⃣ إرسال الرسالة إليك
+    // 1️⃣ إرسال الرسالة إليك أولاً
     emailjs.sendForm("service_gwsy1jr", "template_y8yxvhv", form)
       .then(() => {
-        // 2️⃣ إرسال Auto-Reply للمرسل
+
+        // 2️⃣ إرسال Auto-Reply للمرسل مباشرة
         emailjs.send("service_gwsy1jr", "template_z99aa18", {
           from_name: form.from_name.value,
           from_email: form.from_email.value,
@@ -108,8 +108,8 @@
 
         status.innerText = "✅ تم إرسال رسالتك بنجاح";
         form.reset();
-      })
-      .catch(error => {
+
+      }).catch(error => {
         console.error(error);
         status.innerText = "❌ حدث خطأ، حاول مرة أخرى";
       });
